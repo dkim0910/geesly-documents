@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Deletion - Geesly</title>
+    <link rel="icon" type="image/png" href="lib/images/geesly-background-no-text.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #F7F7F7;
+            background-image: url('lib/images/geesly-background-no-text.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #505965;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(247, 247, 247, 0.85);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: rgba(230, 230, 230, 0.95);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #7C3AED;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #505965;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #7C3AED;
+        }
+
+        .content {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 50px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button {
+            display: inline-block;
+            background-color: #7C3AED;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .back-button:hover {
+            background-color: #6D28D9;
+        }
+
+        h1 {
+            color: #505965;
+            font-size: 42px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .last-updated {
+            color: #9CA3AF;
+            font-size: 14px;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #505965;
+            font-size: 26px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #7C3AED;
+            font-weight: 600;
+        }
+
+        .section h3 {
+            color: #505965;
+            font-size: 20px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            color: #6B7280;
+            font-size: 16px;
+        }
+
+        .section ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section li {
+            margin-bottom: 12px;
+            color: #6B7280;
+            font-size: 16px;
+        }
+        
+        .section li strong {
+            color: #505965;
+        }
+
+        .email-link {
+            font-size: 20px;
+            font-weight: 600;
+            color: #7C3AED;
+            text-decoration: none;
+        }
+
+        .email-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .content {
+                padding: 30px 25px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .section h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="lib/images/geesly-background-no-text.png" alt="Geesly Logo" class="logo-image">
+                <span>Geesly</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            
+            <h1>Account Deletion</h1>
+            <p class="last-updated">Last updated: November 2025</p>
+
+            <div class="section">
+                <h2>Request Account Deletion</h2>
+                <p>To request the permanent deletion of your Geesly account and all associated data, please send an email to our support team.</p>
+                <p>Please include the following information in your email to help us process your request:</p>
+                <ul>
+                    <li><strong>Subject:</strong> Account Deletion Request</li>
+                    <li>Your <strong>Geesly Public ID</strong> (if you know it)</li>
+                    <li>The <strong>email address or phone number</strong> used to create your account</li>
+                </ul>
+                <p>Send your request to:</p>
+                <p>
+                    <a href="mailto:geeslyhelp@gmail.com" class="email-link">geeslyhelp@gmail.com</a>
+                </p>
+                <br>
+                <p>Our team will review your request and contact you to confirm the deletion. Once confirmed, this action is permanent and cannot be reversed. Your profile, matches, messages, and all other personal data will be erased from our systems in accordance with our Privacy Policy.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Geesly. All rights reserved.</p>
+    </footer>
+</body>
+</html>
