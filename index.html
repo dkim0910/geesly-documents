@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geesly - Legal</title>
+    <title>Geesly - Welcome & Legal</title>
     <link rel="icon" type="image/png" href="lib/images/geesly-background-no-text.png">
     <style>
         * {
@@ -92,7 +92,8 @@
 
         .hero {
             text-align: center;
-            padding: 80px 20px 60px;
+            /* Adjusted padding */
+            padding: 80px 20px 40px;
         }
 
         .hero h1 {
@@ -105,17 +106,42 @@
         .hero p {
             font-size: 20px;
             color: #6B7280;
-            margin-bottom: 50px;
+            /* Adjusted margin-bottom */
+            margin-bottom: 20px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
+        
+        /* NEW Style for Legal Intro Section */
+        .legal-intro {
+            text-align: center;
+            /* Added padding */
+            padding: 0 20px 40px; 
+        }
+
+        .legal-intro h2 {
+            font-size: 36px; /* Slightly smaller than hero h1 */
+            color: #505965;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .legal-intro p {
+            font-size: 20px;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
 
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            /* Updated to ensure three columns fit well if space allows */
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 30px;
-            margin-top: 40px;
+            /* Removed margin-top, as .legal-intro provides spacing */
+            margin-top: 0;
             padding: 0 20px;
         }
 
@@ -175,7 +201,16 @@
                 font-size: 18px;
             }
 
+            /* Added responsive for legal intro */
+            .legal-intro h2 {
+                font-size: 28px;
+            }
+            .legal-intro p {
+                font-size: 18px;
+            }
+
             .card-grid {
+                /* Stack cards on mobile */
                 grid-template-columns: 1fr;
             }
 
@@ -203,8 +238,21 @@
 
     <div class="container">
         <div class="hero">
-            <h1>Legal Information</h1>
-            <p>Learn about how we protect your privacy and our terms of service</p>
+            <!-- Changed H1 -->
+            <h1>Welcome to Geesly</h1>
+            <!-- Updated hero description -->
+            <p>
+                <!-- Split paragraph -->
+                We're a fun, playful dating app helping people make new friends or find lovers. We believe Geesly is the best app out there to match with amazing people.
+            </p>
+        </div>
+        
+        <!-- New Legal Intro Section -->
+        <div class="legal-intro">
+            <h2>Legal Hub</h2>
+            <p>
+                Below, you can learn about our legal policies, including how we protect your privacy and our terms of service.
+            </p>
         </div>
 
         <div class="card-grid">
