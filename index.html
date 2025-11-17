@@ -1,271 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geesly - Welcome & Legal</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="lib/images/geesly-background-no-text.png">
+    
+    <script>
+        // Configure Tailwind to use Inter font
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Custom style for the blurred background effect */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #F7F7F7;
-            background-image: url('lib/images/geesly-background-no-text.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #505965;
-            line-height: 1.6;
             min-height: 100vh;
         }
-
-        body::before {
-            content: '';
+        .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(247, 247, 247, 0.85);
-            z-index: -1;
+            z-index: -10;
+            background-image: url('lib/images/geesly-background-no-text.png');
+            background-size: cover;
+            background-position: center;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            background-color: rgba(230, 230, 230, 0.95);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .header-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 32px;
-            font-weight: bold;
-            color: #7C3AED;
-            text-decoration: none;
-        }
-
-        .logo-image {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: #505965;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #7C3AED;
-        }
-
-        .hero {
-            text-align: center;
-            /* Adjusted padding */
-            padding: 80px 20px 40px;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            color: #505965;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 20px;
-            color: #6B7280;
-            margin-bottom: 20px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .legal-intro {
-            text-align: center;
-            padding: 0 20px 40px; 
-        }
-
-        .legal-intro h2 {
-            font-size: 36px;
-            color: #505965;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .legal-intro p {
-            font-size: 20px;
-            color: #6B7280;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
-            margin-top: 0;
-            padding: 0 20px;
-        }
-
-        .card {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            backdrop-filter: blur(10px);
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.2);
-        }
-
-        .card-icon {
-            font-size: 64px;
-            margin-bottom: 24px;
-        }
-
-        .card h2 {
-            color: #7C3AED;
-            font-size: 28px;
-            margin-bottom: 16px;
-            font-weight: 600;
-        }
-
-        .card p {
-            color: #6B7280;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        footer {
-            text-align: center;
-            padding: 50px 20px 30px;
-            color: #9CA3AF;
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero p {
-                font-size: 18px;
-            }
-
-            .legal-intro h2 {
-                font-size: 28px;
-            }
-            .legal-intro p {
-                font-size: 18px;
-            }
-
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .card {
-                padding: 30px;
-            }
+        .bg-blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -9;
+            background-color: rgba(249, 250, 251, 0.85); /* Tailwind 'bg-gray-50' with opacity */
+            backdrop-filter: blur(8px);
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="header-content">
-            <a href="index.html" class="logo">
-                <img src="lib/images/geesly-background-no-text.png" alt="Geesly Logo" class="logo-image">
-                <span>Geesly</span>
-            </a>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="privacy.html">Privacy</a>
-                <a href="terms.html">Terms</a>
-                <a href="deletion.html">Account Deletion</a>
-            </nav>
-        </div>
+<body class="font-sans text-gray-700 antialiased">
+    <!-- Background elements -->
+    <div class="bg-overlay"></div>
+    <div class="bg-blur-overlay"></div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/80">
+        <nav class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 text-2xl font-bold text-indigo-600">
+                    <img 
+                        src="lib/images/geesly-background-no-text.png" 
+                        alt="Geesly Logo" 
+                        class="h-8 w-8 object-contain"
+                        onerror="this.style.display='none'"
+                    >
+                    <span>Geesly</span>
+                </a>
+                <!-- Navigation Links -->
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <a href="index.html" class="text-sm font-medium text-indigo-600 ring-offset-white" aria-current="page">Home</a>
+                    <a href="privacy.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 ring-offset-white">Privacy</a>
+                    <a href="terms.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 ring-offset-white">Terms</a>
+                    <a href="deletion.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 ring-offset-white">Deletion</a>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <div class="container">
-        <div class="hero">
-            <h1>Welcome to Geesly</h1>
-            <p>
-                We're a fun, playful dating app helping people make new friends or find lovers. We believe Geesly is the best app out there to match with amazing people.
-            </p>
-        </div>
-        
-        <div class="legal-intro">
-            <h2>Legal Hub</h2>
-            <p>
-                Below, you can learn about our legal policies, including how we protect your privacy and our terms of service.
-            </p>
-        </div>
+    <!-- Main Content -->
+    <main class="relative z-10">
+        <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
 
-        <div class="card-grid">
-            <a href="privacy.html" class="card">
-                <div class="card-icon">🔒</div>
-                <h2>Privacy Policy</h2>
-                <p>Learn how we collect, use, and protect your personal information</p>
-            </a>
+            <!-- Hero Section -->
+            <section class="text-center">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900">
+                    Welcome to Geesly
+                </h1>
+                <p class="mt-6 text-lg sm:text-xl leading-8 text-gray-600 max-w-2xl mx-auto">
+                    We're a fun, playful dating app helping people make new friends or find lovers. We believe Geesly is the best app out there to match with amazing people.
+                </p>
+            </section>
 
-            <a href="terms.html" class="card">
-                <div class="card-icon">📋</div>
-                <h2>Terms of Service</h2>
-                <p>Understand the rules and guidelines for using Geesly</p>
-            </a>
-            <a href="deletion.html" class="card">
-                <div class="card-icon">🗑️</div>
-                <h2>Account Deletion</h2>
-                <p>Request account deletion</p>
-            </a>
+            <!-- Legal Intro -->
+            <section class="mt-16 sm:mt-24 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+                    Legal Hub
+                </h2>
+                <p class="mt-4 text-lg sm:text-xl leading-8 text-gray-600 max-w-2xl mx-auto">
+                    Below, you can learn about our legal policies, including how we protect your privacy and our terms of service.
+                </p>
+            </section>
+
+            <!-- Card Grid -->
+            <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Privacy Card -->
+                <a href="privacy.html" class="group block bg-white/90 p-8 rounded-2xl shadow-lg border border-gray-100/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <!-- Icon -->
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 transition-all duration-300 group-hover:bg-indigo-600 group-hover:text-white">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                            <path d="M12 12v-1.3a1.7 1.7 0 0 0-1.7-1.7H8.3a1.7 1.7 0 0 0-1.7 1.7V12"/>
+                            <path d="M12 12h.3a1.7 1.7 0 0 1 1.7 1.7v2.3a1.7 1.7 0 0 1-1.7 1.7h-2.3a1.7 1.7 0 0 1-1.7-1.7V13.7A1.7 1.7 0 0 1 10.3 12H12Z"/>
+                        </svg>
+                    </div>
+                    <!-- Content -->
+                    <h3 class="mt-5 text-xl font-semibold text-gray-900">
+                        Privacy Policy
+                    </h3>
+                    <p class="mt-2 text-base text-gray-600">
+                        Learn how we collect, use, and protect your personal information.
+                    </p>
+                </a>
+
+                <!-- Terms Card -->
+                <a href="terms.html" class="group block bg-white/90 p-8 rounded-2xl shadow-lg border border-gray-100/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <!-- Icon -->
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 transition-all duration-300 group-hover:bg-indigo-600 group-hover:text-white">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 6.1H3"/>
+                            <path d="M21 12.1H3"/>
+                            <path d="M15.1 18.1H3"/>
+                            <path d="M4 6.1v12"/>
+                        </svg>
+                    </div>
+                    <!-- Content -->
+                    <h3 class="mt-5 text-xl font-semibold text-gray-900">
+                        Terms of Service
+                    </h3>
+                    <p class="mt-2 text-base text-gray-600">
+                        Understand the rules and guidelines for using Geesly.
+                    </p>
+                </a>
+
+                <!-- Deletion Card -->
+                <a href="deletion.html" class="group block bg-white/90 p-8 rounded-2xl shadow-lg border border-gray-100/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <!-- Icon -->
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 transition-all duration-300 group-hover:bg-indigo-600 group-hover:text-white">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 6 6 18"/>
+                            <path d="m6 6 12 12"/>
+                            <path d="M14 19c0-1-2-3-6-3s-6 2-6 3"/>
+                            <path d="M6 10v6"/>
+                            <path d="M12 10v6"/>
+                            <path d="M18 10v6"/>
+                        </svg>
+                    </div>
+                    <!-- Content -->
+                    <h3 class="mt-5 text-xl font-semibold text-gray-900">
+                        Account Deletion
+                    </h3>
+                    <p class="mt-2 text-base text-gray-600">
+                        Find out how to request the deletion of your account and data.
+                    </p>
+                </a>
+            </section>
+
         </div>
-    </div>
+    </main>
 
-    <footer>
-        <p>&copy; 2025 Geesly. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="relative z-10 mt-16 sm:mt-24">
+        <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div class="py-8 text-center text-sm text-gray-500">
+                &copy; 2025 Geesly. All rights reserved.
+            </div>
+        </div>
     </footer>
 </body>
 </html>
