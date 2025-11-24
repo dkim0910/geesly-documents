@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Geesly Terms of Service - Understand the rules and guidelines for using Geesly.">
+    <meta property="og:title" content="Terms of Service - Geesly">
+    <meta property="og:description" content="Understand the rules and guidelines for using Geesly.">
+    <meta property="og:type" content="website">
     <title>Terms of Service - Geesly</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="lib/images/geesly-background-no-text.png">
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -29,9 +34,43 @@
             background-size: cover; background-position: center;
         }
         .bg-blur-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -9;
-            background-color: rgba(249, 250, 251, 0.85);
-            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -9;
+            background-color: rgba(249, 250, 251, 0.88);
+            backdrop-filter: blur(12px);
+        }
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        /* Nav link underline animation */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            background: linear-gradient(90deg, #4F46E5, #7C3AED);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .nav-link-active::after {
+            width: 100%;
         }
     </style>
 </head>
@@ -39,18 +78,28 @@
     <div class="bg-overlay"></div>
     <div class="bg-blur-overlay"></div>
 
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/80">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
         <nav class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
-                <a href="index.html" class="flex items-center gap-2 text-2xl font-bold text-indigo-600">
-                    <img src="lib/images/geesly-background-no-text.png" alt="Geesly Logo" class="h-8 w-8 object-contain" onerror="this.style.display='none'">
-                    <span>Geesly</span>
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2.5 group">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg blur opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                        <img
+                            src="lib/images/geesly-background-no-text.png"
+                            alt="Geesly Logo"
+                            class="relative h-9 w-9 object-contain rounded-lg"
+                            onerror="this.style.display='none'"
+                        >
+                    </div>
+                    <span class="text-2xl font-bold gradient-text">Geesly</span>
                 </a>
                 <div class="flex items-center gap-4 sm:gap-6">
-                    <a href="index.html" class="text-sm font-medium text-gray-600 hover:text-gray-900">Home</a>
-                    <a href="privacy.html" class="text-sm font-medium text-gray-600 hover:text-gray-900">Privacy</a>
-                    <a href="terms.html" class="text-sm font-medium text-indigo-600" aria-current="page">Terms</a>
-                    <a href="deletion.html" class="text-sm font-medium text-gray-600 hover:text-gray-900">Deletion</a>
+                    <a href="index.html" class="nav-link text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                    <a href="privacy.html" class="nav-link text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Privacy</a>
+                    <a href="terms.html" class="nav-link nav-link-active text-sm font-medium text-indigo-600" aria-current="page">Terms</a>
+                    <a href="deletion.html" class="nav-link text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Deletion</a>
                 </div>
             </div>
         </nav>
@@ -58,25 +107,46 @@
 
     <main class="relative z-10">
         <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-            <div class="bg-white/90 rounded-2xl shadow-lg border border-gray-100/50 p-6 sm:p-10 lg:p-16">
-                
-                <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors mb-6">
-                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+
+            <!-- Content Card -->
+            <div class="bg-white/90 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100/50 p-6 sm:p-10 lg:p-16">
+                <!-- Back Button -->
+                <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors mb-6 group">
+                    <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6"/>
+                    </svg>
                     Back to Home
                 </a>
-                
-                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">Terms of Service</h1>
-                <p class="mt-2 text-base text-gray-500">Last updated: January 2025</p>
 
-                <div class="mt-10 prose prose-lg max-w-none prose-headings:font-semibold prose-headings:text-gray-900 prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200 prose-a:text-indigo-600">
-                    
-                    <p>Welcome to <strong>Geesly</strong>. These Terms of Service ("Terms") constitute a legally binding agreement between you and Geesly regarding your access to and use of the Geesly mobile application and website (the "Service").</p>
-                    
-                    <p class="font-bold">PLEASE READ THESE TERMS CAREFULLY. BY CREATING AN ACCOUNT OR USING THE SERVICE, YOU AGREE TO BE BOUND BY THESE TERMS.</p>
+                <!-- Page Title -->
+                <div class="flex items-center gap-4 mb-2">
+                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+                            Terms of Service
+                        </h1>
+                        <p class="mt-1 text-base text-gray-500">
+                            Last updated: January 2025
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Legal Content -->
+                <div class="mt-10 prose prose-lg max-w-none prose-h2:text-2xl prose-h2:font-semibold prose-h2:text-gray-900 prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200 prose-h3:text-xl prose-h3:font-semibold prose-h3:text-gray-900 prose-h3:mt-8 prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-2 prose-li:text-gray-700 prose-li:marker:text-indigo-500 prose-strong:font-medium prose-strong:text-gray-900">
+
+                    <p>Welcome to Geesly! These Terms of Service ("Terms") govern your access to and use of our dating application. By creating an account or using Geesly, you agree to be bound by these Terms and our Privacy Policy.</p>
 
                     <section>
-                        <h2>1. Eligibility</h2>
-                        <p>By using the Service, you represent and warrant that:</p>
+                        <h2>1. Acceptance of Terms</h2>
+                        <p>By creating an account, accessing, or using Geesly, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy. If you do not agree, you must not use our services.</p>
+                    </section>
+
+                    <section>
+                        <h2>2. Eligibility</h2>
                         <ul>
                             <li>You are at least <strong>18 years old</strong>.</li>
                             <li>You have the authority to enter into this agreement under the laws of your jurisdiction.</li>
@@ -111,10 +181,94 @@
                     <section>
                         <h2>4. Content Rights</h2>
                         <h3>Your Content</h3>
-                        <p>You retain ownership of the photos, text, and data you upload ("User Content"). However, by posting User Content, you grant Geesly a worldwide, royalty-free, perpetual, non-exclusive license to host, store, use, display, reproduce, modify, and distribute your content for the purpose of operating and improving the Service.</p>
+                        <ul>
+                            <li>You retain ownership of all content you post on Geesly (photos, messages, profile information)</li>
+                            <li>By posting content, you grant Geesly a worldwide, non-exclusive, royalty-free license to use, display, reproduce, and distribute your content in connection with operating the service</li>
+                            <li>This license continues for a commercially reasonable time after you delete your account to allow for cached or backup copies</li>
+                            <li>You represent that you own or have the necessary rights to all content you post</li>
+                        </ul>
 
-                        <h3>Geesly Content</h3>
-                        <p>All text, graphics, user interfaces, trademarks, logos, and computer code ("Geesly Content") are owned by Geesly and are protected by copyright and intellectual property laws.</p>
+                        <h3>Geesly's Content</h3>
+                        <ul>
+                            <li>Geesly owns all rights to the service, including design, features, graphics, and code</li>
+                            <li>You may not copy, modify, or create derivative works of our service</li>
+                            <li>Our trademarks and logos may not be used without permission</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>6. Content Moderation</h2>
+                        <p>Geesly reserves the right to:</p>
+                        <ul>
+                            <li>Review and monitor user content and activity</li>
+                            <li>Remove content that violates these Terms without notice</li>
+                            <li>Suspend or terminate accounts that violate these Terms</li>
+                            <li>Report illegal activity to law enforcement</li>
+                            <li>Preserve content for legal proceedings</li>
+                        </ul>
+                        <p>We do not pre-screen content but rely on users to report inappropriate content and behavior.</p>
+                    </section>
+
+                    <section>
+                        <h2>7. Rating and Matching System</h2>
+                        <ul>
+                            <li>Users rate profiles from 1-5 stars, affecting visibility and match potential</li>
+                            <li>A rating of 5 stars indicates a "like" and may result in a match if reciprocated</li>
+                            <li>Users accumulate a score based on ratings received</li>
+                            <li>You may only see profiles within your specified preferences</li>
+                            <li>The algorithm determines which profiles you see based on multiple factors</li>
+                            <li>Geesly does not guarantee matches or results</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>8. Premium Features and Purchases</h2>
+                        <ul>
+                            <li>Geesly may offer premium features for purchase</li>
+                            <li>All purchases are final and non-refundable unless required by law</li>
+                            <li>Prices are subject to change with notice</li>
+                            <li>Premium features are subject to separate terms</li>
+                            <li>You are responsible for any charges incurred through your account</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>9. Termination</h2>
+                        <p>We may suspend or terminate your account if you:</p>
+                        <ul>
+                            <li>Violate these Terms of Service</li>
+                            <li>Engage in fraudulent, illegal, or harmful behavior</li>
+                            <li>Receive multiple user reports</li>
+                            <li>Remain inactive for an extended period</li>
+                        </ul>
+                        <p>You may delete your account at any time through the app settings. Upon termination, your access to the service will cease, but certain information may be retained as described in our Privacy Policy.</p>
+                    </section>
+
+                    <section>
+                        <h2>10. Disclaimers</h2>
+                        <p>GEESLY IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING:</p>
+                        <ul>
+                            <li>Warranties of merchantability or fitness for a particular purpose</li>
+                            <li>Accuracy, completeness, or reliability of content</li>
+                            <li>Uninterrupted or error-free service</li>
+                            <li>Security of your data or communications</li>
+                            <li>Outcomes from using the service (matches, relationships, etc.)</li>
+                        </ul>
+                        <p>We do not conduct background checks on users. You are responsible for your own safety when meeting people through Geesly.</p>
+                    </section>
+
+                    <section>
+                        <h2>11. Limitation of Liability</h2>
+                        <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, GEESLY SHALL NOT BE LIABLE FOR:</p>
+                        <ul>
+                            <li>Indirect, incidental, consequential, or punitive damages</li>
+                            <li>Loss of profits, data, or goodwill</li>
+                            <li>Service interruptions or errors</li>
+                            <li>User content or conduct</li>
+                            <li>Third-party actions or content</li>
+                            <li>Any damages arising from your use of the service</li>
+                        </ul>
+                        <p>Our total liability to you shall not exceed the amount you paid to Geesly in the past 12 months, or $100, whichever is greater.</p>
                     </section>
 
                     <section>
@@ -143,9 +297,8 @@
                     </section>
 
                     <section>
-                        <h2>8. Limitation of Liability</h2>
-                        <p class="uppercase font-semibold text-gray-800 text-sm">TO THE FULLEST EXTENT PERMITTED BY LAW, IN NO EVENT WILL GEESLY, ITS AFFILIATES, OFFICERS, OR EMPLOYEES BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFITS, LOSS OF DATA, OR EMOTIONAL DISTRESS ARISING FROM YOUR USE OF THE SERVICE.</p>
-                        <p>GEESLY'S LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER WILL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO GEESLY FOR THE SERVICE DURING THE TERM OF YOUR MEMBERSHIP.</p>
+                        <h2>15. Changes to Terms</h2>
+                        <p>We may modify these Terms at any time. We will notify you of material changes through the app or by email. Your continued use of Geesly after changes are posted constitutes acceptance of the updated Terms. If you do not agree to the changes, you must stop using the service.</p>
                     </section>
 
                     <section>
@@ -173,10 +326,32 @@
         </div>
     </main>
 
-    <footer class="relative z-10 mt-8">
+    <!-- Footer -->
+    <footer class="relative z-10 mt-8 border-t border-gray-200/50 bg-white/50 backdrop-blur-sm">
         <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div class="py-8 text-center text-sm text-gray-500">
-                &copy; 2025 Geesly. All rights reserved.
+            <div class="py-8 sm:py-12">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <!-- Logo -->
+                    <div class="flex items-center gap-2">
+                        <img
+                            src="lib/images/geesly-background-no-text.png"
+                            alt="Geesly"
+                            class="h-6 w-6 object-contain rounded"
+                            onerror="this.style.display='none'"
+                        >
+                        <span class="text-sm font-semibold text-gray-900">Geesly</span>
+                    </div>
+                    <!-- Links -->
+                    <div class="flex items-center gap-6 text-sm text-gray-500">
+                        <a href="privacy.html" class="hover:text-gray-700 transition-colors">Privacy</a>
+                        <a href="terms.html" class="hover:text-gray-700 transition-colors">Terms</a>
+                        <a href="mailto:geeslyhelp@gmail.com" class="hover:text-gray-700 transition-colors">Contact</a>
+                    </div>
+                    <!-- Copyright -->
+                    <p class="text-sm text-gray-500">
+                        &copy; 2025 Geesly. All rights reserved.
+                    </p>
+                </div>
             </div>
         </div>
     </footer>

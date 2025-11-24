@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Geesly Account Deletion - Learn how to request the deletion of your Geesly account and data.">
+    <meta property="og:title" content="Account Deletion - Geesly">
+    <meta property="og:description" content="Find out how to request the deletion of your account and data.">
+    <meta property="og:type" content="website">
     <title>Account Deletion - Geesly</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="lib/images/geesly-background-no-text.png">
-    
+
     <script>
         // Configure Tailwind to use Inter font
         tailwind.config = {
@@ -48,8 +52,37 @@
             right: 0;
             bottom: 0;
             z-index: -9;
-            background-color: rgba(249, 250, 251, 0.85); /* Tailwind 'bg-gray-50' with opacity */
-            backdrop-filter: blur(8px);
+            background-color: rgba(249, 250, 251, 0.88);
+            backdrop-filter: blur(12px);
+        }
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        /* Nav link underline animation */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            background: linear-gradient(90deg, #4F46E5, #7C3AED);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .nav-link-active::after {
+            width: 100%;
         }
     </style>
 </head>
@@ -59,25 +92,28 @@
     <div class="bg-blur-overlay"></div>
 
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/80">
+    <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
         <nav class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <!-- Logo -->
-                <a href="index.html" class="flex items-center gap-2 text-2xl font-bold text-indigo-600">
-                    <img 
-                        src="lib/images/geesly-background-no-text.png" 
-                        alt="Geesly Logo" 
-                        class="h-8 w-8 object-contain"
-                        onerror="this.style.display='none'"
-                    >
-                    <span>Geesly</span>
+                <a href="index.html" class="flex items-center gap-2.5 group">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg blur opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                        <img
+                            src="lib/images/geesly-background-no-text.png"
+                            alt="Geesly Logo"
+                            class="relative h-9 w-9 object-contain rounded-lg"
+                            onerror="this.style.display='none'"
+                        >
+                    </div>
+                    <span class="text-2xl font-bold gradient-text">Geesly</span>
                 </a>
                 <!-- Navigation Links -->
                 <div class="flex items-center gap-4 sm:gap-6">
-                    <a href="index.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 ring-offset-white">Home</a>
-                    <a href="privacy.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 ring-offset-white">Privacy</a>
-                    <a href="terms.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 ring-offset-white">Terms</a>
-                    <a href="deletion.html" class="text-sm font-medium text-indigo-600 ring-offset-white" aria-current="page">Deletion</a>
+                    <a href="index.html" class="nav-link text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                    <a href="privacy.html" class="nav-link text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Privacy</a>
+                    <a href="terms.html" class="nav-link text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Terms</a>
+                    <a href="deletion.html" class="nav-link nav-link-active text-sm font-medium text-indigo-600" aria-current="page">Deletion</a>
                 </div>
             </div>
         </nav>
@@ -88,26 +124,35 @@
         <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
 
             <!-- Content Card -->
-            <div class="bg-white/90 rounded-2xl shadow-lg border border-gray-100/50 p-6 sm:p-10 lg:p-16">
+            <div class="bg-white/90 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100/50 p-6 sm:p-10 lg:p-16">
                 <!-- Back Button -->
-                <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors mb-6">
-                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors mb-6 group">
+                    <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m15 18-6-6 6-6"/>
                     </svg>
                     Back to Home
                 </a>
-                
+
                 <!-- Page Title -->
-                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-                    Account Deletion
-                </h1>
-                <p class="mt-2 text-base text-gray-500">
-                    Last updated: November 2025
-                </p>
+                <div class="flex items-center gap-4 mb-2">
+                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+                            Account Deletion
+                        </h1>
+                        <p class="mt-1 text-base text-gray-500">
+                            Last updated: November 2025
+                        </p>
+                    </div>
+                </div>
 
                 <!-- Legal Content -->
                 <div class="mt-10 prose prose-lg max-w-none prose-h2:text-2xl prose-h2:font-semibold prose-h2:text-gray-900 prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200 prose-h3:text-xl prose-h3:font-semibold prose-h3:text-gray-900 prose-h3:mt-8 prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-2 prose-li:text-gray-700 prose-li:marker:text-indigo-500 prose-strong:font-medium prose-strong:text-gray-900">
-                    
+
                     <section>
                         <h2>Request Account Deletion</h2>
                         <p>To request the permanent deletion of your Geesly account and all associated data, please send an email to our support team.</p>
@@ -117,12 +162,34 @@
                             <li>Your <strong>Geesly Public ID</strong></li>
                             <li>The <strong>email address</strong> used to create your account</li>
                         </ul>
-                        <p>Send your request to:</p>
-                        <p>
-                            <a href="mailto:geeslyhelp@gmail.com" class="font-semibold text-indigo-600 hover:text-indigo-700 no-underline">geeslyhelp@gmail.com</a>
-                        </p>
-                        
-                        <p class="mt-6">Our team will review your request and contact you to confirm the deletion. Once confirmed, this action is permanent and cannot be reversed. Your profile, matches, messages, and all other personal data will be erased from our systems in accordance with our Privacy Policy.</p>
+                    </section>
+
+                    <!-- Contact Card -->
+                    <div class="not-prose my-8 p-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+                        <p class="text-sm font-medium text-gray-600 mb-2">Send your request to:</p>
+                        <a href="mailto:geeslyhelp@gmail.com" class="inline-flex items-center gap-2 text-lg font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                            </svg>
+                            geeslyhelp@gmail.com
+                        </a>
+                    </div>
+
+                    <section>
+                        <h2>What Happens Next</h2>
+                        <p>Our team will review your request and contact you to confirm the deletion. Once confirmed, this action is permanent and cannot be reversed.</p>
+
+                        <div class="not-prose my-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                            <div class="flex gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                                </svg>
+                                <div>
+                                    <p class="text-sm font-medium text-amber-800">Important Notice</p>
+                                    <p class="text-sm text-amber-700 mt-1">Your profile, matches, messages, and all other personal data will be permanently erased from our systems in accordance with our Privacy Policy.</p>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                 </div>
@@ -131,10 +198,31 @@
     </main>
 
     <!-- Footer -->
-    <footer class="relative z-10 mt-8">
+    <footer class="relative z-10 mt-8 border-t border-gray-200/50 bg-white/50 backdrop-blur-sm">
         <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div class="py-8 text-center text-sm text-gray-500">
-                &copy; 2025 Geesly. All rights reserved.
+            <div class="py-8 sm:py-12">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <!-- Logo -->
+                    <div class="flex items-center gap-2">
+                        <img
+                            src="lib/images/geesly-background-no-text.png"
+                            alt="Geesly"
+                            class="h-6 w-6 object-contain rounded"
+                            onerror="this.style.display='none'"
+                        >
+                        <span class="text-sm font-semibold text-gray-900">Geesly</span>
+                    </div>
+                    <!-- Links -->
+                    <div class="flex items-center gap-6 text-sm text-gray-500">
+                        <a href="privacy.html" class="hover:text-gray-700 transition-colors">Privacy</a>
+                        <a href="terms.html" class="hover:text-gray-700 transition-colors">Terms</a>
+                        <a href="mailto:geeslyhelp@gmail.com" class="hover:text-gray-700 transition-colors">Contact</a>
+                    </div>
+                    <!-- Copyright -->
+                    <p class="text-sm text-gray-500">
+                        &copy; 2025 Geesly. All rights reserved.
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
