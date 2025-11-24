@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service - Geesly</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="lib/images/geesly-background-no-text.png">
     
     <script>
-        // Configure Tailwind to use Inter font
         tailwind.config = {
             theme: {
                 extend: {
@@ -26,298 +22,157 @@
         };
     </script>
     <style>
-        /* Custom style for the blurred background effect */
-        body {
-            min-height: 100vh;
-        }
+        body { min-height: 100vh; }
         .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -10;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -10;
             background-image: url('lib/images/geesly-background-no-text.png');
-            background-size: cover;
-            background-position: center;
+            background-size: cover; background-position: center;
         }
         .bg-blur-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -9;
-            background-color: rgba(249, 250, 251, 0.85); /* Tailwind 'bg-gray-50' with opacity */
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -9;
+            background-color: rgba(249, 250, 251, 0.85);
             backdrop-filter: blur(8px);
         }
     </style>
 </head>
 <body class="font-sans text-gray-700 antialiased">
-    <!-- Background elements -->
     <div class="bg-overlay"></div>
     <div class="bg-blur-overlay"></div>
 
-    <!-- Header -->
     <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/80">
         <nav class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
-                <!-- Logo -->
                 <a href="index.html" class="flex items-center gap-2 text-2xl font-bold text-indigo-600">
-                    <img 
-                        src="lib/images/geesly-background-no-text.png" 
-                        alt="Geesly Logo" 
-                        class="h-8 w-8 object-contain"
-                        onerror="this.style.display='none'"
-                    >
+                    <img src="lib/images/geesly-background-no-text.png" alt="Geesly Logo" class="h-8 w-8 object-contain" onerror="this.style.display='none'">
                     <span>Geesly</span>
                 </a>
-                <!-- Navigation Links -->
                 <div class="flex items-center gap-4 sm:gap-6">
-                    <a href="index.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 ring-offset-white">Home</a>
-                    <a href="privacy.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 ring-offset-white">Privacy</a>
-                    <a href="terms.html" class="text-sm font-medium text-indigo-600 ring-offset-white" aria-current="page">Terms</a>
-                    <a href="deletion.html" class="text-sm font-medium text-gray-600 hover:text-gray-900 ring-offset-white">Deletion</a>
+                    <a href="index.html" class="text-sm font-medium text-gray-600 hover:text-gray-900">Home</a>
+                    <a href="privacy.html" class="text-sm font-medium text-gray-600 hover:text-gray-900">Privacy</a>
+                    <a href="terms.html" class="text-sm font-medium text-indigo-600" aria-current="page">Terms</a>
+                    <a href="deletion.html" class="text-sm font-medium text-gray-600 hover:text-gray-900">Deletion</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="relative z-10">
         <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-
-            <!-- Content Card -->
             <div class="bg-white/90 rounded-2xl shadow-lg border border-gray-100/50 p-6 sm:p-10 lg:p-16">
-                <!-- Back Button -->
+                
                 <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors mb-6">
-                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m15 18-6-6 6-6"/>
-                    </svg>
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                     Back to Home
                 </a>
                 
-                <!-- Page Title -->
-                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-                    Terms of Service
-                </h1>
-                <p class="mt-2 text-base text-gray-500">
-                    Last updated: January 2025
-                </p>
+                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">Terms of Service</h1>
+                <p class="mt-2 text-base text-gray-500">Last updated: January 2025</p>
 
-                <!-- Legal Content -->
-                <div class="mt-10 prose prose-lg max-w-none prose-h2:text-2xl prose-h2:font-semibold prose-h2:text-gray-900 prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200 prose-h3:text-xl prose-h3:font-semibold prose-h3:text-gray-900 prose-h3:mt-8 prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-2 prose-li:text-gray-700 prose-li:marker:text-indigo-500 prose-strong:font-medium prose-strong:text-gray-900">
+                <div class="mt-10 prose prose-lg max-w-none prose-headings:font-semibold prose-headings:text-gray-900 prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200 prose-a:text-indigo-600">
                     
-                    <p>Welcome to Geesly! These Terms of Service ("Terms") govern your access to and use of our dating application. By creating an account or using Geesly, you agree to be bound by these Terms and our Privacy Policy.</p>
+                    <p>Welcome to <strong>Geesly</strong>. These Terms of Service ("Terms") constitute a legally binding agreement between you and Geesly regarding your access to and use of the Geesly mobile application and website (the "Service").</p>
+                    
+                    <p class="font-bold">PLEASE READ THESE TERMS CAREFULLY. BY CREATING AN ACCOUNT OR USING THE SERVICE, YOU AGREE TO BE BOUND BY THESE TERMS.</p>
 
                     <section>
-                        <h2>1. Acceptance of Terms</h2>
-                        <p>By creating an account, accessing, or using Geesly, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy. If you do not agree, you must not use our services.</p>
-                    </section>
-        
-                    <section>
-                        <h2>2. Eligibility</h2>
+                        <h2>1. Eligibility</h2>
+                        <p>By using the Service, you represent and warrant that:</p>
                         <ul>
-                            <li>You must be at least 18 years old to use Geesly</li>
-                            <li>You must be legally permitted to use our service in your jurisdiction</li>
-                            <li>You must not be prohibited from using our services under any applicable laws</li>
-                            <li>You must not have been previously banned from using Geesly</li>
-                            <li>You represent that all information you provide is accurate and truthful</li>
+                            <li>You are at least <strong>18 years old</strong>.</li>
+                            <li>You have the authority to enter into this agreement under the laws of your jurisdiction.</li>
+                            <li>You have not previously been suspended or removed from Geesly.</li>
+                            <li>You represent that you have not been convicted of, nor are you subject to any court order relating to, assault, violence, sexual misconduct, or harassment.</li>
                         </ul>
                     </section>
-        
+
                     <section>
-                        <h2>3. Account Responsibilities</h2>
-                        <p>When you create a Geesly account, you are responsible for:</p>
+                        <h2>2. User Accounts</h2>
+                        <p>To access certain features, you must create an account. You agree to provide accurate, current, and complete information. You are solely responsible for:</p>
                         <ul>
-                            <li><strong>Security:</strong> Maintaining the confidentiality of your login credentials</li>
-                            <li><strong>Activities:</strong> All activities that occur under your account</li>
-                            <li><strong>Accuracy:</strong> Providing accurate, current, and complete information</li>
-                            <li><strong>Updates:</strong> Keeping your profile information up to date</li>
-                            <li><strong>Unauthorized Access:</strong> Notifying us immediately of any unauthorized use of your account</li>
-                            <li><strong>Single Account:</strong> You may only create and maintain one account</li>
+                            <li>Maintaining the confidentiality of your login credentials.</li>
+                            <li>All activities that occur under your account.</li>
                         </ul>
+                        <p>You may not authorize others to use your account, and you may not assign or otherwise transfer your account to any other person or entity.</p>
                     </section>
-        
+
                     <section>
-                        <h2>4. User Conduct and Prohibited Activities</h2>
-                        <p>You agree not to:</p>
+                        <h2>3. Community Rules & Prohibited Conduct</h2>
+                        <p>Geesly has a <strong>Zero Tolerance Policy</strong> for objectionable content and abusive users. You agree NOT to:</p>
                         <ul>
-                            <li>Harass, bully, stalk, intimidate, or threaten other users</li>
-                            <li>Post violent, discriminatory, hateful, or sexually explicit content</li>
-                            <li>Impersonate any person or entity</li>
-                            <li>Use the service for illegal purposes or to violate any laws</li>
-                            <li>Spam, solicit, or advertise to other users</li>
-                            <li>Share contact information in your profile or initial messages</li>
-                            <li>Solicit money or financial information from other users</li>
-                            <li>Use automated systems (bots) to interact with the service</li>
-                            <li>Attempt to gain unauthorized access to our systems</li>
-                            <li>Interfere with or disrupt the service or servers</li>
-                            <li>Create fake profiles or provide false information</li>
-                            <li>Use the service for commercial purposes without permission</li>
-                            <li>Copy, modify, or distribute content from Geesly without authorization</li>
-                            <li>Upload photos that include other people without their consent</li>
+                            <li><strong>Harass or Bully:</strong> Intimidate, stalk, or harass any person on or off the Service.</li>
+                            <li><strong>Hate Speech:</strong> Post content that promotes racism, bigotry, hatred, or physical harm of any kind against any group or individual.</li>
+                            <li><strong>Sexual Content:</strong> Post pornography, nudity, or sexually explicit content.</li>
+                            <li><strong>Fraud & Spam:</strong> Solicit money, use the Service for commercial purposes, or spam other users.</li>
+                            <li><strong>Impersonation:</strong> Impersonate any person or entity or post images of another person without their permission.</li>
                         </ul>
+                        <p>We reserve the right to investigate and terminate your account without a refund if you violate these rules.</p>
                     </section>
-        
+
                     <section>
-                        <h2>5. Content Ownership and License</h2>
+                        <h2>4. Content Rights</h2>
                         <h3>Your Content</h3>
-                        <ul>
-                            <li>You retain ownership of all content you post on Geesly (photos, messages, profile information)</li>
-                            <li>By posting content, you grant Geesly a worldwide, non-exclusive, royalty-free license to use, display, reproduce, and distribute your content in connection with operating the service</li>
-                            <li>This license continues for a commercially reasonable time after you delete your account to allow for cached or backup copies</li>
-                            <li>You represent that you own or have the necessary rights to all content you post</li>
-                        </ul>
-                        
-                        <h3>Geesly's Content</h3>
-                        <ul>
-                            <li>Geesly owns all rights to the service, including design, features, graphics, and code</li>
-                            <li>You may not copy, modify, or create derivative works of our service</li>
-                            <li>Our trademarks and logos may not be used without permission</li>
-                        </ul>
-                    </section>
-        
-                    <section>
-                        <h2>6. Content Moderation</h2>
-                        <p>Geesly reserves the right to:</p>
-                        <ul>
-                            <li>Review and monitor user content and activity</li>
-                            <li>Remove content that violates these Terms without notice</li>
-                            <li>Suspend or terminate accounts that violate these Terms</li>
-                            <li>Report illegal activity to law enforcement</li>
-                            <li>Preserve content for legal proceedings</li>
-                        </ul>
-                        <p>We do not pre-screen content but rely on users to report inappropriate content and behavior.</p>
-                    </section>
-        
-                    <section>
-                        <h2>7. Rating and Matching System</h2>
-                        <ul>
-                            <li>Users rate profiles from 1-5 stars, affecting visibility and match potential</li>
-                            <li>A rating of 5 stars indicates a "like" and may result in a match if reciprocated</li>
-                            <li>Users accumulate a score based on ratings received</li>
-                            <li>You may only see profiles within your specified preferences</li>
-                            <li>The algorithm determines which profiles you see based on multiple factors</li>
-                            <li>Geesly does not guarantee matches or results</li>
-                        </ul>
-                    </section>
-        
-                    <section>
-                        <h2>8. Premium Features and Purchases</h2>
-                        <ul>
-                            <li>Geesly may offer premium features for purchase</li>
-                            <li>All purchases are final and non-refundable unless required by law</li>
-                            <li>Prices are subject to change with notice</li>
-                            <li>Premium features are subject to separate terms</li>
-                            <li>You are responsible for any charges incurred through your account</li>
-                        </ul>
-                    </section>
-        
-                    <section>
-                        <h2>9. Termination</h2>
-                        <p>We may suspend or terminate your account if you:</p>
-                        <ul>
-                            <li>Violate these Terms of Service</li>
-                            <li>Engage in fraudulent, illegal, or harmful behavior</li>
-                            <li>Receive multiple user reports</li>
-                            <li>Remain inactive for an extended period</li>
-                        </ul>
-                        <p>You may delete your account at any time through the app settings. Upon termination, your access to the service will cease, but certain information may be retained as described in our Privacy Policy.</p>
-                    </section>
-        
-                    <section>
-                        <h2>10. Disclaimers</h2>
-                        <p>GEESLY IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING:</p>
-                        <ul>
-                            <li>Warranties of merchantability or fitness for a particular purpose</li>
-                            <li>Accuracy, completeness, or reliability of content</li>
-                            <li>Uninterrupted or error-free service</li>
-                            <li>Security of your data or communications</li>
-                            <li>Outcomes from using the service (matches, relationships, etc.)</li>
-                        </ul>
-                        <p>We do not conduct background checks on users. You are responsible for your own safety when meeting people through Geesly.</p>
-                    </section>
-        
-                    <section>
-                        <h2>11. Limitation of Liability</h2>
-                        <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, GEESLY SHALL NOT BE LIABLE FOR:</p>
-                        <ul>
-                            <li>Indirect, incidental, consequential, or punitive damages</li>
-                            <li>Loss of profits, data, or goodwill</li>
-                            <li>Service interruptions or errors</li>
-                            <li>User content or conduct</li>
-                            <li>Third-party actions or content</li>
-                            <li>Any damages arising from your use of the service</li>
-                        </ul>
-                        <p>Our total liability to you shall not exceed the amount you paid to Geesly in the past 12 months, or $100, whichever is greater.</p>
-                    </section>
-        
-                    <section>
-                        <h2>12. Indemnification</h2>
-                        <p>You agree to indemnify, defend, and hold harmless Geesly, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including attorneys' fees) arising from:</p>
-                        <ul>
-                            <li>Your use of the service</li>
-                            <li>Your violation of these Terms</li>
-                            <li>Your violation of any rights of another person or entity</li>
-                            <li>Your content or conduct</li>
-                        </ul>
-                    </section>
-        
-                    <section>
-                        <h2>13. Dispute Resolution</h2>
-                        <p>Any disputes arising from these Terms or your use of Geesly shall be resolved through:</p>
-                        <ul>
-                            <li><strong>Informal Resolution:</strong> First, contact us to attempt to resolve the issue informally</li>
-                            <li><strong>Arbitration:</strong> If informal resolution fails, disputes will be resolved through binding arbitration rather than court</li>
-                            <li><strong>Class Action Waiver:</strong> You agree to resolve disputes on an individual basis, not as part of a class action</li>
-                        </ul>
-                    </section>
-        
-                    <section>
-                        <h2>14. Governing Law</h2>
-                        <p>These Terms shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law provisions.</p>
-                    </section>
-        
-                    <section>
-                        <h2>15. Changes to Terms</h2>
-                        <p>We may modify these Terms at any time. We will notify you of material changes through the app or by email. Your continued use of Geesly after changes are posted constitutes acceptance of the updated Terms. If you do not agree to the changes, you must stop using the service.</p>
-Streamlined solution:
-                    </section>
-        
-                    <section>
-                        <h2>16. Safety Tips</h2>
-                        <p>While using Geesly, please follow these safety guidelines:</p>
-                        <ul>
-                            <li>Never send money to someone you haven't met in person</li>
-                            <li>Protect your personal information (full name, address, workplace)</li>
-                            <li>Meet in public places for first dates</li>
-                            <li>Tell a friend or family member about your plans</li>
-                            <li>Trust your instincts - report suspicious behavior</li>
-                            <li>Stay on the platform until you feel comfortable</li>
-                        </ul>
-                    </section>
-        
-                    <section>
-                        <h2>17. Severability</h2>
-                        <p>If any provision of these Terms is found to be unenforceable, the remaining provisions will continue in full force and effect.</p>
-                    </section>
-        
-                    <section>
-                        <h2>18. Contact Us</h2>
-                        <p>If you have questions about these Terms of Service, please contact us through the app's support section or email us at geeslyhelp@gmail.com.</p>
-                    </section>
-        
-                    <section>
-                        <p><strong>By using Geesly, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</strong></p>
+                        <p>You retain ownership of the photos, text, and data you upload ("User Content"). However, by posting User Content, you grant Geesly a worldwide, royalty-free, perpetual, non-exclusive license to host, store, use, display, reproduce, modify, and distribute your content for the purpose of operating and improving the Service.</p>
+
+                        <h3>Geesly Content</h3>
+                        <p>All text, graphics, user interfaces, trademarks, logos, and computer code ("Geesly Content") are owned by Geesly and are protected by copyright and intellectual property laws.</p>
                     </section>
 
+                    <section>
+                        <h2>5. Purchases and Subscriptions</h2>
+                        <p>Geesly may offer products and services for purchase ("In-App Purchases") through the App Store, Google Play, or other payment platforms authorized by Geesly.</p>
+                        
+                        <h3>A. Subscriptions & Auto-Renewal</h3>
+                        <p>If you purchase an auto-recurring periodic subscription, your Payment Method will continue to be billed for the subscription until you cancel. After your initial subscription commitment period, your subscription will automatically continue for an additional equivalent period, at the price you agreed to when subscribing.</p>
+                        
+                        <h3>B. Virtual Items</h3>
+                        <p>You may purchase a limited, personal, non-transferable, non-sublicensable, revocable license to use "virtual items" (e.g., Corns, Boosts). Virtual items are not redeemable for money or monetary value from us or any other entity.</p>
+                        
+                        <h3>C. Refunds</h3>
+                        <p>Generally, all charges for purchases are nonrefundable, and there are no refunds or credits for partially used periods. Refunds are handled exclusively by the platform (Apple or Google) through which you made the purchase, not by Geesly.</p>
+                    </section>
+
+                    <section>
+                        <h2>6. Safety and Interactions</h2>
+                        <p><strong>YOU ARE SOLELY RESPONSIBLE FOR YOUR INTERACTIONS WITH OTHER USERS.</strong></p>
+                        <p>Geesly does not conduct criminal background checks on its users. We do not verify the statements of users. We make no representations or warranties as to the conduct of users or their compatibility with any current or future users. Always use caution and common sense when interacting with others and when meeting in person.</p>
+                    </section>
+
+                    <section>
+                        <h2>7. Disclaimer of Warranties</h2>
+                        <p class="uppercase font-semibold text-gray-800 text-sm">THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. GEESLY EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT GUARANTEE THAT THE SERVICE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE.</p>
+                    </section>
+
+                    <section>
+                        <h2>8. Limitation of Liability</h2>
+                        <p class="uppercase font-semibold text-gray-800 text-sm">TO THE FULLEST EXTENT PERMITTED BY LAW, IN NO EVENT WILL GEESLY, ITS AFFILIATES, OFFICERS, OR EMPLOYEES BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFITS, LOSS OF DATA, OR EMOTIONAL DISTRESS ARISING FROM YOUR USE OF THE SERVICE.</p>
+                        <p>GEESLY'S LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER WILL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO GEESLY FOR THE SERVICE DURING THE TERM OF YOUR MEMBERSHIP.</p>
+                    </section>
+
+                    <section>
+                        <h2>9. Digital Millennium Copyright Act (DMCA)</h2>
+                        <p>If you believe that your work has been copied in a way that constitutes copyright infringement, please provide our Copyright Agent with the following information: (1) a physical or electronic signature of the copyright owner; (2) a description of the copyrighted work; (3) a description of where the material is located on the Service; and (4) your contact information.</p>
+                    </section>
+
+                    <section>
+                        <h2>10. Dispute Resolution</h2>
+                        <p>Any dispute arising out of or relating to these Terms or the Service shall be resolved by binding arbitration. <strong>YOU AND GEESLY AGREE TO WAIVE ANY RIGHT TO PARTICIPATE IN A CLASS ACTION LAWSUIT OR CLASS-WIDE ARBITRATION.</strong></p>
+                    </section>
+
+                    <section>
+                        <h2>11. Apple App Store Additional Terms</h2>
+                        <p>If you use Geesly on an iOS device, you acknowledge that these Terms are between you and Geesly only, not with Apple. Apple is not responsible for the Service or the content thereof. Apple has no obligation whatsoever to furnish any maintenance and support services with respect to the Service.</p>
+                    </section>
+
+                    <section>
+                        <h2>12. Contact Us</h2>
+                        <p>If you have any questions about these Terms, please contact us at:</p>
+                        <p><strong>Email:</strong> geeslyhelp@gmail.com</p>
+                    </section>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="relative z-10 mt-8">
         <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div class="py-8 text-center text-sm text-gray-500">
