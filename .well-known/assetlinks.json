@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.geesly.blm",
+      "sha256_cert_fingerprints": [
+        "78:25:53:53:E1:4B:86:A1:07:15:E7:D1:7D:DC:63:7B:07:44:F9:F9:69:C0:07:8B:77:9D:6A:6B:2A:87:F3:2D"
+      ]
+    }
+  }
+]
