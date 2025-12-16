@@ -1,2 +1,4 @@
 # geesly-documents
-documentations for geesly app
+Geesly
+
+Geesly home page with documents
