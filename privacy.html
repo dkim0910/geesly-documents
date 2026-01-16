@@ -123,7 +123,7 @@
             <h1 class="text-4xl sm:text-5xl font-bold mb-4">
                 <span class="gradient-text">Privacy Policy</span>
             </h1>
-            <p class="text-lg text-gray-600">Last updated: January 9, 2026</p>
+            <p class="text-lg text-gray-600">Last Updated: January 2026</p>
         </div>
 
         <!-- Privacy Policy Content -->
@@ -137,22 +137,27 @@
 
                 <h3>A. Information You Provide</h3>
                 <ul>
-                    <li><strong>Account Credentials:</strong> Phone number, email address, and login credentials</li>
-                    <li><strong>Profile Information:</strong> Name, public ID, age, date of birth, gender, photos, bio, prompts, interests, personality traits, and languages spoken</li>
-                    <li><strong>Demographics &amp; Lifestyle:</strong> Job title, company, school, height, education, relationship intent, lifestyle choices (smoking, drinking), religious beliefs, and political views</li>
-                    <li><strong>User Content:</strong> Messages, photos, and videos you send to other users</li>
+                    <li><strong>Account Credentials:</strong> Phone number, email address, and login credentials via Google or Apple Sign-In</li>
+                    <li><strong>Profile Information:</strong> Name, public ID (username), age, date of birth, gender, photos (2-6 images), bio, tagline, interests, personality traits, MBTI type, and languages spoken</li>
+                    <li><strong>Demographics &amp; Lifestyle:</strong> Job title, company, school, height, body type, education level, relationship intent, workout frequency, smoking and drinking habits, dietary preferences, religious beliefs, political views, zodiac sign, and race/ethnicity</li>
+                    <li><strong>Preferences:</strong> Gender preference, age range, maximum distance, preferred body styles, and other matching criteria</li>
+                    <li><strong>User Content:</strong> Messages in chats (subject to spam detection filters)</li>
+                    <li><strong>Verification Data:</strong> World ID verification data if you choose to verify your profile (processed through World ID)</li>
                 </ul>
 
                 <h3>B. Information We Collect Automatically</h3>
                 <ul>
-                    <li><strong>Usage Data:</strong> Activity within the app (likes, passes, matches), login times, and features used</li>
-                    <li><strong>Device Information:</strong> Device model, operating system, IP address, device identifiers, and mobile network information</li>
-                    <li><strong>Location Data:</strong> Geolocation (latitude/longitude) and geohash (encoded location for efficient matching) to suggest nearby matches within a maximum distance of 300km (approximately 200 miles). Users beyond this distance will not appear in your discovery feed. Users without location data will be shown last, after you have rated all nearby users within 300km. You can revoke this permission in device settings, though it will limit visibility</li>
+                    <li><strong>Usage Data:</strong> Activity within the app including likes (5-star ratings), passes (1-4 star ratings), matches, chat invitations sent/received, profiles viewed, rating progress (earn 1 Corn per 6 ratings), hourly rating limits (6 per hour), features used, and login times</li>
+                    <li><strong>Device Information:</strong> Device model, operating system, IP address, device identifiers, mobile network information, and app version</li>
+                    <li><strong>Location Data:</strong> Precise geolocation (latitude/longitude) and geohash (encoded location) to suggest nearby matches within a maximum distance of 300km (approximately 186 miles). Users beyond this distance will not appear in your discovery feed. Users without location data may still be shown but will appear after all nearby users have been rated, with significantly lower visibility. You can revoke this permission in device settings, though it will severely limit your visibility to other users</li>
+                    <li><strong>Analytics:</strong> App performance data, crash reports, and usage patterns via Firebase Analytics and Crashlytics</li>
                 </ul>
 
                 <h3>C. Information from Third Parties</h3>
                 <ul>
-                    <li><strong>Purchase Details:</strong> If you make a purchase, we receive confirmation from RevenueCat and the app stores (Google Play or Apple App Store). We do not store your payment information directly</li>
+                    <li><strong>Purchase Details:</strong> Transaction confirmations from RevenueCat and app stores (Google Play or Apple App Store) for premium subscriptions and Corn purchases. We do not store your payment information directly</li>
+                    <li><strong>Authentication:</strong> Basic profile information from Google or Apple when you sign in through their services</li>
+                    <li><strong>World ID:</strong> Verification status from Worldcoin's World ID system if you verify your profile</li>
                 </ul>
             </section>
 
@@ -160,12 +165,22 @@
                 <h2>2. How We Use Your Information</h2>
                 <p>We use the information we collect to:</p>
                 <ul>
-                    <li><strong>Provide the Service:</strong> Create your account, display your profile, and facilitate messaging</li>
-                    <li><strong>Matchmaking:</strong> Show you profiles based on your preferences, location, and activity</li>
-                    <li><strong>Transactions:</strong> Process subscriptions and purchases via app stores</li>
-                    <li><strong>Safety &amp; Moderation:</strong> Rely on user reports to detect fraud, spam, and harassment, and enforce our Terms of Service</li>
-                    <li><strong>Communications:</strong> Send notifications about matches, messages, and account activity</li>
-                    <li><strong>Analytics:</strong> Track usage trends via Firebase Analytics to fix bugs and improve the app</li>
+                    <li><strong>Provide the Service:</strong> Create your account, display your profile to other users, and facilitate messaging</li>
+                    <li><strong>Matchmaking:</strong> Show you profiles based on your preferences (gender, age range, distance, body type), location proximity, and activity. Our algorithm scores users based on ratings received and prioritizes showing you highly-rated, nearby users first</li>
+                    <li><strong>Safety &amp; Moderation:</strong>
+                        <ul>
+                            <li>Block messages containing URLs, phone numbers, or repeated spam (5+ identical messages)</li>
+                            <li>Process user reports for harassment, inappropriate content, spam, and fake profiles</li>
+                            <li>Automatically blacklist users who receive 50+ reports</li>
+                            <li>Send report details (including last 20 messages) to our team at <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a></li>
+                            <li>Enforce community standards and Terms of Service</li>
+                        </ul>
+                    </li>
+                    <li><strong>Transactions:</strong> Process premium subscriptions and Corn purchases via app stores, manage virtual currency balances, and handle restore purchases</li>
+                    <li><strong>Gamification:</strong> Track rating progress, award Corns for user engagement (1 Corn per 6 ratings), manage hourly rating limits (6 profiles per hour), and unlock rate limit with 20 Corns</li>
+                    <li><strong>Communications:</strong> Send push notifications and in-app alerts about matches, chat invitations, received messages, likes, and account activity. Send emails via Gmail/Nodemailer for reports and administrative purposes</li>
+                    <li><strong>Analytics:</strong> Track usage trends via Firebase Analytics to improve features, fix bugs, and optimize performance</li>
+                    <li><strong>Advertising:</strong> Show rewarded video ads that users can watch to earn 1 Corn (optional)</li>
                 </ul>
             </section>
 
@@ -173,98 +188,159 @@
                 <h2>3. Information Sharing and Disclosure</h2>
                 <p>We do not sell your personal data. We share information only as follows:</p>
                 <ul>
-                    <li><strong>With Other Users:</strong> Your public profile data is visible to other users for dating purposes</li>
-                    <li><strong>Service Providers:</strong> We share data with trusted third parties including Google Firebase (cloud hosting and database), RevenueCat (subscription management), and Gmail/Nodemailer (for sending report emails to <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a>)</li>
-                    <li><strong>Legal Compliance:</strong> We may disclose information if required by law, such as in response to a court order or subpoena</li>
-                    <li><strong>Safety:</strong> We may disclose information if we believe it is necessary to protect the safety of any person</li>
+                    <li><strong>With Other Users:</strong> Your public profile data (photos, bio, interests, preferences, etc.) is visible to other users for dating purposes. Messages are visible only to you and your chat partner</li>
+                    <li><strong>Service Providers:</strong> We share data with trusted third parties including:
+                        <ul>
+                            <li><strong>Google Firebase:</strong> Cloud hosting, Firestore database, Authentication, Cloud Functions, Analytics, Crashlytics, Cloud Messaging (push notifications), Remote Config, and App Check for security</li>
+                            <li><strong>RevenueCat:</strong> Subscription and in-app purchase management</li>
+                            <li><strong>Gmail/Nodemailer:</strong> Email service for sending user reports to <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a></li>
+                            <li><strong>World ID (Worldcoin):</strong> Profile verification service (optional)</li>
+                            <li><strong>Ad Networks:</strong> For serving rewarded video ads (processed through ad SDKs)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Legal Compliance:</strong> We may disclose information if required by law, court order, or subpoena</li>
+                    <li><strong>Safety:</strong> We may disclose information if necessary to protect the safety of any person, including sharing reported chat messages with our team</li>
                     <li><strong>Business Transfers:</strong> If Geesly is involved in a merger, acquisition, or sale of assets, your information may be transferred</li>
                 </ul>
             </section>
 
             <section>
-                <h2>4. Your Rights and Choices</h2>
+                <h2>4. Spam Detection and Message Filtering</h2>
+                <p><strong>Automatic Message Blocking:</strong> To protect users from spam and unwanted contact sharing, we automatically block messages that contain:</p>
+                <ul>
+                    <li><strong>URLs and Links:</strong> Any web addresses, domain names, or links (http://, https://, www., .com, .net, etc.)</li>
+                    <li><strong>Phone Numbers:</strong> All common phone number formats including international numbers</li>
+                    <li><strong>Repeated Spam:</strong> Sending the same message 5+ times in your last 10 messages</li>
+                </ul>
+                <p>These filters run in real-time before messages are sent. You'll receive a notification if your message is blocked.</p>
+            </section>
+
+            <section>
+                <h2>5. Your Rights and Choices</h2>
                 <p>Depending on your location, you may have specific rights:</p>
                 <ul>
                     <li><strong>Access &amp; Portability:</strong> Request a copy of the data we hold about you</li>
-                    <li><strong>Correction:</strong> Update your profile via app settings</li>
-                    <li><strong>Deletion:</strong> Request account deletion by contacting <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a>. Your data will be removed from our active systems, subject to our retention policy</li>
-                    <li><strong>Device Permissions:</strong> Revoke permissions for Location, Notifications, or Photos through device settings</li>
+                    <li><strong>Correction:</strong> Update your profile information via app settings at any time</li>
+                    <li><strong>Deletion:</strong> Request account deletion via Settings → Privacy → Delete Account. All your data including profile, photos, messages, matches, and purchase history will be permanently deleted within 45 seconds (with 45-second timeout protection)</li>
+                    <li><strong>Device Permissions:</strong> Revoke permissions for Location, Camera, Photos, or Notifications through your device settings at any time</li>
+                    <li><strong>Notification Preferences:</strong> Manage push notifications and alerts in Settings → Notifications. Toggle on/off for: push notifications, alerts, vibration, and online status visibility</li>
+                    <li><strong>Blocking:</strong> Block users to prevent them from seeing your profile or contacting you</li>
                 </ul>
             </section>
 
             <section>
-                <h2>5. Data Retention</h2>
+                <h2>6. Data Retention</h2>
                 <p>We retain your personal information as follows:</p>
                 <ul>
-                    <li><strong>Active Accounts:</strong> Data is kept while your account is open</li>
-                    <li><strong>Deleted Accounts:</strong> Upon account deletion request via email to <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a>, your account and associated data will be manually deleted by our team within 90 days. Profile data, messages, and photos are permanently removed. Some data may be retained for safety and legal purposes as detailed below</li>
-                    <li><strong>Notifications:</strong> Automatically deleted after 7 days</li>
-                    <li><strong>Chat Invitations:</strong> Automatically deleted after 7 days</li>
-                    <li><strong>User Matches/Likes:</strong> Reset monthly (on the 1st of each month), except for active chats, blocked users, and pending invitations</li>
-                    <li><strong>Payment Records:</strong> Retained as required by app stores and tax regulations</li>
+                    <li><strong>Active Accounts:</strong> Data is kept while your account is active</li>
+                    <li><strong>Deleted Accounts:</strong> Upon account deletion (via in-app delete function), your data is immediately and permanently deleted within 45 seconds, including:
+                        <ul>
+                            <li>User profile and authentication data</li>
+                            <li>All profile photos from Firebase Storage</li>
+                            <li>Chat invitations (sent and received)</li>
+                            <li>Chat messages and conversations</li>
+                            <li>Chat unlock records</li>
+                            <li>References in other users' blocked lists</li>
+                            <li>Local app cache and SharedPreferences/UserDefaults</li>
+                        </ul>
+                    </li>
+                    <li><strong>Automatic Cleanup:</strong>
+                        <ul>
+                            <li><strong>Notifications:</strong> Auto-deleted after 7 days</li>
+                            <li><strong>Chat Invitations:</strong> Auto-deleted after 7 days if not accepted</li>
+                            <li><strong>Matches &amp; Likes:</strong> Reset monthly (1st of each month), except for active chats, blocked users, and pending invitations</li>
+                            <li><strong>Rating Progress:</strong> Tracked for Corn rewards, resets after earning</li>
+                        </ul>
+                    </li>
+                    <li><strong>Reports:</strong> User reports and associated chat logs are retained for safety investigations and may be kept for up to 1 year</li>
+                    <li><strong>Payment Records:</strong> Transaction history retained as required by app stores, tax regulations, and for 7 years for accounting purposes</li>
+                    <li><strong>Blacklisted Users:</strong> Users auto-blacklisted after 50+ reports remain banned permanently</li>
                 </ul>
             </section>
 
             <section>
-                <h2>6. Security</h2>
+                <h2>7. Security</h2>
                 <p>We use Firebase's industry-standard security measures, including:</p>
                 <ul>
-                    <li>TLS/SSL encryption for data in transit</li>
+                    <li>TLS/SSL encryption for all data in transit</li>
                     <li>Secure cloud infrastructure (Google Firebase with App Check)</li>
-                    <li>Rate limiting in Cloud Functions to prevent abuse</li>
+                    <li>Firebase Authentication for secure login</li>
+                    <li>Rate limiting in Cloud Functions (max 10 notifications per minute, max 3 reports per minute)</li>
+                    <li>Spam detection filters to prevent malicious content</li>
+                    <li>Automatic blacklisting system for reported users</li>
                 </ul>
                 <p>However, no transmission over the internet is completely secure, and we cannot guarantee absolute security of your data.</p>
             </section>
 
             <section>
-                <h2>7. Children's Privacy</h2>
-                <p><strong>Geesly is strictly for users 18 years of age or older.</strong> We do not knowingly collect data from minors. Age is collected through self-reported date of birth during registration and is NOT independently verified. If we discover that a user is under 18, we will immediately ban the account and delete the associated data.</p>
+                <h2>8. Children's Privacy</h2>
+                <p><strong>Geesly is strictly for users 18 years of age or older.</strong> We do not knowingly collect data from minors. Age is collected through self-reported date of birth during registration and is NOT independently verified. If we discover that a user is under 18, we will immediately terminate the account and delete all associated data.</p>
             </section>
 
             <section>
-                <h2>8. International Data Transfers</h2>
-                <p>If you are located outside the country where our servers are located, your information may be transferred across borders. We rely on Firebase's security measures to ensure your data is treated securely.</p>
+                <h2>9. International Data Transfers</h2>
+                <p>If you are located outside the United States, your information may be transferred to and stored on servers in the US (via Google Firebase US-Central1 region). We rely on Firebase's security measures and standard contractual clauses to ensure your data is treated securely in accordance with this Privacy Policy.</p>
             </section>
 
             <section>
-                <h2>9. Third-Party Services</h2>
-                <p>Our app may contain links to third-party websites or services. We are not responsible for the privacy practices of these third parties. We encourage you to read their privacy policies.</p>
+                <h2>10. Third-Party Services</h2>
+                <p>Our app integrates with and may contain links to third-party services:</p>
+                <ul>
+                    <li>Google Play Store / Apple App Store: For purchases and downloads</li>
+                    <li>World ID (Worldcoin): Optional identity verification</li>
+                    <li>Ad Networks: For rewarded video ads</li>
+                </ul>
+                <p>We are not responsible for the privacy practices of these third parties. We encourage you to read their privacy policies.</p>
             </section>
 
             <section>
-                <h2>10. Analytics</h2>
-                <p>We use Firebase Analytics to understand how users interact with our Service. This service may collect information about your use of the Service and other apps, including your IP address, device ID, and usage patterns. We do not use Google Analytics.</p>
+                <h2>11. Analytics and Tracking</h2>
+                <p>We use Firebase Analytics to understand how users interact with our Service. This service collects:</p>
+                <ul>
+                    <li>Device information and identifiers</li>
+                    <li>Usage patterns and feature engagement</li>
+                    <li>App performance and crash data (via Firebase Crashlytics)</li>
+                    <li>Session duration and frequency</li>
+                </ul>
+                <p>We do not use Google Analytics or third-party ad tracking.</p>
             </section>
 
             <section>
-                <h2>11. Email and Push Notifications</h2>
+                <h2>12. Email and Push Notifications</h2>
                 <p>We may send you:</p>
                 <ul>
-                    <li>Service-related emails via Gmail/Nodemailer about account activity</li>
-                    <li>Push notifications via Firebase Cloud Messaging about matches, messages, and account activity</li>
+                    <li><strong>Service Emails:</strong> Administrative messages via Gmail/Nodemailer about account activity, reports, or security issues (cannot be disabled)</li>
+                    <li><strong>Push Notifications:</strong> Via Firebase Cloud Messaging about:
+                        <ul>
+                            <li>New matches (when someone likes you back)</li>
+                            <li>Chat invitations received</li>
+                            <li>New messages in active chats</li>
+                            <li>Account activity and security alerts</li>
+                        </ul>
+                    </li>
                 </ul>
-                <p>You can manage notification and alert preferences in your app settings. You cannot opt out of certain administrative messages (e.g., password resets, security alerts).</p>
+                <p>You can manage push notification and alert preferences in Settings → Notifications. You cannot opt out of critical security and administrative messages.</p>
             </section>
 
             <section>
-                <h2>12. California Privacy Rights (CCPA)</h2>
+                <h2>13. California Privacy Rights (CCPA)</h2>
                 <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act:</p>
                 <ul>
-                    <li><strong>Right to Know:</strong> Request information about the personal data we collect, use, and share</li>
-                    <li><strong>Right to Delete:</strong> Request deletion of your personal information</li>
+                    <li><strong>Right to Know:</strong> Request information about personal data we collect, use, and share</li>
+                    <li><strong>Right to Delete:</strong> Request deletion of your personal information (use in-app delete account feature)</li>
                     <li><strong>Right to Opt-Out:</strong> Opt out of the sale of personal information (we do not sell personal data)</li>
                     <li><strong>Non-Discrimination:</strong> We will not discriminate against you for exercising your privacy rights</li>
                 </ul>
-                <p>To exercise these rights, contact us at <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a>.</p>
+                <p>To exercise these rights, use the in-app delete account feature or contact us at <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a>.</p>
             </section>
 
             <section>
-                <h2>13. European Privacy Rights (GDPR)</h2>
+                <h2>14. European Privacy Rights (GDPR)</h2>
                 <p>If you are in the European Economic Area (EEA), United Kingdom, or Switzerland, you have rights under the General Data Protection Regulation:</p>
                 <ul>
-                    <li><strong>Right of Access:</strong> Obtain confirmation of whether we process your data and access to that data</li>
+                    <li><strong>Right of Access:</strong> Obtain confirmation of data processing and access to that data</li>
                     <li><strong>Right to Rectification:</strong> Correct inaccurate or incomplete personal data</li>
-                    <li><strong>Right to Erasure:</strong> Request deletion of your personal data in certain circumstances</li>
+                    <li><strong>Right to Erasure:</strong> Request deletion of your personal data (use in-app delete function)</li>
                     <li><strong>Right to Restriction:</strong> Request restricted processing of your data</li>
                     <li><strong>Right to Data Portability:</strong> Receive your data in a structured, commonly used format</li>
                     <li><strong>Right to Object:</strong> Object to processing based on legitimate interests</li>
@@ -274,150 +350,90 @@
             </section>
 
             <section>
-                <h2>14. Data Processing Legal Basis</h2>
+                <h2>15. Data Processing Legal Basis</h2>
                 <p>We process your personal data based on:</p>
                 <ul>
-                    <li><strong>Contract Performance:</strong> To provide the services you requested</li>
-                    <li><strong>Legitimate Interests:</strong> To improve our services, prevent fraud, and ensure security</li>
-                    <li><strong>Consent:</strong> For marketing communications and certain data processing activities</li>
-                    <li><strong>Legal Obligations:</strong> To comply with applicable laws and regulations</li>
+                    <li><strong>Contract Performance:</strong> To provide dating and matchmaking services</li>
+                    <li><strong>Legitimate Interests:</strong> To improve services, prevent fraud, detect spam, ensure user safety, and maintain security</li>
+                    <li><strong>Consent:</strong> For optional features like World ID verification, location services, and marketing communications</li>
+                    <li><strong>Legal Obligations:</strong> To comply with laws, respond to legal requests, and protect rights</li>
                 </ul>
             </section>
 
             <section>
-                <h2>15. Do Not Track</h2>
-                <p>Some browsers have a "Do Not Track" feature. We currently do not respond to Do Not Track signals.</p>
-            </section>
-
-            <section>
-                <h2>16. How to Exercise Your Privacy Rights</h2>
-                <p>To exercise any of your privacy rights:</p>
-                <ol>
-                    <li>Email us at <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a> with the subject line "Privacy Rights Request"</li>
-                    <li>Provide your account information (email, phone number, or public ID)</li>
-                    <li>Specify which right(s) you wish to exercise</li>
-                    <li>We will verify your identity and respond within 30 days (45 days for complex requests)</li>
-                </ol>
-            </section>
-
-            <section>
-                <h2>17. Messaging and Chat Data</h2>
+                <h2>16. Messaging and Chat Data</h2>
                 <p>Your messages are:</p>
                 <ul>
-                    <li>Encrypted in transit using TLS/SSL (Firebase default)</li>
-                    <li>Stored on secure Firebase servers</li>
-                    <li>Accessible by you and your chat partner</li>
-                    <li>Subject to safety review if reported by users</li>
+                    <li><strong>Encrypted in transit:</strong> Using TLS/SSL (Firebase default)</li>
+                    <li><strong>Stored securely:</strong> On Firebase Firestore servers</li>
+                    <li><strong>Filtered for spam:</strong> URLs, phone numbers, and repeated messages are blocked before sending</li>
+                    <li><strong>Accessible by:</strong> You and your chat partner only</li>
+                    <li><strong>Limited to 200 characters:</strong> Per message</li>
+                    <li><strong>Subject to review:</strong> If reported by users (last 20 messages included in reports)</li>
+                    <li><strong>Deleted when:</strong> Either user deletes their account, blocks the other user, or ends the chat</li>
                 </ul>
-                <p>We may access messages only for: safety investigations, legal compliance, or spam detection based on user reports.</p>
+                <p>We access messages only for: safety investigations based on user reports, legal compliance, or spam detection enforcement.</p>
             </section>
 
             <section>
-                <h2>18. Canadian Privacy Rights (PIPEDA)</h2>
-                <p>If you are a Canadian resident, you have rights under PIPEDA:</p>
+                <h2>17. Virtual Currency (Corns)</h2>
+                <p>Geesly uses a virtual currency called "Corns" for in-app actions:</p>
+
+                <h3>Earning Corns:</h3>
                 <ul>
-                    <li><strong>Right to Access:</strong> Request access to your personal information</li>
-                    <li><strong>Right to Correction:</strong> Request correction of inaccurate information</li>
-                    <li><strong>Right to Withdraw Consent:</strong> Withdraw consent for data processing</li>
-                    <li><strong>Right to Challenge Compliance:</strong> File a complaint with the Privacy Commissioner of Canada</li>
+                    <li>1 Corn per 6 profile ratings</li>
+                    <li>1 Corn per rewarded video ad watched (optional)</li>
+                    <li>Bonus Corns with premium subscriptions</li>
                 </ul>
-                <p>Contact us at <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a> to exercise these rights.</p>
+
+                <h3>Using Corns:</h3>
+                <ul>
+                    <li>20 Corns to unlock chat with a match</li>
+                    <li>20 Corns to bypass hourly rating limit (unlock 6 more ratings)</li>
+                    <li>5 Corns to view a user's full profile</li>
+                </ul>
+
+                <h3>Purchasing Corns:</h3>
+                <p>Available via in-app purchases through app stores</p>
+
+                <p>Corn balances and transactions are stored securely and associated with your account. Premium subscribers get unlimited certain features.</p>
             </section>
 
             <section>
-                <h2>19. Australian Privacy Rights</h2>
-                <p>If you are an Australian resident, you have rights under the Privacy Act:</p>
+                <h2>18. World ID Verification (Optional)</h2>
+                <p>You may choose to verify your profile using World ID (Worldcoin):</p>
                 <ul>
-                    <li><strong>Right to Access:</strong> Request access to your personal information</li>
-                    <li><strong>Right to Correction:</strong> Request correction of inaccurate information</li>
-                    <li><strong>Right to Complain:</strong> File a complaint with the Office of the Australian Information Commissioner (OAIC)</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>20. Data Minimization and Purpose Limitation</h2>
-                <p>We practice data minimization by:</p>
-                <ul>
-                    <li>Collecting only information necessary for our services</li>
-                    <li>Limiting data processing to specified, explicit purposes</li>
-                    <li>Not using your data for purposes incompatible with the original purpose</li>
-                    <li>Automatically deleting old data (notifications and invitations after 7 days, monthly reset of matches/likes)</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>21. Sensitive Personal Information</h2>
-                <p>We collect certain sensitive information with your consent:</p>
-                <ul>
-                    <li>Sexual orientation or gender identity (inferred from preferences)</li>
-                    <li>Religious beliefs (if you choose to share)</li>
-                    <li>Political views (if you choose to share)</li>
-                    <li>Lifestyle information (e.g., smoking, drinking habits)</li>
-                </ul>
-                <p>This information is used only for matchmaking and is never sold or shared except as described in this policy.</p>
-            </section>
-
-            <section>
-                <h2>22. Your Choices and Controls</h2>
-                <p>You have control over your information through:</p>
-                <h3>In-App Settings:</h3>
-                <ul>
-                    <li>Update profile information anytime</li>
-                    <li>Manage notification and alert preferences</li>
-                    <li>Block or report users</li>
-                </ul>
-                <h3>Contact Support:</h3>
-                <ul>
-                    <li>Request account deletion by emailing <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a></li>
-                </ul>
-                <h3>Device Settings:</h3>
-                <ul>
-                    <li>Revoke location, camera, or photo permissions</li>
-                    <li>Disable push notifications</li>
-                    <li>Clear app cache and data</li>
+                    <li>Verification is completely optional</li>
+                    <li>Provides a verified badge on your profile</li>
+                    <li>We receive only verification status (verified/not verified) from World ID</li>
+                    <li>World ID's own privacy policy applies to their verification process</li>
+                    <li>We do not store biometric data</li>
                 </ul>
             </section>
 
             <section>
-                <h2>23. Third-Party Service Providers</h2>
-                <p>We work with the following third-party providers:</p>
-                <ul>
-                    <li><strong>Google Firebase:</strong> Cloud hosting, database, authentication, analytics, messaging, crashlytics, remote config, and app check</li>
-                    <li><strong>RevenueCat:</strong> In-app purchase and subscription management</li>
-                    <li><strong>Apple/Google:</strong> Payment processing through their respective app stores</li>
-                    <li><strong>Gmail/Nodemailer:</strong> For sending report emails to <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a></li>
-                </ul>
-                <p>All providers are contractually obligated to protect your data and use it only for specified purposes. These third parties have their own privacy policies governing their data handling practices.</p>
-            </section>
-
-            <section>
-                <h2>24. Data Breach Notification</h2>
-                <p>In the event of a data breach that affects your personal information:</p>
+                <h2>19. Data Breach Notification</h2>
+                <p>In the event of a data breach affecting your personal information:</p>
                 <ul>
                     <li>We will notify affected users without unreasonable delay</li>
                     <li>For EU residents: We will notify within 72 hours of discovery when required by law</li>
-                    <li>Notification will include: nature of the breach, data affected, when it occurred, and steps you should take</li>
-                    <li>We will notify relevant supervisory authorities as required by applicable law</li>
-                    <li>We will take immediate steps to secure the breach and prevent future incidents</li>
+                    <li>Notification will include: nature of breach, data affected, when it occurred, and protective steps you should take</li>
+                    <li>We will notify relevant supervisory authorities as required by law</li>
+                    <li>You will be notified via email or in-app notification</li>
                 </ul>
-                <p>You will be notified via email or in-app notification if a breach affects your data.</p>
             </section>
 
             <section>
-                <h2>25. About Geesly</h2>
-                <p><strong>Operator:</strong> Individual developer</p>
-                <p><strong>Contact:</strong> <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a></p>
+                <h2>20. Changes to This Policy</h2>
+                <p>We may update this policy periodically. We will notify you of material changes via in-app notification or email. Continued use of Geesly after updates constitutes acceptance of the revised policy. The "Last Updated" date at the top indicates the most recent version.</p>
             </section>
 
             <section>
-                <h2>26. Changes to This Policy</h2>
-                <p>We may update this policy periodically. We will notify you of material changes via the app or email. Continued use of Geesly after updates constitutes acceptance.</p>
-            </section>
-
-            <section>
-                <h2>27. Contact Us</h2>
-                <p>For any privacy-related questions or to exercise your rights, please contact us at:</p>
+                <h2>21. Contact Us</h2>
+                <p>For privacy-related questions or to exercise your rights, please contact us at:</p>
                 <p><strong>Email:</strong> <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a></p>
+                <p><strong>Operator:</strong> Individual Developer</p>
+                <p><strong>Service Provider:</strong> Google Firebase (Cloud Infrastructure)</p>
             </section>
 
         </div>
