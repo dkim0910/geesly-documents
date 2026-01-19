@@ -8,7 +8,8 @@
       "namespace": "android_app",
       "package_name": "com.geesly.blm",
       "sha256_cert_fingerprints": [
-        "78:25:53:53:E1:4B:86:A1:07:15:E7:D1:7D:DC:63:7B:07:44:F9:F9:69:C0:07:8B:77:9D:6A:6B:2A:87:F3:2D"
+        "78:25:53:53:E1:4B:86:A1:07:15:E7:D1:7D:DC:63:7B:07:44:F9:F9:69:C0:07:8B:77:9D:6A:6B:2A:87:F3:2D",
+        "34:76:6D:58:0A:C5:22:20:B5:EF:CD:20:CD:EE:09:25:E7:D7:D7:CE:91:2D:55:F3:89:43:64:E3:7A:7C:25:DB"
       ]
     }
   }
