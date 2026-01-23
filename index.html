@@ -114,6 +114,14 @@
         .card-hover:hover::before {
             background: linear-gradient(135deg, #4F46E5, #7C3AED, #EC4899);
         }
+        /* Hide scrollbar but keep functionality */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 <body class="font-sans text-gray-700 antialiased">
@@ -188,6 +196,221 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
                         </svg>
                     </a>
+                </div>
+            </section>
+
+            <!-- App Screenshots Gallery -->
+            <section class="mt-20 sm:mt-32">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-50 rounded-full text-pink-700 text-sm font-medium mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                        </svg>
+                        See Geesly in Action
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+                        Beautiful & Intuitive
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                        Experience dating in a whole new way with our stunning interface
+                    </p>
+                </div>
+
+                <!-- Screenshots Carousel -->
+                <div class="relative overflow-hidden">
+                    <div class="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide px-4" style="scroll-behavior: smooth;">
+                        <div class="flex-shrink-0 snap-center">
+                            <div class="group relative w-72 h-[580px] rounded-3xl overflow-hidden shadow-2xl shadow-indigo-500/20 border-8 border-gray-900 transition-all duration-300 hover:scale-105 hover:shadow-indigo-500/40">
+                                <img src="lib/images/1.png" alt="Geesly App Screenshot 1" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        </div>
+                        <div class="flex-shrink-0 snap-center">
+                            <div class="group relative w-72 h-[580px] rounded-3xl overflow-hidden shadow-2xl shadow-purple-500/20 border-8 border-gray-900 transition-all duration-300 hover:scale-105 hover:shadow-purple-500/40">
+                                <img src="lib/images/2.png" alt="Geesly App Screenshot 2" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        </div>
+                        <div class="flex-shrink-0 snap-center">
+                            <div class="group relative w-72 h-[580px] rounded-3xl overflow-hidden shadow-2xl shadow-pink-500/20 border-8 border-gray-900 transition-all duration-300 hover:scale-105 hover:shadow-pink-500/40">
+                                <img src="lib/images/3.png" alt="Geesly App Screenshot 3" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        </div>
+                        <div class="flex-shrink-0 snap-center">
+                            <div class="group relative w-72 h-[580px] rounded-3xl overflow-hidden shadow-2xl shadow-indigo-500/20 border-8 border-gray-900 transition-all duration-300 hover:scale-105 hover:shadow-indigo-500/40">
+                                <img src="lib/images/4.png" alt="Geesly App Screenshot 4" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        </div>
+                        <div class="flex-shrink-0 snap-center">
+                            <div class="group relative w-72 h-[580px] rounded-3xl overflow-hidden shadow-2xl shadow-purple-500/20 border-8 border-gray-900 transition-all duration-300 hover:scale-105 hover:shadow-purple-500/40">
+                                <img src="lib/images/5.png" alt="Geesly App Screenshot 5" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        </div>
+                        <div class="flex-shrink-0 snap-center">
+                            <div class="group relative w-72 h-[580px] rounded-3xl overflow-hidden shadow-2xl shadow-pink-500/20 border-8 border-gray-900 transition-all duration-300 hover:scale-105 hover:shadow-pink-500/40">
+                                <img src="lib/images/6.png" alt="Geesly App Screenshot 6" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-4">← Scroll to see more →</p>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="mt-20 sm:mt-32">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-full text-indigo-700 text-sm font-medium mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                        </svg>
+                        Why Choose Geesly
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+                        Features You'll Love
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="group bg-white/90 p-6 rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100/50 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-2">
+                        <div class="w-14 h-14 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                            </svg>
+                        </div>
+                        <h3 class="mt-5 text-lg font-semibold text-gray-900">Smart Matching</h3>
+                        <p class="mt-2 text-sm text-gray-600">Our algorithm connects you with people who match your preferences and interests</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="group bg-white/90 p-6 rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-2">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-purple-500/30 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                            </svg>
+                        </div>
+                        <h3 class="mt-5 text-lg font-semibold text-gray-900">Safe & Secure</h3>
+                        <p class="mt-2 text-sm text-gray-600">Your privacy and safety are our top priorities with verified profiles and spam detection</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="group bg-white/90 p-6 rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100/50 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-2">
+                        <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                            </svg>
+                        </div>
+                        <h3 class="mt-5 text-lg font-semibold text-gray-900">Real-time Chat</h3>
+                        <p class="mt-2 text-sm text-gray-600">Connect instantly with your matches through our smooth messaging experience</p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="group bg-white/90 p-6 rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/10 hover:-translate-y-2">
+                        <div class="w-14 h-14 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                            </svg>
+                        </div>
+                        <h3 class="mt-5 text-lg font-semibold text-gray-900">5-Star Rating</h3>
+                        <p class="mt-2 text-sm text-gray-600">Rate profiles and get matched with highly-rated users in your area</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="mt-20 sm:mt-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-12 shadow-2xl shadow-indigo-500/20">
+                <div class="text-center text-white">
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                        Join Thousands of Happy Users
+                    </h2>
+                    <p class="text-lg text-indigo-100 mb-12 max-w-2xl mx-auto">
+                        Geesly is bringing people together every single day
+                    </p>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                            <div class="text-4xl sm:text-5xl font-bold mb-2">300km</div>
+                            <div class="text-sm text-indigo-100">Maximum Distance</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                            <div class="text-4xl sm:text-5xl font-bold mb-2">5⭐</div>
+                            <div class="text-sm text-indigo-100">Rating System</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                            <div class="text-4xl sm:text-5xl font-bold mb-2">24/7</div>
+                            <div class="text-sm text-indigo-100">Support Available</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                            <div class="text-4xl sm:text-5xl font-bold mb-2">100%</div>
+                            <div class="text-sm text-indigo-100">Free to Start</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works Section -->
+            <section class="mt-20 sm:mt-32">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 rounded-full text-purple-700 text-sm font-medium mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                        </svg>
+                        Simple & Quick
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+                        How Geesly Works
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                        Start matching in just a few simple steps
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+                    <!-- Step 1 -->
+                    <div class="relative">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-lg opacity-40"></div>
+                                <div class="relative w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                                    1
+                                </div>
+                            </div>
+                            <h3 class="mt-6 text-xl font-semibold text-gray-900">Create Profile</h3>
+                            <p class="mt-3 text-gray-600">Sign up with Google or Apple and set up your profile with photos and interests</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full blur-lg opacity-40"></div>
+                                <div class="relative w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                                    2
+                                </div>
+                            </div>
+                            <h3 class="mt-6 text-xl font-semibold text-gray-900">Rate Profiles</h3>
+                            <p class="mt-3 text-gray-600">Browse nearby users and give 5 stars to profiles you like within 300km</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full blur-lg opacity-40"></div>
+                                <div class="relative w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                                    3
+                                </div>
+                            </div>
+                            <h3 class="mt-6 text-xl font-semibold text-gray-900">Start Chatting</h3>
+                            <p class="mt-3 text-gray-600">Match with users who also rated you 5 stars and start messaging</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
