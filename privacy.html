@@ -156,7 +156,7 @@
 
                 <h3>B. Information We Collect Automatically</h3>
                 <ul>
-                    <li><strong>Usage Data:</strong> Activity within the app including likes (5-star ratings), passes (1-4 star ratings), matches, chat invitations sent/received, profiles viewed, rating progress (earn 1 Corn per 6 ratings), hourly rating limits (6 per hour), features used, and login times</li>
+                    <li><strong>Usage Data:</strong> Activity within the app including likes (5-star ratings), passes (1-4 star ratings), matches, chat invitations sent/received, profiles viewed, rating progress (earn 1 Corn per 12 ratings), hourly rating limits (6 per hour), features used, and login times</li>
                     <li><strong>Device Information:</strong> Device model, operating system, IP address, device identifiers, mobile network information, and app version</li>
                     <li><strong>Location Data:</strong> Precise geolocation (latitude/longitude) and geohash (encoded location) to suggest nearby matches within a maximum distance of 300km (approximately 186 miles). Users beyond this distance will not appear in your discovery feed. Users without location data may still be shown but will appear after all nearby users have been rated, with significantly lower visibility. You can revoke this permission in device settings, though it will severely limit your visibility to other users</li>
                     <li><strong>Analytics:</strong> App performance data, crash reports, and usage patterns via Firebase Analytics (which includes Google Analytics) and Crashlytics</li>
@@ -187,7 +187,7 @@
                         </ul>
                     </li>
                     <li><strong>Transactions:</strong> Process premium subscriptions and Corn purchases via app stores, manage virtual currency balances, and handle restore purchases</li>
-                    <li><strong>Gamification:</strong> Track rating progress, award Corns for user engagement (1 Corn per 6 ratings), manage hourly rating limits (6 profiles per hour), and unlock rate limit with 20 Corns</li>
+                    <li><strong>Gamification:</strong> Track rating progress, award Corns for user engagement (1 Corn per 12 ratings), manage hourly rating limits (6 profiles per hour), and unlock rate limit with 20 Corns</li>
                     <li><strong>Communications:</strong> Send push notifications and in-app alerts about matches, chat invitations, received messages, likes, and account activity. Send emails via Gmail/Nodemailer for reports and administrative purposes</li>
                     <li><strong>Analytics:</strong> Track usage trends via Firebase Analytics to improve features, fix bugs, and optimize performance</li>
                     <li><strong>Advertising:</strong> Show rewarded video ads that users can watch to earn 1 Corn (optional)</li>
@@ -202,6 +202,7 @@
                     <li><strong>Service Providers:</strong> We share data with trusted third parties including:
                         <ul>
                             <li><strong>Google Firebase:</strong> Cloud hosting, Firestore database, Authentication, Cloud Functions, Analytics, Crashlytics, Cloud Messaging (push notifications), Remote Config, and App Check for security</li>
+                            <li><strong>Google Cloud Vision API:</strong> Automated image analysis for content moderation (see Section 5)</li>
                             <li><strong>RevenueCat:</strong> Subscription and in-app purchase management</li>
                             <li><strong>Apple/Google:</strong> Payment processing through their respective app stores (Apple App Store and Google Play Store)</li>
                             <li><strong>Gmail/Nodemailer:</strong> Email service for sending user reports to <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a></li>
@@ -228,7 +229,49 @@
             </section>
 
             <section>
-                <h2>5. Your Rights and Choices</h2>
+                <h2>5. Image Scanning and Content Moderation</h2>
+                <p>To maintain a safe and appropriate environment, all profile images uploaded to Geesly are automatically scanned using Google Cloud Vision API before being accepted.</p>
+
+                <h3>A. What We Scan For</h3>
+                <p>Our automated image analysis checks for:</p>
+                <ul>
+                    <li><strong>Explicit Adult Content:</strong> Full nudity or sexually explicit material (bikini and swimwear are permitted)</li>
+                    <li><strong>Violent Content:</strong> Images containing violence or weapons</li>
+                    <li><strong>Minor Detection:</strong> Images that may contain or depict minors (anyone under 18)</li>
+                    <li><strong>Spam/Promotional Content:</strong> QR codes, advertisements, promotional material, or commercial content</li>
+                </ul>
+
+                <h3>B. How It Works</h3>
+                <p>When you upload a profile image:</p>
+                <ul>
+                    <li>The image is sent to Google Cloud Vision API for analysis</li>
+                    <li>The API returns safety scores and content labels</li>
+                    <li>Images that violate our policies are automatically rejected</li>
+                    <li>You receive immediate feedback if an image is rejected, with the reason</li>
+                    <li>Approved images are then uploaded to your profile</li>
+                </ul>
+
+                <h3>C. Data Handling</h3>
+                <ul>
+                    <li>Images are analyzed in real-time during upload</li>
+                    <li>Google Cloud Vision API processes images temporarily for analysis only</li>
+                    <li>Image data is not stored by Google after analysis is complete</li>
+                    <li>Only approved images are stored on our servers</li>
+                    <li>We do not use image data for training AI models</li>
+                </ul>
+
+                <h3>D. Why We Do This</h3>
+                <p>Image scanning helps us:</p>
+                <ul>
+                    <li>Protect minors by preventing images of children from being uploaded</li>
+                    <li>Maintain community standards by blocking explicit or violent content</li>
+                    <li>Prevent spam and commercial exploitation of the platform</li>
+                    <li>Create a safer dating environment for all users</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>6. Your Rights and Choices</h2>
                 <p>Depending on your location, you may have specific rights:</p>
                 <ul>
                     <li><strong>Access &amp; Portability:</strong> Request a copy of the data we hold about you</li>
@@ -241,7 +284,7 @@
             </section>
 
             <section>
-                <h2>6. Data Retention</h2>
+                <h2>7. Data Retention</h2>
                 <p>We retain your personal information as follows:</p>
                 <ul>
                     <li><strong>Active Accounts:</strong> Data is kept while your account is active</li>
@@ -271,7 +314,7 @@
             </section>
 
             <section>
-                <h2>7. Security</h2>
+                <h2>8. Security</h2>
                 <p>We use Firebase's industry-standard security measures, including:</p>
                 <ul>
                     <li>TLS/SSL encryption for all data in transit</li>
@@ -285,17 +328,17 @@
             </section>
 
             <section>
-                <h2>8. Children's Privacy</h2>
+                <h2>9. Children's Privacy</h2>
                 <p><strong>Geesly is strictly for users 18 years of age or older.</strong> We do not knowingly collect data from minors. Age is collected through self-reported date of birth during registration and is NOT independently verified. If we discover that a user is under 18, we will immediately terminate the account and delete all associated data.</p>
             </section>
 
             <section>
-                <h2>9. International Data Transfers</h2>
+                <h2>10. International Data Transfers</h2>
                 <p>If you are located outside the United States, your information may be transferred to and stored on servers in the US (via Google Firebase US-Central1 region). We rely on Firebase's security measures and standard contractual clauses to ensure your data is treated securely in accordance with this Privacy Policy.</p>
             </section>
 
             <section>
-                <h2>10. Third-Party Services</h2>
+                <h2>11. Third-Party Services</h2>
                 <p>Our app integrates with and may contain links to third-party services:</p>
                 <ul>
                     <li>Google Play Store / Apple App Store: For purchases and downloads</li>
@@ -306,7 +349,7 @@
             </section>
 
             <section>
-                <h2>11. Analytics and Tracking</h2>
+                <h2>12. Analytics and Tracking</h2>
                 <p>We use Firebase Analytics to understand how users interact with our Service. This service collects:</p>
                 <ul>
                     <li>Device information and identifiers</li>
@@ -318,7 +361,7 @@
             </section>
 
             <section>
-                <h2>12. Email and Push Notifications</h2>
+                <h2>13. Email and Push Notifications</h2>
                 <p>We may send you:</p>
                 <ul>
                     <li><strong>Service Emails:</strong> Administrative messages via Gmail/Nodemailer about account activity, reports, or security issues (cannot be disabled)</li>
@@ -335,7 +378,7 @@
             </section>
 
             <section>
-                <h2>13. California Privacy Rights (CCPA)</h2>
+                <h2>14. California Privacy Rights (CCPA)</h2>
                 <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act:</p>
                 <ul>
                     <li><strong>Right to Know:</strong> Request information about personal data we collect, use, and share</li>
@@ -347,7 +390,7 @@
             </section>
 
             <section>
-                <h2>14. European Privacy Rights (GDPR)</h2>
+                <h2>15. European Privacy Rights (GDPR)</h2>
                 <p>If you are in the European Economic Area (EEA), United Kingdom, or Switzerland, you have rights under the General Data Protection Regulation:</p>
                 <ul>
                     <li><strong>Right of Access:</strong> Obtain confirmation of data processing and access to that data</li>
@@ -362,7 +405,7 @@
             </section>
 
             <section>
-                <h2>15. Data Processing Legal Basis</h2>
+                <h2>16. Data Processing Legal Basis</h2>
                 <p>We process your personal data based on:</p>
                 <ul>
                     <li><strong>Contract Performance:</strong> To provide dating and matchmaking services</li>
@@ -373,7 +416,7 @@
             </section>
 
             <section>
-                <h2>16. Messaging and Chat Data</h2>
+                <h2>17. Messaging and Chat Data</h2>
                 <p>Your messages are:</p>
                 <ul>
                     <li><strong>Encrypted in transit:</strong> Using TLS/SSL (Firebase default)</li>
@@ -388,12 +431,12 @@
             </section>
 
             <section>
-                <h2>17. Virtual Currency (Corns)</h2>
+                <h2>18. Virtual Currency (Corns)</h2>
                 <p>Geesly uses a virtual currency called "Corns" for in-app actions:</p>
 
                 <h3>Earning Corns:</h3>
                 <ul>
-                    <li>1 Corn per 6 profile ratings</li>
+                    <li>1 Corn per 12 profile ratings</li>
                     <li>1 Corn per rewarded video ad watched (optional)</li>
                     <li>Bonus Corns with premium subscriptions</li>
                 </ul>
@@ -412,7 +455,7 @@
             </section>
 
             <section>
-                <h2>18. World ID Verification (Optional)</h2>
+                <h2>19. World ID Verification (Optional)</h2>
                 <p>You may choose to verify your profile using World ID (Worldcoin):</p>
                 <ul>
                     <li>Verification is completely optional</li>
@@ -424,7 +467,7 @@
             </section>
 
             <section>
-                <h2>19. Data Breach Notification</h2>
+                <h2>20. Data Breach Notification</h2>
                 <p>In the event of a data breach affecting your personal information:</p>
                 <ul>
                     <li>We will notify affected users without unreasonable delay</li>
@@ -436,12 +479,12 @@
             </section>
 
             <section>
-                <h2>20. Changes to This Policy</h2>
+                <h2>21. Changes to This Policy</h2>
                 <p>We may update this policy periodically. We will notify you of changes via in-app notification, email, or push notification. Continued use of Geesly after updates constitutes acceptance of the revised policy. The "Last Updated" date at the top indicates the most recent version.</p>
             </section>
 
             <section>
-                <h2>21. Contact Us</h2>
+                <h2>22. Contact Us</h2>
                 <p>For privacy-related questions or to exercise your rights, please contact us at:</p>
                 <p><strong>Email:</strong> <a href="mailto:geeslyhelp@gmail.com">geeslyhelp@gmail.com</a></p>
                 <p><strong>Website:</strong> <a href="https://geesly.net">https://geesly.net</a></p>
