@@ -30,101 +30,48 @@
         };
     </script>
     <style>
-        /* Custom style for the blurred background effect */
-        body {
-            min-height: 100vh;
-        }
-        .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -10;
-            background-image: url('lib/images/geesly-background-no-text.png');
-            background-size: cover;
-            background-position: center;
-        }
-        .bg-blur-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -9;
-            background-color: rgba(249, 250, 251, 0.88);
-            backdrop-filter: blur(12px);
-        }
-        /* Gradient text */
+        * { box-sizing: border-box; }
         .gradient-text {
-            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+            background: linear-gradient(135deg, #c084fc 0%, #f472b6 60%, #fb923c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        /* Nav link underline animation */
-        .nav-link {
-            position: relative;
+        .gradient-btn {
+            background: linear-gradient(135deg, #7c3aed, #db2777);
+            transition: opacity 0.2s, transform 0.2s;
         }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 50%;
-            background: linear-gradient(90deg, #4F46E5, #7C3AED);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .nav-link-active::after {
-            width: 100%;
-        }
+        .gradient-btn:hover { opacity: 0.9; transform: translateY(-1px); }
     </style>
 </head>
-<body class="font-sans text-gray-700 antialiased">
-    <!-- Background elements -->
-    <div class="bg-overlay"></div>
-    <div class="bg-blur-overlay"></div>
+<body class="font-sans antialiased bg-gray-950 text-gray-100">
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
-        <nav class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 items-center justify-between">
-                <!-- Logo -->
-                <a href="index.html" class="flex items-center gap-2.5 group">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg blur opacity-40 group-hover:opacity-60 transition-opacity"></div>
-                        <img
-                            src="lib/images/geesly-background-no-text.png"
-                            alt="Geesly Logo"
-                            class="relative h-9 w-9 object-contain rounded-lg"
-                            onerror="this.style.display='none'"
-                        >
-                    </div>
-                    <span class="text-2xl font-bold gradient-text">Geesly</span>
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0d0618]/95 backdrop-blur-xl border-b border-white/5">
+        <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2.5">
+                <img src="lib/images/geesly-background-no-text.png" alt="Geesly" class="h-9 w-9 rounded-xl object-contain" onerror="this.style.display='none'">
+                <span class="text-xl font-bold text-white">Geesly</span>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="privacy.html" class="text-sm font-medium text-white/60 hover:text-white transition-colors">Privacy</a>
+                <a href="terms.html" class="text-sm font-medium text-white/60 hover:text-white transition-colors">Terms</a>
+                <a href="#" id="nav-download-btn"
+                   class="gradient-btn text-white text-sm font-semibold px-5 py-2 rounded-full shadow-lg shadow-purple-900/40">
+                    Download Free
                 </a>
-                <!-- Navigation Links -->
-                <div class="flex items-center gap-4 sm:gap-6">
-                    <a href="privacy.html" class="nav-link text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Privacy</a>
-                    <a href="terms.html" class="nav-link text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Terms</a>
-                </div>
             </div>
         </nav>
     </header>
 
     <!-- Main Content -->
-    <main class="relative z-10">
-        <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <main class="pt-16">
+        <div class="max-w-4xl mx-auto px-6 py-12">
 
             <!-- Content Card -->
-            <div class="bg-white/90 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100/50 p-6 sm:p-10 lg:p-16">
+            <div class="bg-gray-900/60 rounded-2xl border border-white/10 shadow-xl p-8 sm:p-12">
                 <!-- Back Button -->
-                <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors mb-6 group">
+                <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors mb-6 group">
                     <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m15 18-6-6 6-6"/>
                     </svg>
@@ -133,23 +80,23 @@
 
                 <!-- Page Title -->
                 <div class="flex items-center gap-4 mb-2">
-                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-purple-500/30">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+                        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
                             Account Deletion
                         </h1>
-                        <p class="mt-1 text-base text-gray-500">
+                        <p class="mt-1 text-base text-gray-400">
                             Last updated: November 2025
                         </p>
                     </div>
                 </div>
 
                 <!-- Legal Content -->
-                <div class="mt-10 prose prose-lg max-w-none prose-h2:text-2xl prose-h2:font-semibold prose-h2:text-gray-900 prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200 prose-h3:text-xl prose-h3:font-semibold prose-h3:text-gray-900 prose-h3:mt-8 prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-2 prose-li:text-gray-700 prose-li:marker:text-indigo-500 prose-strong:font-medium prose-strong:text-gray-900">
+                <div class="mt-10 prose prose-invert prose-lg max-w-none">
 
                     <section>
                         <h2>Request Account Deletion</h2>
@@ -163,9 +110,9 @@
                     </section>
 
                     <!-- Contact Card -->
-                    <div class="not-prose my-8 p-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
-                        <p class="text-sm font-medium text-gray-600 mb-2">Send your request to:</p>
-                        <a href="mailto:geeslyhelp@gmail.com" class="inline-flex items-center gap-2 text-lg font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
+                    <div class="not-prose my-8 p-6 bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-xl border border-purple-500/20">
+                        <p class="text-sm font-medium text-gray-400 mb-2">Send your request to:</p>
+                        <a href="mailto:geeslyhelp@gmail.com" class="inline-flex items-center gap-2 text-lg font-semibold text-purple-400 hover:text-purple-300 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                             </svg>
@@ -196,34 +143,29 @@
     </main>
 
     <!-- Footer -->
-    <footer class="relative z-10 mt-8 border-t border-gray-200/50 bg-white/50 backdrop-blur-sm">
-        <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div class="py-8 sm:py-12">
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <!-- Logo -->
-                    <div class="flex items-center gap-2">
-                        <img
-                            src="lib/images/geesly-background-no-text.png"
-                            alt="Geesly"
-                            class="h-6 w-6 object-contain rounded"
-                            onerror="this.style.display='none'"
-                        >
-                        <span class="text-sm font-semibold text-gray-900">Geesly</span>
-                    </div>
-                    <!-- Links -->
-                    <div class="flex items-center gap-6 text-sm text-gray-500">
-                        <a href="privacy.html" class="hover:text-gray-700 transition-colors">Privacy</a>
-                        <a href="terms.html" class="hover:text-gray-700 transition-colors">Terms</a>
-                        <a href="deletion.html" class="nav-link nav-link-active text-sm font-medium text-indigo-600" aria-current="page">Deletion</a>
-                        <a href="mailto:geeslyhelp@gmail.com" class="hover:text-gray-700 transition-colors">Contact</a>
-                    </div>
-                    <!-- Copyright -->
-                    <p class="text-sm text-gray-500">
-                        &copy; 2025 Geesly. All rights reserved.
-                    </p>
+    <footer class="bg-gray-950 border-t border-white/5 py-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-2.5">
+                    <img src="lib/images/geesly-background-no-text.png" alt="Geesly" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'">
+                    <span class="text-white font-bold text-lg">Geesly</span>
                 </div>
+                <nav class="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
+                    <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="deletion.html" class="text-white transition-colors">Account Deletion</a>
+                    <a href="mailto:geeslyhelp@gmail.com" class="hover:text-white transition-colors">Contact</a>
+                </nav>
+                <p class="text-sm text-gray-600">© 2026 Geesly. All rights reserved.</p>
             </div>
         </div>
     </footer>
+<script>
+    const IOS_URL = 'https://apps.apple.com/app/id6756942405';
+    const ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.geesly.blm';
+    const storeUrl = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? IOS_URL : ANDROID_URL;
+    const navBtn = document.getElementById('nav-download-btn');
+    if (navBtn) { navBtn.href = storeUrl; navBtn.target = '_blank'; navBtn.rel = 'noopener noreferrer'; }
+</script>
 </body>
 </html>
