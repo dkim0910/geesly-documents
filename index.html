@@ -7,7 +7,21 @@
     <meta name="description" content="Geesly is a free dating app with over 10,000 users. Rate profiles, match with people nearby, and start chatting. Download free on Android and iOS.">
     <meta name="keywords" content="dating app, free dating app, meet people, find matches, online dating, Geesly, dating, relationships, friends">
     <meta name="robots" content="index, follow">
+    <meta name="author" content="Geesly">
+    <meta name="theme-color" content="#7e22ce">
+    <meta name="application-name" content="Geesly">
     <link rel="canonical" href="https://geesly.net/">
+
+    <!-- Web App Manifest & Browser Config -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="search" type="application/opensearchdescription+xml" title="Geesly" href="/opensearch.xml">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+
+    <!-- App Store Smart Banner (iOS Safari) -->
+    <meta name="apple-itunes-app" content="app-id=6756942405">
+
+    <!-- Android App Link -->
+    <link rel="alternate" href="android-app://com.geesly.blm/https/geesly.net/">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -74,6 +88,65 @@
         "https://play.google.com/store/apps/details?id=com.geesly.blm",
         "https://apps.apple.com/app/id6756942405"
       ]
+    }
+    </script>
+
+    <!-- JSON-LD: WebSite (enables sitelinks search box in Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Geesly",
+      "url": "https://geesly.net",
+      "description": "Geesly is a free dating app with a unique 5-star rating system. Match with people nearby and start real conversations.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://geesly.net/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- JSON-LD: MobileApplication (Android) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Geesly - Dating App",
+      "operatingSystem": "Android",
+      "applicationCategory": "SocialNetworkingApplication",
+      "url": "https://play.google.com/store/apps/details?id=com.geesly.blm",
+      "installUrl": "https://play.google.com/store/apps/details?id=com.geesly.blm",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "ratingCount": "10000",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+    </script>
+
+    <!-- JSON-LD: MobileApplication (iOS) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Geesly - Dating App",
+      "operatingSystem": "iOS",
+      "applicationCategory": "SocialNetworkingApplication",
+      "url": "https://apps.apple.com/app/id6756942405",
+      "installUrl": "https://apps.apple.com/app/id6756942405",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
     }
     </script>
 
