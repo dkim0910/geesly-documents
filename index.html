@@ -7,7 +7,21 @@
     <meta name="description" content="Geesly is a free dating app with over 10,000 users. Rate profiles, match with people nearby, and start chatting. Download free on Android and iOS.">
     <meta name="keywords" content="dating app, free dating app, meet people, find matches, online dating, Geesly, dating, relationships, friends">
     <meta name="robots" content="index, follow">
+    <meta name="author" content="Geesly">
+    <meta name="theme-color" content="#7e22ce">
+    <meta name="application-name" content="Geesly">
     <link rel="canonical" href="https://geesly.net/">
+
+    <!-- Web App Manifest & Browser Config -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="search" type="application/opensearchdescription+xml" title="Geesly" href="/opensearch.xml">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+
+    <!-- App Store Smart Banner (iOS Safari) -->
+    <meta name="apple-itunes-app" content="app-id=6756942405">
+
+    <!-- Android App Link -->
+    <link rel="alternate" href="android-app://com.geesly.blm/https/geesly.net/">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -74,6 +88,65 @@
         "https://play.google.com/store/apps/details?id=com.geesly.blm",
         "https://apps.apple.com/app/id6756942405"
       ]
+    }
+    </script>
+
+    <!-- JSON-LD: WebSite (enables sitelinks search box in Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Geesly",
+      "url": "https://geesly.net",
+      "description": "Geesly is a free dating app with a unique 5-star rating system. Match with people nearby and start real conversations.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://geesly.net/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- JSON-LD: MobileApplication (Android) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Geesly - Dating App",
+      "operatingSystem": "Android",
+      "applicationCategory": "SocialNetworkingApplication",
+      "url": "https://play.google.com/store/apps/details?id=com.geesly.blm",
+      "installUrl": "https://play.google.com/store/apps/details?id=com.geesly.blm",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "ratingCount": "10000",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+    </script>
+
+    <!-- JSON-LD: MobileApplication (iOS) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Geesly - Dating App",
+      "operatingSystem": "iOS",
+      "applicationCategory": "SocialNetworkingApplication",
+      "url": "https://apps.apple.com/app/id6756942405",
+      "installUrl": "https://apps.apple.com/app/id6756942405",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
     }
     </script>
 
@@ -238,12 +311,12 @@
             <span class="text-xl font-bold text-white">Geesly</span>
         </a>
         <!-- Links -->
-        <div class="flex items-center gap-6">
-            <a href="privacy.html" class="text-sm font-medium text-white/70 hover:text-white transition-colors">Privacy</a>
-            <a href="terms.html" class="text-sm font-medium text-white/70 hover:text-white transition-colors">Terms</a>
+        <div class="flex items-center gap-4 sm:gap-6">
+            <a href="privacy.html" class="hidden sm:block text-sm font-medium text-white/70 hover:text-white transition-colors">Privacy</a>
+            <a href="terms.html" class="hidden sm:block text-sm font-medium text-white/70 hover:text-white transition-colors">Terms</a>
             <a href="#" id="nav-download-btn"
-               class="gradient-btn text-white text-sm font-semibold px-5 py-2 rounded-full shadow-lg shadow-purple-900/40">
-                Download Free
+               class="gradient-btn text-white text-sm font-semibold px-4 sm:px-5 py-2 rounded-full shadow-lg shadow-purple-900/40">
+                Download
             </a>
         </div>
     </nav>
@@ -410,13 +483,13 @@
             <p class="text-lg text-white/50 max-w-xl mx-auto">Designed to make finding connections as easy and enjoyable as possible</p>
         </div>
 
-        <div class="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide px-4 justify-start">
+        <div class="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide px-4 justify-start items-start">
             <div class="flex-shrink-0 snap-center">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-purple-900/60">
                     <img src="lib/images/1.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
                 </div>
             </div>
-            <div class="flex-shrink-0 snap-center -mt-6">
+            <div class="flex-shrink-0 snap-center ">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-purple-400/30 shadow-2xl shadow-pink-900/60">
                     <img src="lib/images/2.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
                 </div>
@@ -426,7 +499,7 @@
                     <img src="lib/images/3.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
                 </div>
             </div>
-            <div class="flex-shrink-0 snap-center -mt-6">
+            <div class="flex-shrink-0 snap-center ">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-pink-400/30 shadow-2xl shadow-pink-900/60">
                     <img src="lib/images/4.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
                 </div>
@@ -436,7 +509,7 @@
                     <img src="lib/images/5.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
                 </div>
             </div>
-            <div class="flex-shrink-0 snap-center -mt-6">
+            <div class="flex-shrink-0 snap-center ">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-purple-400/30 shadow-2xl shadow-purple-900/60">
                     <img src="lib/images/6.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
                 </div>

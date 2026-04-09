@@ -1,0 +1,30 @@
+{
+  "name": "Geesly — Dating App",
+  "short_name": "Geesly",
+  "description": "Free dating app with a unique 5-star rating system. Match with people nearby and start real conversations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0618",
+  "theme_color": "#7e22ce",
+  "icons": [
+    {
+      "src": "/lib/images/geesly-background-no-text.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["social", "lifestyle"],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.geesly.blm",
+      "id": "com.geesly.blm"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/id6756942405"
+    }
+  ],
+  "prefer_related_applications": true
+}
