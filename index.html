@@ -150,6 +150,36 @@
     }
     </script>
 
+    <!-- JSON-LD: HowTo (enables step-by-step rich results in Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Find a Match on Geesly",
+      "description": "Three simple steps to find your perfect match on the Geesly dating app.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Create Your Profile",
+          "text": "Sign up for free and set up your profile with photos and a short bio. Takes less than 2 minutes."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Rate and Get Rated",
+          "text": "Browse profiles and rate them 1 to 5 stars. Give someone 5 stars and hope they do the same back."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Match and Chat",
+          "text": "When you both give each other 5 stars, it is an automatic match. Start chatting instantly and make a real connection."
+        }
+      ]
+    }
+    </script>
+
     <!-- JSON-LD: FAQPage -->
     <script type="application/ld+json">
     {
@@ -299,6 +329,7 @@
     </style>
 </head>
 <body class="font-sans antialiased bg-white text-gray-900">
+<main>
 
 <!-- ═══════════════════════════════════════════════
      NAVBAR
@@ -396,15 +427,15 @@
         <div class="relative flex justify-center items-end gap-4 h-[540px]">
             <!-- Back phone -->
             <div class="absolute left-4 bottom-0 w-52 h-[420px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-purple-900/60 rotate-[-8deg] translate-y-8 opacity-70">
-                <img src="lib/images/1.png" alt="Geesly App" class="w-full h-full object-cover">
+                <img src="lib/images/1.png" alt="Geesly dating app profile browsing screen on mobile" class="w-full h-full object-cover">
             </div>
             <!-- Front phone -->
             <div class="relative z-10 w-60 h-[480px] rounded-[36px] overflow-hidden border-[6px] border-white/20 shadow-2xl shadow-purple-900/80 animate-float">
-                <img src="lib/images/2.png" alt="Geesly App" class="w-full h-full object-cover">
+                <img src="lib/images/2.png" alt="Geesly dating app 5-star rating and matching screen" class="w-full h-full object-cover">
             </div>
             <!-- Right phone -->
             <div class="absolute right-4 bottom-0 w-52 h-[420px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-pink-900/60 rotate-[8deg] translate-y-8 opacity-70">
-                <img src="lib/images/3.png" alt="Geesly App" class="w-full h-full object-cover">
+                <img src="lib/images/3.png" alt="Geesly dating app chat and messaging screen" class="w-full h-full object-cover">
             </div>
         </div>
     </div>
@@ -486,32 +517,32 @@
         <div class="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide px-4 justify-start items-start">
             <div class="flex-shrink-0 snap-center">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-purple-900/60">
-                    <img src="lib/images/1.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
+                    <img src="lib/images/1.png" alt="Geesly free dating app — browse nearby profiles" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center ">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-purple-400/30 shadow-2xl shadow-pink-900/60">
-                    <img src="lib/images/2.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
+                    <img src="lib/images/2.png" alt="Geesly dating app — rate profiles with 5-star system" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-purple-900/60">
-                    <img src="lib/images/3.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
+                    <img src="lib/images/3.png" alt="Geesly dating app — instant chat with your matches" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center ">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-pink-400/30 shadow-2xl shadow-pink-900/60">
-                    <img src="lib/images/4.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
+                    <img src="lib/images/4.png" alt="Geesly dating app — earn Corns virtual currency" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-purple-900/60">
-                    <img src="lib/images/5.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
+                    <img src="lib/images/5.png" alt="Geesly dating app — match with people nearby" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center ">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-purple-400/30 shadow-2xl shadow-purple-900/60">
-                    <img src="lib/images/6.png" alt="Geesly Screenshot" class="w-full h-full object-cover">
+                    <img src="lib/images/6.png" alt="Geesly dating app — premium features and profile views" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
@@ -842,6 +873,8 @@
     </div>
 </section>
 
+</main>
+
 <!-- ═══════════════════════════════════════════════
      FOOTER
 ═══════════════════════════════════════════════ -->
@@ -858,7 +891,7 @@
                 <a href="deletion.html" class="hover:text-white transition-colors">Account Deletion</a>
                 <a href="mailto:geeslyhelp@gmail.com" class="hover:text-white transition-colors">Contact</a>
             </nav>
-            <p class="text-sm text-gray-600">© 2025 Geesly. All rights reserved.</p>
+            <p class="text-sm text-gray-600">© 2025–2026 Geesly. All rights reserved.</p>
         </div>
     </div>
 </footer>
