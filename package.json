@@ -1,0 +1,12 @@
+{
+  "name": "geesly-documents",
+  "version": "1.0.0",
+  "description": "Geesly home page with documents",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx live-server ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
