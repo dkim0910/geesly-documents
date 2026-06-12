@@ -30,6 +30,30 @@
     </image:image>
   </url>
 
+  <!-- About -->
+  <url>
+    <loc>https://geesly.net/about.html</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Safety Guide -->
+  <url>
+    <loc>https://geesly.net/safety.html</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog / Dating Tips -->
+  <url>
+    <loc>https://geesly.net/blog.html</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- Privacy Policy -->
   <url>
     <loc>https://geesly.net/privacy.html</loc>
