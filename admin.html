@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geesly Admin</title>
+    <!-- Internal admin tool: keep it out of search engines. -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0d0618">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <!-- Firebase (compat SDK via CDN — no build step) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+    <style>
+        body { background-color: #0d0618; }
+        .card { background-color: #17102a; border: 1px solid #2a2040; }
+    </style>
+</head>
+<body class="text-gray-200 min-h-screen">
+<div class="max-w-6xl mx-auto px-4 py-8">
+
+    <header class="flex items-center justify-between mb-8">
+        <h1 class="text-2xl font-bold text-white">Geesly Admin</h1>
+        <div id="userBar" class="text-sm text-gray-400"></div>
+    </header>
+
+    <!-- Signed-out / access-denied state -->
+    <div id="gate" class="card rounded-2xl p-8 text-center max-w-md mx-auto">
+        <p id="gateMsg" class="mb-6 text-gray-300">Sign in with an admin account to continue.</p>
+        <button id="signInBtn" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-6 py-3 rounded-xl">
+            Sign in with Google
+        </button>
+        <button id="signOutBtn" class="hidden mt-4 text-sm text-gray-400 underline">Sign out</button>
+    </div>
+
+    <!-- Authenticated admin app -->
+    <div id="app" class="hidden">
+        <nav class="flex gap-2 mb-6">
+            <button data-tab="growth" class="tab bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Growth</button>
+            <button data-tab="moderation" class="tab bg-[#17102a] text-gray-300 px-4 py-2 rounded-lg text-sm font-semibold">Image moderation</button>
+        </nav>
+
+        <!-- Growth tab -->
+        <section id="tab-growth">
+            <p class="text-gray-400 text-sm mb-4">Current totals with change vs ~7 days and ~30 days ago (from daily stats snapshots).</p>
+            <div id="growthGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <p class="text-gray-500">Loading…</p>
+            </div>
+
+            <!-- Trend chart -->
+            <div class="card rounded-2xl p-5 mt-6">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <h2 class="text-white font-semibold">User trend</h2>
+                    <div class="flex gap-2">
+                        <button data-range="week" class="rtab bg-[#17102a] text-gray-300 px-3 py-1.5 rounded-lg text-sm font-semibold">Weekly</button>
+                        <button data-range="month" class="rtab bg-purple-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold">Monthly</button>
+                        <button data-range="year" class="rtab bg-[#17102a] text-gray-300 px-3 py-1.5 rounded-lg text-sm font-semibold">Yearly</button>
+                    </div>
+                </div>
+                <div class="relative" style="height: 320px;">
+                    <canvas id="growthChart"></canvas>
+                </div>
+                <p id="chartEmpty" class="hidden text-gray-500 text-sm text-center py-10">Not enough history yet to chart this range.</p>
+            </div>
+
+            <!-- Current age & gender breakdown (latest snapshot) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
+                <div class="card rounded-2xl p-5">
+                    <h2 class="text-white font-semibold mb-3">Age groups (current)</h2>
+                    <div class="relative" style="height: 260px;"><canvas id="ageChart"></canvas></div>
+                    <p id="ageEmpty" class="hidden text-gray-500 text-sm text-center py-8">No age data yet — appears after the next stats snapshot.</p>
+                </div>
+                <div class="card rounded-2xl p-5">
+                    <h2 class="text-white font-semibold mb-3">Gender (current)</h2>
+                    <div class="relative" style="height: 260px;"><canvas id="genderChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Moderation tab -->
+        <section id="tab-moderation" class="hidden">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div class="flex gap-2">
+                    <button data-gender="all" class="gtab bg-purple-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold">All</button>
+                    <button data-gender="Male" class="gtab bg-[#17102a] text-gray-300 px-3 py-1.5 rounded-lg text-sm font-semibold">Men</button>
+                    <button data-gender="Female" class="gtab bg-[#17102a] text-gray-300 px-3 py-1.5 rounded-lg text-sm font-semibold">Women</button>
+                </div>
+                <label class="text-sm text-gray-400 flex items-center gap-2">
+                    <input type="checkbox" id="onlyUnreviewed" class="accent-purple-600" checked> Unreviewed only
+                </label>
+            </div>
+            <div id="modList" class="space-y-6"></div>
+            <div id="modStatus" class="text-center text-gray-500 text-sm py-8"></div>
+        </section>
+    </div>
+</div>
+
+<script>
+    // ---- Configuration ---------------------------------------------------
+    // Web config for the canonical project geesly-20251018643. Register a Web
+    // app in the Firebase console and paste apiKey + appId below.
+    const firebaseConfig = {
+        apiKey: "AIzaSyDiY_4-bDrlT5iRNsVnflNt8NaWoX7FJzc",
+        authDomain: "geesly-20251018643.firebaseapp.com",
+        projectId: "geesly-20251018643",
+        storageBucket: "geesly-20251018643.firebasestorage.app",
+        messagingSenderId: "934527475939",
+        appId: "1:934527475939:web:34ffd1221176330efb65d6",
+        measurementId: "G-EBF4CGL5CE"
+    };
+    // Admin Auth UIDs — must match isAdmin() in firestore.rules.
+    const ADMIN_UIDS = ["uVP5P9WRX3NbGzbKrxe3kOdFRCa2"];
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+
+    // Best-effort delete of a Storage file from its download URL. Ignores
+    // "not found" (already gone); other errors (e.g. rules) are logged.
+    async function deleteStorageFile(url) {
+        try {
+            await storage.refFromURL(url).delete();
+        } catch (e) {
+            if (e && e.code === "storage/object-not-found") return;
+            console.warn("Storage delete failed for", url, e && e.code, e && e.message);
+        }
+    }
+
+    async function deleteAllPhotos(imgs) {
+        await Promise.all((imgs || []).map(deleteStorageFile));
+    }
+
+    const $ = (id) => document.getElementById(id);
+
+    // ---- Auth ------------------------------------------------------------
+    $("signInBtn").onclick = () =>
+        auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch((e) => {
+            $("gateMsg").textContent = "Sign-in failed: " + e.message;
+        });
+    $("signOutBtn").onclick = () => auth.signOut();
+
+    auth.onAuthStateChanged((user) => {
+        if (!user) {
+            $("app").classList.add("hidden");
+            $("gate").classList.remove("hidden");
+            $("signInBtn").classList.remove("hidden");
+            $("signOutBtn").classList.add("hidden");
+            $("gateMsg").textContent = "Sign in with an admin account to continue.";
+            $("userBar").textContent = "";
+            return;
+        }
+        $("userBar").textContent = user.email || user.uid;
+        if (!ADMIN_UIDS.includes(user.uid)) {
+            // Not an admin — rules also block them, this is just clearer UX.
+            $("app").classList.add("hidden");
+            $("gate").classList.remove("hidden");
+            $("signInBtn").classList.add("hidden");
+            $("signOutBtn").classList.remove("hidden");
+            $("gateMsg").innerHTML =
+                "Access denied. This account is not an admin.<br><span class='text-xs text-gray-500'>UID: " +
+                user.uid + "</span>";
+            return;
+        }
+        $("gate").classList.add("hidden");
+        $("app").classList.remove("hidden");
+        modLoaded = false;       // (re)load moderation lazily when its tab opens
+        loadGrowth();
+    });
+
+    // ---- Tabs ------------------------------------------------------------
+    document.querySelectorAll(".tab").forEach((btn) => {
+        btn.onclick = () => {
+            const tab = btn.dataset.tab;
+            document.querySelectorAll(".tab").forEach((b) => {
+                const active = b.dataset.tab === tab;
+                b.className = "tab px-4 py-2 rounded-lg text-sm font-semibold " +
+                    (active ? "bg-purple-600 text-white" : "bg-[#17102a] text-gray-300");
+            });
+            $("tab-growth").classList.toggle("hidden", tab !== "growth");
+            $("tab-moderation").classList.toggle("hidden", tab !== "moderation");
+            // Lazy-load moderation the first time its (now-visible) tab opens, so
+            // the scroll auto-fill works and a filtered first page can't strand
+            // it on "No users to show".
+            if (tab === "moderation" && !modLoaded) {
+                modLoaded = true;
+                resetModeration();
+            }
+        };
+    });
+
+    // ---- Growth dashboard ------------------------------------------------
+    function snapNum(s, path) {
+        // path like "totalUsers" or "genderCounts.male"
+        return path.split(".").reduce((o, k) => (o ? o[k] : undefined), s);
+    }
+
+    function closestSnapshotBefore(snaps, latestDate, daysBack) {
+        const target = new Date(latestDate);
+        target.setDate(target.getDate() - daysBack);
+        let best = null;
+        let bestDiff = Infinity;
+        for (const s of snaps) {
+            if (!s.date) continue;
+            const d = new Date(s.date);
+            if (d > target) continue; // only snapshots at/older than the target
+            const diff = Math.abs(target - d);
+            if (diff < bestDiff) { bestDiff = diff; best = s; }
+        }
+        return best;
+    }
+
+    function deltaHtml(curr, prev) {
+        if (prev == null || curr == null) return "<span class='text-gray-500 text-xs'>—</span>";
+        const d = curr - prev;
+        if (d === 0) return "<span class='text-gray-500 text-xs'>no change</span>";
+        const pct = prev > 0 ? ((d / prev) * 100).toFixed(0) : "∞";
+        const up = d > 0;
+        const color = up ? "text-green-400" : "text-red-400";
+        const arrow = up ? "▲" : "▼";
+        return `<span class='${color} text-xs'>${arrow} ${Math.abs(d)} (${up ? "+" : "-"}${Math.abs(pct)}%)</span>`;
+    }
+
+    function card(label, curr, prev7, prev30) {
+        return `
+        <div class="card rounded-2xl p-5">
+            <div class="text-gray-400 text-sm">${label}</div>
+            <div class="text-3xl font-bold text-white mt-1">${curr ?? "—"}</div>
+            <div class="mt-3 flex flex-col gap-1">
+                <div>7d: ${deltaHtml(curr, prev7)}</div>
+                <div>30d: ${deltaHtml(curr, prev30)}</div>
+            </div>
+        </div>`;
+    }
+
+    let growthSnaps = [];   // chronological (oldest → newest), for the chart
+    let growthChart = null;
+    let ageChart = null;
+    let genderChart = null;
+    let chartRange = "month";  // bucket granularity: "week" | "month" | "year"
+
+    async function loadGrowth() {
+        const grid = $("growthGrid");
+        grid.innerHTML = "<p class='text-gray-500'>Loading…</p>";
+        try {
+            const snap = await db.collection("admin").doc("stats")
+                .collection("history").orderBy("timestamp", "desc").limit(500).get();
+            let snaps = snap.docs.map((d) => d.data());
+            if (snaps.length === 0) {
+                // Fall back to the single current doc.
+                const cur = await db.collection("admin").doc("stats").get();
+                if (cur.exists && cur.data().current) snaps = [cur.data().current];
+            }
+            if (snaps.length === 0) {
+                grid.innerHTML = "<p class='text-gray-500'>No stats snapshots yet.</p>";
+                return;
+            }
+            // Oldest → newest for charting (sort by date string defensively).
+            growthSnaps = snaps.slice().filter((s) => s.date)
+                .sort((a, b) => a.date.localeCompare(b.date));
+            renderGrowthChart();
+            const latest = snaps[0];
+            renderAgeChart(latest);
+            renderGenderChart(latest);
+            const p7 = closestSnapshotBefore(snaps, latest.date, 7);
+            const p30 = closestSnapshotBefore(snaps, latest.date, 30);
+            const metrics = [
+                ["Total users", "totalUsers"],
+                ["Active users", "activeUsers"],
+                ["Verified users", "verifiedUsers"],
+                ["Men", "genderCounts.male"],
+                ["Women", "genderCounts.female"],
+            ];
+            grid.innerHTML = metrics.map(([label, path]) =>
+                card(label, snapNum(latest, path),
+                    p7 ? snapNum(p7, path) : null,
+                    p30 ? snapNum(p30, path) : null)
+            ).join("") +
+            `<div class="card rounded-2xl p-5 sm:col-span-2 lg:col-span-1">
+                <div class="text-gray-400 text-sm">Latest snapshot</div>
+                <div class="text-white mt-1">${latest.date || "—"}</div>
+                <div class="text-gray-400 text-sm mt-2">M:F ratio ${latest.maleToFemaleRatio ?? "—"}</div>
+            </div>`;
+        } catch (e) {
+            grid.innerHTML = "<p class='text-red-400'>Failed to load stats: " + e.message + "</p>";
+        }
+    }
+
+    // Range toggle (Week / Month / Year) for the trend chart.
+    document.querySelectorAll(".rtab").forEach((btn) => {
+        btn.onclick = () => {
+            chartRange = btn.dataset.range;
+            document.querySelectorAll(".rtab").forEach((b) => {
+                const active = b.dataset.range === btn.dataset.range;
+                b.className = "rtab px-3 py-1.5 rounded-lg text-sm font-semibold " +
+                    (active ? "bg-purple-600 text-white" : "bg-[#17102a] text-gray-300");
+            });
+            renderGrowthChart();
+        };
+    });
+
+    // ISO-week key (e.g. "2026-W24") for the date string.
+    function isoWeekKey(dateStr) {
+        const d = new Date(dateStr + "T00:00:00Z");
+        const day = (d.getUTCDay() + 6) % 7;          // Mon=0
+        d.setUTCDate(d.getUTCDate() - day + 3);        // Thursday of this week
+        const firstThu = new Date(Date.UTC(d.getUTCFullYear(), 0, 4));
+        const week = 1 + Math.round(
+            ((d - firstThu) / 86400000 - 3 + ((firstThu.getUTCDay() + 6) % 7)) / 7);
+        return d.getUTCFullYear() + "-W" + String(week).padStart(2, "0");
+    }
+
+    function bucketKeyOf(dateStr) {
+        if (chartRange === "year") return dateStr.slice(0, 4);   // YYYY
+        if (chartRange === "month") return dateStr.slice(0, 7);  // YYYY-MM
+        return isoWeekKey(dateStr);                              // YYYY-Www
+    }
+
+    function renderGrowthChart() {
+        const canvas = $("growthChart");
+        if (!growthSnaps.length) return;
+
+        // Group snapshots by the selected period; keep the LAST snapshot in each
+        // period (its period-end total). growthSnaps is chronological, so a later
+        // snapshot in the same bucket overwrites the value but keeps its position.
+        const buckets = new Map();
+        for (const s of growthSnaps) {
+            if (s.date) buckets.set(bucketKeyOf(s.date), s);
+        }
+        const keys = [...buckets.keys()];
+
+        if (keys.length < 2) {
+            canvas.classList.add("hidden");
+            $("chartEmpty").textContent =
+                "Not enough history yet — need at least two " + chartRange + "s of data.";
+            $("chartEmpty").classList.remove("hidden");
+            if (growthChart) { growthChart.destroy(); growthChart = null; }
+            return;
+        }
+        canvas.classList.remove("hidden");
+        $("chartEmpty").classList.add("hidden");
+
+        const labels = keys;
+        const num = (s, path) => {
+            const v = path.split(".").reduce((o, k) => (o ? o[k] : undefined), s);
+            return v == null ? null : Number(v);
+        };
+        const series = (label, path, color) => ({
+            label, data: keys.map((k) => num(buckets.get(k), path)),
+            borderColor: color, backgroundColor: color + "33",
+            tension: 0.25, pointRadius: keys.length > 40 ? 0 : 3, borderWidth: 2,
+        });
+        const datasets = [
+            series("Total users", "totalUsers", "#a78bfa"),
+            series("Active", "activeUsers", "#34d399"),
+            series("Men", "genderCounts.male", "#60a5fa"),
+            series("Women", "genderCounts.female", "#f472b6"),
+        ];
+
+        if (growthChart) growthChart.destroy();
+        growthChart = new Chart(canvas.getContext("2d"), {
+            type: "line",
+            data: { labels, datasets },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: "index", intersect: false },
+                scales: {
+                    x: { ticks: { color: "#9ca3af", maxTicksLimit: 8 }, grid: { color: "#241b3a" } },
+                    y: { beginAtZero: true, ticks: { color: "#9ca3af" }, grid: { color: "#241b3a" } },
+                },
+                plugins: { legend: { labels: { color: "#d1d5db" } } },
+            },
+        });
+    }
+
+    function renderAgeChart(latest) {
+        const ag = latest && latest.ageGroups;
+        if (!ag || Object.keys(ag).length === 0) {
+            $("ageChart").classList.add("hidden");
+            $("ageEmpty").classList.remove("hidden");
+            if (ageChart) { ageChart.destroy(); ageChart = null; }
+            return;
+        }
+        $("ageChart").classList.remove("hidden");
+        $("ageEmpty").classList.add("hidden");
+        // Fixed age order — Firestore maps don't preserve key order on read.
+        const order = ["18-24", "25-29", "30-34", "35-39", "40-49", "50+"];
+        const labels = order.filter((k) => k in ag);
+        const data = labels.map((k) => Number(ag[k]) || 0);
+        if (ageChart) ageChart.destroy();
+        ageChart = new Chart($("ageChart").getContext("2d"), {
+            type: "bar",
+            data: { labels, datasets: [{ label: "Users", data, backgroundColor: "#a78bfa" }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { ticks: { color: "#9ca3af" }, grid: { display: false } },
+                    y: { beginAtZero: true, ticks: { color: "#9ca3af", precision: 0 }, grid: { color: "#241b3a" } },
+                },
+                plugins: { legend: { display: false } },
+            },
+        });
+    }
+
+    function renderGenderChart(latest) {
+        const gc = (latest && latest.genderCounts) || {};
+        const labels = ["Men", "Women", "Other"];
+        const data = [Number(gc.male) || 0, Number(gc.female) || 0, Number(gc.other) || 0];
+        if (genderChart) genderChart.destroy();
+        genderChart = new Chart($("genderChart").getContext("2d"), {
+            type: "doughnut",
+            data: { labels, datasets: [{ data, backgroundColor: ["#60a5fa", "#f472b6", "#9ca3af"] }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: "bottom", labels: { color: "#d1d5db" } } },
+            },
+        });
+    }
+
+    // ---- Image moderation ------------------------------------------------
+    let modCursor = null;
+    let modBusy = false;
+    let modHasMore = true;
+    let modLoaded = false; // moderation tab lazy-loaded on first open
+    let modGender = "all"; // "all" | "Male" | "Female"
+    const MOD_PAGE = 50;
+
+    $("onlyUnreviewed").onchange = resetModeration;
+
+    // Gender filter tabs.
+    document.querySelectorAll(".gtab").forEach((btn) => {
+        btn.onclick = () => {
+            modGender = btn.dataset.gender;
+            document.querySelectorAll(".gtab").forEach((b) => {
+                const active = b.dataset.gender === modGender;
+                b.className = "gtab px-3 py-1.5 rounded-lg text-sm font-semibold " +
+                    (active ? "bg-purple-600 text-white" : "bg-[#17102a] text-gray-300");
+            });
+            resetModeration();
+        };
+    });
+
+    // Auto-load on scroll when the moderation tab is visible.
+    window.addEventListener("scroll", () => {
+        if ($("tab-moderation").classList.contains("hidden")) return;
+        if (modBusy || !modHasMore) return;
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 600) {
+            loadModeration();
+        }
+    });
+
+    function resetModeration() {
+        modCursor = null;
+        modHasMore = true;
+        $("modList").innerHTML = "";
+        loadModeration();
+    }
+
+    function esc(s) {
+        return String(s ?? "").replace(/[&<>"]/g, (c) =>
+            ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    }
+
+    async function loadModeration() {
+        if (modBusy || !modHasMore) return;
+        modBusy = true;
+        $("modStatus").textContent = "Loading…";
+        try {
+            let q = db.collection("users");
+            if (modGender !== "all") q = q.where("gender", "==", modGender);
+            q = q.orderBy(firebase.firestore.FieldPath.documentId()).limit(MOD_PAGE);
+            if (modCursor) q = q.startAfter(modCursor);
+            const snap = await q.get();
+            if (!snap.empty) modCursor = snap.docs[snap.docs.length - 1];
+
+            const onlyUnreviewed = $("onlyUnreviewed").checked;
+            const list = $("modList");
+            snap.docs.forEach((doc) => {
+                const u = doc.data();
+                if (onlyUnreviewed && u.imagesReviewed === true) return;
+                const imgs = Array.isArray(u.profileImageUrls) ? u.profileImageUrls : [];
+                const photos = imgs.length
+                    ? imgs.map((url) => `
+                        <div class="imgTile relative">
+                            <a href="${esc(url)}" target="_blank"><img src="${esc(url)}" class="w-28 h-36 object-cover rounded-lg border border-[#2a2040]"></a>
+                            <button class="imgDel absolute top-1.5 right-1.5 bg-black/75 hover:bg-red-600 text-white rounded-full w-9 h-9 leading-none text-2xl flex items-center justify-center" data-url="${esc(url)}" title="Delete this photo">&times;</button>
+                        </div>`).join("")
+                    : "<span class='text-gray-500 text-sm'>No photos</span>";
+                const badge = u.isBlacklisted
+                    ? "<span class='text-red-400 text-xs ml-2'>BLACKLISTED</span>"
+                    : (u.imagesReviewed ? "<span class='text-green-400 text-xs ml-2'>reviewed</span>" : "");
+                const el = document.createElement("div");
+                el.className = "card rounded-2xl p-4";
+                el.innerHTML = `
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+                        <div>
+                            <span class="text-white font-semibold text-lg">${esc(u.publicId || doc.id)}</span>
+                            <span class="text-gray-500 text-sm ml-2">${esc(u.gender || "")}</span>
+                            ${badge}
+                            <div class="text-gray-500 text-xs font-mono mt-0.5 select-all" title="User UID (tap to select)">${esc(doc.id)}</div>
+                        </div>
+                        <div class="flex gap-2 flex-wrap">
+                            <button class="reviewBtn bg-green-700 hover:bg-green-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg">Mark reviewed</button>
+                            <button class="banBtn bg-red-700 hover:bg-red-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg">Blacklist</button>
+                            <button class="delBtn bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg">Delete (re-onboard)</button>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 flex-wrap">${photos}</div>`;
+                el.querySelector(".reviewBtn").onclick = () => markReviewed(doc.id, el);
+                el.querySelector(".banBtn").onclick = () => blacklist(doc.id, u.publicId || doc.id, el);
+                el.querySelector(".delBtn").onclick = () => deleteUser(doc.id, u.publicId || doc.id, el);
+                el.querySelectorAll(".imgDel").forEach((b) => {
+                    b.onclick = () => deleteImage(doc.id, b.dataset.url, u.publicId || doc.id, el, b);
+                });
+                list.appendChild(el);
+            });
+
+            if (snap.size < MOD_PAGE) modHasMore = false;
+            const shown = $("modList").children.length;
+            // While more pages remain, keep showing "Loading…" (the auto-fill is
+            // still paging past reviewed users) — don't flicker "No users".
+            $("modStatus").textContent = shown === 0
+                ? (modHasMore ? "Loading…" : "No users to show.")
+                : (modHasMore ? "" : "End of list.");
+        } catch (e) {
+            modHasMore = false;
+            $("modStatus").innerHTML =
+                "<span class='text-red-400'>Failed to load users: " + esc(e.message) + "</span>";
+        } finally {
+            modBusy = false;
+            // Keep loading until the page is tall enough to scroll (or we run out),
+            // so the client-side "unreviewed only" filter can't strand a short page.
+            if (modHasMore &&
+                !$("tab-moderation").classList.contains("hidden") &&
+                document.body.offsetHeight <= window.innerHeight + 200) {
+                setTimeout(loadModeration, 150);
+            }
+        }
+    }
+
+    async function markReviewed(uid, el) {
+        try {
+            await db.collection("users").doc(uid).set({
+                imagesReviewed: true,
+                imagesReviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                imagesReviewedBy: auth.currentUser.uid
+            }, { merge: true });
+            el.classList.add("opacity-50");
+        } catch (e) { alert("Failed: " + e.message); }
+    }
+
+    async function blacklist(uid, publicId, el) {
+        if (!confirm("Blacklist " + publicId + "? They will be banned from the app.")) return;
+        try {
+            await db.collection("users").doc(uid).set({ isBlacklisted: true }, { merge: true });
+            el.classList.add("opacity-50");
+            el.querySelector(".banBtn").textContent = "Blacklisted";
+        } catch (e) { alert("Failed: " + e.message); }
+    }
+
+    async function deleteUser(uid, publicId, el) {
+        if (!confirm(
+            "Delete " + publicId + "'s profile?\n\n" +
+            "Their profile doc AND their photos in Storage are removed (matches, chats, " +
+            "corns, premium are lost). They stay signed in, so next time they open the app " +
+            "they redo onboarding and upload photos again.")) return;
+        try {
+            const ref = db.collection("users").doc(uid);
+            const snap = await ref.get();
+            const imgs = (snap.exists && Array.isArray(snap.data().profileImageUrls))
+                ? snap.data().profileImageUrls : [];
+            await deleteAllPhotos(imgs);      // delete Storage files first
+            await ref.delete();               // then the profile doc
+            markCardDeleted(el);
+        } catch (e) { alert("Failed: " + e.message); }
+    }
+
+    function markCardDeleted(el) {
+        el.classList.add("opacity-50");
+        const delBtn = el.querySelector(".delBtn");
+        if (delBtn) delBtn.textContent = "Deleted";
+        el.querySelectorAll("button").forEach((b) => (b.disabled = true));
+    }
+
+    // Delete a single photo. The app requires >= 2 photos, so if removing one
+    // would drop below that, delete the whole profile instead (re-onboard).
+    async function deleteImage(uid, url, publicId, el, btn) {
+        try {
+            const ref = db.collection("users").doc(uid);
+            const snap = await ref.get();
+            const imgs = (snap.exists && Array.isArray(snap.data().profileImageUrls))
+                ? snap.data().profileImageUrls : [];
+
+            if (imgs.length <= 2) {
+                if (!confirm(
+                    publicId + " has only " + imgs.length + " photo(s). Removing one drops " +
+                    "below the 2-photo minimum, so the whole profile (and all their photos) " +
+                    "will be deleted and they'll redo onboarding. Continue?")) return;
+                await deleteAllPhotos(imgs);  // delete all Storage files
+                await ref.delete();
+                markCardDeleted(el);
+                return;
+            }
+
+            if (!confirm("Delete this photo from " + publicId + "'s profile?")) return;
+            await ref.update({
+                profileImageUrls: firebase.firestore.FieldValue.arrayRemove(url)
+            });
+            await deleteStorageFile(url);     // delete the Storage file too
+            const tile = btn.closest(".imgTile");
+            if (tile) tile.remove();
+        } catch (e) { alert("Failed: " + e.message); }
+    }
+</script>
+</body>
+</html>
