@@ -4,8 +4,9 @@ Guidance for working in this repository.
 
 ## What this is
 
-Static marketing + legal site for **Geesly**, a dating app. Plain HTML pages
-styled with Tailwind (loaded from CDN). No build step, no framework, no bundler.
+Marketing + legal site for **Geesly**, a dating app, plus one Firebase-backed
+**admin tool** (`admin.html`). Plain HTML pages styled with Tailwind (loaded from
+CDN). No build step, no framework, no bundler.
 
 - Hosted on **GitHub Pages** from the `main` branch.
 - Custom domain `www.geesly.net` (see `CNAME`); also live at
@@ -22,6 +23,8 @@ no partials or includes.
 - `index.html` — home page (largest; has inline `tailwind.config` and `<style>`)
 - `about.html`, `safety.html`, `blog.html`
 - `terms.html`, `privacy.html`, `deletion.html` (account/data deletion)
+- `admin.html` — **internal admin tool** (not marketing). See below; `noindex`,
+  excluded from `sitemap.xml`.
 
 ## Conventions
 
@@ -47,12 +50,38 @@ no partials or includes.
 - `robots.txt`, `sitemap.xml` — update `sitemap.xml` when adding/removing pages.
 - `google236158bb56ebb239.html` — Google Search Console verification (don't delete).
 
+## Admin page (`admin.html`)
+
+A standalone, auth-gated admin tool for the app's owner — the one page here that
+is **not** static marketing. Added 2026-06-13.
+
+- **Firebase web SDK** (compat, via CDN) + **Chart.js** (CDN). Connects to the
+  canonical Firebase project **`geesly-20251018643`** (the app's live data).
+- **Auth:** Google sign-in, gated by a hardcoded **admin UID allowlist**
+  (`ADMIN_UIDS` in the page). This mirrors `isAdmin()` in the app repo's
+  `firestore.rules` and `storage.rules` — **keep all three in sync.** The page
+  gate is UX only; real enforcement is the rules.
+- **Growth tab:** reads `admin/stats` + `admin/stats/history` snapshots (written
+  by the `dailyGenderRatioStats` Cloud Function), shows totals with 7d/30d deltas,
+  a Week/Month/Year trend line chart, and current age-group + gender breakdowns.
+- **Image moderation tab:** lists users with photos (gender filter, infinite
+  scroll, 50/page); actions: Mark reviewed (`imagesReviewed`), Blacklist
+  (`isBlacklisted`), Delete (re-onboard), and per-photo delete — deletes the
+  Storage file too (needs the admin override in `storage.rules`).
+- **Config to fill if regenerating:** the Firebase **web** `firebaseConfig`
+  (apiKey/appId from a Web app registered in the console) and `ADMIN_UIDS`. For
+  Google sign-in to work, `geesly.net` / `dkim0910.github.io` must be in Firebase
+  **Auth → authorized domains** (and `localhost` works by default — use
+  `localhost`, not `127.0.0.1`).
+
 ## Local preview
 
 ```bash
-npm run dev   # npx live-server .
+npm run dev   # npx live-server --host=localhost .  (use localhost for Firebase auth)
 ```
 
 ## Deploying
 
 Push to `main`; GitHub Pages publishes automatically. No build or CI step.
+(The admin page's backend — Firestore/Storage rules and the stats function —
+lives in the app repo `geesly`, deployed via the Firebase CLI.)

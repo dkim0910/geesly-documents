@@ -1,10 +1,10 @@
 {
   "name": "geesly-documents",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Geesly home page with documents",
   "main": "index.html",
   "scripts": {
-    "dev": "npx live-server ."
+    "dev": "npx live-server --host=localhost ."
   },
   "keywords": [],
   "author": "",
