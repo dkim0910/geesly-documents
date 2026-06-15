@@ -14,6 +14,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-functions-compat.js"></script>
     <style>
         body { background-color: #0d0618; }
         .card { background-color: #17102a; border: 1px solid #2a2040; }
@@ -41,6 +42,7 @@
         <nav class="flex gap-2 mb-6">
             <button data-tab="growth" class="tab bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Growth</button>
             <button data-tab="moderation" class="tab bg-[#17102a] text-gray-300 px-4 py-2 rounded-lg text-sm font-semibold">Image moderation</button>
+            <button data-tab="users" class="tab bg-[#17102a] text-gray-300 px-4 py-2 rounded-lg text-sm font-semibold">Users</button>
         </nav>
 
         <!-- Growth tab -->
@@ -88,12 +90,29 @@
                     <button data-gender="Male" class="gtab bg-[#17102a] text-gray-300 px-3 py-1.5 rounded-lg text-sm font-semibold">Men</button>
                     <button data-gender="Female" class="gtab bg-[#17102a] text-gray-300 px-3 py-1.5 rounded-lg text-sm font-semibold">Women</button>
                 </div>
-                <label class="text-sm text-gray-400 flex items-center gap-2">
-                    <input type="checkbox" id="onlyUnreviewed" class="accent-purple-600" checked> Unreviewed only
-                </label>
+                <div class="flex items-center gap-3 flex-wrap">
+                    <button id="cleanupNoImagesBtn" class="bg-[#17102a] hover:bg-red-600 text-gray-300 hover:text-white text-sm font-semibold px-4 py-1.5 rounded-lg">Delete profiles without photos (keep email)</button>
+                    <button id="cleanupOrphansBtn" class="bg-[#17102a] hover:bg-red-600 text-gray-300 hover:text-white text-sm font-semibold px-4 py-1.5 rounded-lg">Clean up orphaned logins</button>
+                    <label class="text-sm text-gray-400 flex items-center gap-2">
+                        <input type="checkbox" id="onlyUnreviewed" class="accent-purple-600" checked> Unreviewed only
+                    </label>
+                </div>
             </div>
             <div id="modList" class="space-y-6"></div>
             <div id="modStatus" class="text-center text-gray-500 text-sm py-8"></div>
+        </section>
+
+        <!-- Users tab: every user with UID, email, and live image-URL status -->
+        <section id="tab-users" class="hidden">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <p class="text-gray-400 text-sm">All users — UID, email, and whether each profile image URL actually loads.</p>
+                <label class="text-sm text-gray-400 flex items-center gap-2">
+                    <input type="checkbox" id="brokenOnly" class="accent-purple-600"> Broken / missing images only
+                </label>
+            </div>
+            <div id="usersCount" class="text-sm text-gray-300 mb-3">—</div>
+            <div id="usersList" class="space-y-2"></div>
+            <div id="usersStatus" class="text-center text-gray-500 text-sm py-8"></div>
         </section>
     </div>
 </div>
@@ -118,6 +137,7 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
     const storage = firebase.storage();
+    const functions = firebase.functions();
 
     // Best-effort delete of a Storage file from its download URL. Ignores
     // "not found" (already gone); other errors (e.g. rules) are logged.
@@ -168,6 +188,7 @@
         $("gate").classList.add("hidden");
         $("app").classList.remove("hidden");
         modLoaded = false;       // (re)load moderation lazily when its tab opens
+        usrLoaded = false;       // (re)load users list lazily when its tab opens
         loadGrowth();
     });
 
@@ -182,12 +203,17 @@
             });
             $("tab-growth").classList.toggle("hidden", tab !== "growth");
             $("tab-moderation").classList.toggle("hidden", tab !== "moderation");
+            $("tab-users").classList.toggle("hidden", tab !== "users");
             // Lazy-load moderation the first time its (now-visible) tab opens, so
             // the scroll auto-fill works and a filtered first page can't strand
             // it on "No users to show".
             if (tab === "moderation" && !modLoaded) {
                 modLoaded = true;
                 resetModeration();
+            }
+            if (tab === "users" && !usrLoaded) {
+                usrLoaded = true;
+                resetUsers();
             }
         };
     });
@@ -429,7 +455,88 @@
     let modGender = "all"; // "all" | "Male" | "Female"
     const MOD_PAGE = 50;
 
+    // Users tab state.
+    let usrCursor = null;
+    let usrBusy = false;
+    let usrHasMore = true;
+    let usrLoaded = false; // users tab lazy-loaded on first open
+    let usrTotal = null;   // total user docs (from a count() query)
+    let usrChecked = 0;    // rows loaded + image-checked so far
+    let usrBroken = 0;     // rows with < 2 working images
+    const USR_PAGE = 50;
+
     $("onlyUnreviewed").onchange = resetModeration;
+
+    // Bulk delete accounts with fewer than 2 photos (broken/moderated-out), keeping
+    // the email. Age-guarded server-side so in-progress signups aren't touched.
+    $("cleanupNoImagesBtn").onclick = async () => {
+        const btn = $("cleanupNoImagesBtn");
+        btn.disabled = true;
+        const original = btn.textContent;
+        btn.textContent = "Scanning…";
+        try {
+            const fn = functions.httpsCallable("adminDeleteUsersWithoutImages");
+            const preview = (await fn({ dryRun: true })).data;
+            if (preview.targetCount === 0) {
+                alert(`No profiles without photos found.\n\nScanned ${preview.scanned} ` +
+                    `(skipped ${preview.skippedTooNew} too new, ${preview.skippedNoCreatedAt} ` +
+                    `with no createdAt, ${preview.skippedStorageError} storage check errors).`);
+                return;
+            }
+            const sample = (preview.sampleEmails || []).slice(0, 10).join("\n");
+            if (!confirm(
+                `Found ${preview.targetCount} profile(s) with fewer than 2 photos in Storage ` +
+                `(scanned ${preview.scanned}; skipped ${preview.skippedTooNew} created in the ` +
+                `last 48h). ${preview.withEmail} have an email, which will be KEPT.\n\n` +
+                `Permanently delete these accounts (data + login removed, only email kept)? ` +
+                `This cannot be undone.\n\nSample:\n${sample}`)) return;
+            btn.textContent = "Deleting…";
+            const result = (await fn({ dryRun: false })).data;
+            alert(`Done. Deleted ${result.deleted} account(s)` +
+                (result.failed ? `, ${result.failed} failed` : "") +
+                `; kept ${result.tombstoned} email record(s).`);
+        } catch (e) {
+            alert("Cleanup failed: " + (e.message || e));
+        } finally {
+            btn.disabled = false;
+            btn.textContent = original;
+        }
+    };
+
+    // One-off cleanup of orphaned Auth logins (old doc-only deletes left these
+    // behind; they re-onboard and reappear). Previews first, then confirms.
+    $("cleanupOrphansBtn").onclick = async () => {
+        const btn = $("cleanupOrphansBtn");
+        btn.disabled = true;
+        const original = btn.textContent;
+        btn.textContent = "Scanning…";
+        try {
+            const fn = functions.httpsCallable("adminCleanupOrphanAuth");
+            const preview = (await fn({ dryRun: true })).data;
+            if (preview.orphanCount === 0) {
+                alert(`No orphaned logins found.\n\nScanned ${preview.scanned} accounts ` +
+                    `(${preview.skippedTooNew} skipped as too new).`);
+                return;
+            }
+            const sample = (preview.sampleEmails || []).slice(0, 10).join("\n");
+            if (!confirm(
+                `Found ${preview.orphanCount} orphaned login(s) with no profile ` +
+                `(scanned ${preview.scanned}, skipped ${preview.skippedTooNew} created in ` +
+                `the last 48h). ${preview.withEmail} have an email, which will be KEPT as a ` +
+                `record.\n\nDelete these logins permanently? This cannot be undone.\n\n` +
+                `Sample:\n${sample}`)) return;
+            btn.textContent = "Deleting…";
+            const result = (await fn({ dryRun: false })).data;
+            alert(`Done. Deleted ${result.deleted} login(s)` +
+                (result.failed ? `, ${result.failed} failed` : "") +
+                `; kept ${result.tombstoned} email record(s).`);
+        } catch (e) {
+            alert("Cleanup failed: " + (e.message || e));
+        } finally {
+            btn.disabled = false;
+            btn.textContent = original;
+        }
+    };
 
     // Gender filter tabs.
     document.querySelectorAll(".gtab").forEach((btn) => {
@@ -463,6 +570,140 @@
     function esc(s) {
         return String(s ?? "").replace(/[&<>"]/g, (c) =>
             ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    }
+
+    // ---- Users tab -------------------------------------------------------
+    // Resolves whether an image URL actually loads (handles Firebase Storage
+    // tokened URLs without CORS issues, unlike fetch). Returns true/false.
+    function imageWorks(url) {
+        return new Promise((resolve) => {
+            if (!url) return resolve(false);
+            const img = new Image();
+            const done = (ok) => { img.onload = img.onerror = null; resolve(ok); };
+            img.onload = () => done(img.naturalWidth > 0);
+            img.onerror = () => done(false);
+            img.src = url;
+        });
+    }
+
+    window.addEventListener("scroll", () => {
+        if ($("tab-users").classList.contains("hidden")) return;
+        if (usrBusy || !usrHasMore) return;
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 600) {
+            loadUsers();
+        }
+    });
+
+    $("brokenOnly").onchange = resetUsers;
+
+    function renderUsersCount() {
+        const total = usrTotal == null ? "?" : usrTotal;
+        $("usersCount").innerHTML =
+            `Checked <span class="text-white font-semibold">${usrChecked}</span> of ` +
+            `<span class="text-white font-semibold">${total}</span> users · ` +
+            `<span class="text-red-400">${usrBroken}</span> with broken / missing images`;
+    }
+
+    async function resetUsers() {
+        usrCursor = null;
+        usrHasMore = true;
+        usrChecked = 0;
+        usrBroken = 0;
+        $("usersList").innerHTML = "";
+        renderUsersCount();
+        // Total user count (best-effort; aggregate count query).
+        try {
+            const c = await db.collection("users").count().get();
+            usrTotal = c.data().count;
+        } catch (e) {
+            usrTotal = null;
+        }
+        renderUsersCount();
+        loadUsers();
+    }
+
+    async function loadUsers() {
+        if (usrBusy || !usrHasMore) return;
+        usrBusy = true;
+        $("usersStatus").textContent = "Loading…";
+        const brokenOnly = $("brokenOnly").checked;
+        try {
+            let q = db.collection("users")
+                .orderBy(firebase.firestore.FieldPath.documentId())
+                .limit(USR_PAGE);
+            if (usrCursor) q = q.startAfter(usrCursor);
+            const snap = await q.get();
+            if (!snap.empty) usrCursor = snap.docs[snap.docs.length - 1];
+
+            const list = $("usersList");
+            const pageChecks = [];
+            snap.docs.forEach((doc) => {
+                const u = doc.data();
+                const imgs = Array.isArray(u.profileImageUrls) ? u.profileImageUrls : [];
+                const el = document.createElement("div");
+                el.className = "card rounded-xl p-3";
+                el.innerHTML = `
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 justify-between">
+                        <div class="min-w-0">
+                            <div class="text-white font-semibold">${esc(u.email || "(no email)")}</div>
+                            <div class="text-gray-500 text-xs font-mono select-all">${esc(doc.id)}</div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="text-gray-400">${esc(u.publicId || "")} ${esc(u.gender || "")}</span>
+                            <span class="imgSummary text-gray-400 whitespace-nowrap">${imgs.length} listed · checking…</span>
+                        </div>
+                    </div>
+                    <div class="imgRow flex gap-2 flex-wrap mt-2"></div>`;
+                list.appendChild(el);
+
+                // Check each listed URL; color the thumbnail by working/broken.
+                const row = el.querySelector(".imgRow");
+                if (imgs.length === 0) {
+                    row.innerHTML = "<span class='text-red-400 text-xs'>No image URLs in profile</span>";
+                }
+                let working = 0;
+                pageChecks.push(Promise.all(imgs.map(async (url) => {
+                    const ok = await imageWorks(url);
+                    if (ok) working++;
+                    const tile = document.createElement("a");
+                    tile.href = url; tile.target = "_blank";
+                    tile.innerHTML = `<img src="${esc(url)}" title="${ok ? "loads OK" : "BROKEN / 404"}"
+                        class="w-16 h-20 object-cover rounded border-2 ${ok ? "border-green-500" : "border-red-500 opacity-60"}">`;
+                    row.appendChild(tile);
+                })).then(() => {
+                    const broken = imgs.length - working;
+                    el.querySelector(".imgSummary").innerHTML =
+                        `${imgs.length} listed · <span class="text-green-400">${working} ok</span>` +
+                        (broken ? ` · <span class="text-red-400">${broken} broken</span>` : "");
+                    if (working < 2) usrBroken++; // missing or too few working
+                    // "Broken only" filter: hide rows that have >=2 working images.
+                    if (brokenOnly && working >= 2) el.classList.add("hidden");
+                }));
+            });
+
+            // Wait for all image checks so hiding/auto-fill + counts reflect reality.
+            await Promise.all(pageChecks);
+            usrChecked += snap.size;
+            renderUsersCount();
+
+            if (snap.size < USR_PAGE) usrHasMore = false;
+            const shown = $("usersList").children.length;
+            $("usersStatus").textContent = shown === 0
+                ? (usrHasMore ? "Loading…" : "No users.")
+                : (usrHasMore ? "" : "End of list.");
+        } catch (e) {
+            usrHasMore = false;
+            $("usersStatus").innerHTML =
+                "<span class='text-red-400'>Failed to load users: " + esc(e.message) + "</span>";
+        } finally {
+            usrBusy = false;
+            // Keep auto-filling until the page can scroll (or we run out).
+            if (usrHasMore &&
+                !$("tab-users").classList.contains("hidden") &&
+                document.body.offsetHeight <= window.innerHeight + 200) {
+                setTimeout(loadUsers, 150);
+            }
+        }
     }
 
     async function loadModeration() {
@@ -564,19 +805,16 @@
 
     async function deleteUser(uid, publicId, el) {
         if (!confirm(
-            "Delete " + publicId + "'s profile?\n\n" +
-            "Their profile doc AND their photos in Storage are removed (matches, chats, " +
-            "corns, premium are lost). They stay signed in, so next time they open the app " +
-            "they redo onboarding and upload photos again.")) return;
+            "Permanently delete " + publicId + "?\n\n" +
+            "All their data (profile, photos, matches, chats, corns, premium) AND their " +
+            "login are removed. Only their email is kept as a record. They will NOT come " +
+            "back. This cannot be undone.")) return;
         try {
-            const ref = db.collection("users").doc(uid);
-            const snap = await ref.get();
-            const imgs = (snap.exists && Array.isArray(snap.data().profileImageUrls))
-                ? snap.data().profileImageUrls : [];
-            await deleteAllPhotos(imgs);      // delete Storage files first
-            await ref.delete();               // then the profile doc
+            // Server-side: wipes data + storage + Auth login, leaves an
+            // email-only tombstone doc (see adminDeleteUser Cloud Function).
+            await functions.httpsCallable("adminDeleteUser")({ uid });
             markCardDeleted(el);
-        } catch (e) { alert("Failed: " + e.message); }
+        } catch (e) { alert("Failed: " + (e.message || e)); }
     }
 
     function markCardDeleted(el) {
@@ -598,10 +836,10 @@
             if (imgs.length <= 2) {
                 if (!confirm(
                     publicId + " has only " + imgs.length + " photo(s). Removing one drops " +
-                    "below the 2-photo minimum, so the whole profile (and all their photos) " +
-                    "will be deleted and they'll redo onboarding. Continue?")) return;
-                await deleteAllPhotos(imgs);  // delete all Storage files
-                await ref.delete();
+                    "below the 2-photo minimum, so the whole account will be permanently " +
+                    "deleted (data + login removed, only email kept). They will NOT come " +
+                    "back. Continue?")) return;
+                await functions.httpsCallable("adminDeleteUser")({ uid });
                 markCardDeleted(el);
                 return;
             }
