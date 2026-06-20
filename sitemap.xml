@@ -46,9 +46,9 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Blog / Dating Tips -->
+  <!-- Guides / Dating Tips -->
   <url>
-    <loc>https://geesly.net/blog.html</loc>
+    <loc>https://geesly.net/guides.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
