@@ -61,10 +61,10 @@
       "inLanguage": "en-US",
       "isPartOf": { "@type": "WebSite", "name": "Geesly", "url": "https://geesly.net" },
       "publisher": { "@type": "Organization", "name": "Geesly", "url": "https://geesly.net" },
-      "dateModified": "2026-03-06"
+      "dateModified": "2026-07-09"
     }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -96,6 +96,30 @@
             transition: opacity 0.2s, transform 0.2s;
         }
         .gradient-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* ---- Layered document styling (readability) ---- */
+        .prose h2 {
+            color: #c084fc;
+            font-weight: 800;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 0.5rem;
+        }
+        .prose h3 {
+            color: #e9d5ff;
+            font-weight: 700;
+            padding-left: 0.9rem;
+            border-left: 3px solid rgba(192, 132, 252, 0.6);
+        }
+        .prose strong { color: #ffffff; }
+        .prose li::marker { color: #c084fc; }
+        /* Nested lists get an indented rail so sub-points read as layers */
+        .prose ul ul {
+            border-left: 2px solid rgba(192, 132, 252, 0.25);
+            padding-left: 1.25rem;
+            margin-left: 0.25rem;
+            list-style-type: circle;
+        }
+        .prose .lead { color: #d1d5db; font-size: 1.15em; }
     </style>
 </head>
 <body class="font-sans antialiased bg-gray-950 text-gray-100">
@@ -140,7 +164,7 @@
             <h1 class="text-4xl sm:text-5xl font-bold mb-4">
                 <span class="gradient-text">Terms of Service</span>
             </h1>
-            <p class="text-lg text-gray-400">Last Updated: February 2026</p>
+            <p class="text-lg text-gray-400">Last Updated: July 2026</p>
         </div>
 
         <!-- Terms Content -->
@@ -270,7 +294,7 @@
                 <ul>
                     <li>You retain ownership of all content you post on Geesly (photos, messages, profile information)</li>
                     <li>By posting content, you grant Geesly a worldwide, non-exclusive, royalty-free license to use, display, reproduce, and distribute your content in connection with operating the service</li>
-                    <li>Upon account deletion via in-app delete function, your content will be permanently deleted immediately (within 45 seconds). Content may be retained temporarily in cached or backup systems for technical reasons, but will be permanently removed as soon as technically feasible</li>
+                    <li>Upon account deletion via in-app delete function, your content will be permanently deleted promptly by our server-side deletion process. Content may be retained temporarily in cached or backup systems for technical reasons, but will be permanently removed as soon as technically feasible</li>
                     <li>You represent that you own or have the necessary rights to all content you post</li>
                     <li>You must have consent from anyone appearing in photos you upload</li>
                 </ul>
@@ -328,11 +352,12 @@
                 <p>We reserve the right to:</p>
                 <ul>
                     <li>Review reported content and user accounts</li>
+                    <li>Manually review new and changed profile photos, which enter a moderation queue after automated scanning</li>
                     <li>Remove content that violates these Terms</li>
                     <li>Suspend or terminate accounts at our discretion</li>
                     <li>Contact law enforcement when appropriate</li>
                 </ul>
-                <p>We do not pre-screen content but rely on spam detection, automated moderation, and user reports to maintain safety.</p>
+                <p>Apart from automated image scanning, spam filters, and the profile-photo moderation queue, we do not manually pre-screen messages or other content; we rely on automated moderation and user reports to maintain safety.</p>
             </section>
 
             <section>
@@ -341,10 +366,13 @@
 
                 <h3>How It Works:</h3>
                 <ul>
-                    <li><strong>5-Star Rating = Like:</strong> Indicates interest; may result in a match if reciprocated</li>
-                    <li><strong>1-4 Star Rating = Pass:</strong> User moves to your "seen users" list</li>
+                    <li><strong>5-Star Rating = Like:</strong> Indicates strong interest; if the other user also rates you 5 stars, you match automatically</li>
+                    <li><strong>4-Star Rating = Soft Like:</strong> The other user is notified that you like them and you appear in their Favorites, but a 4-star rating alone does not create a match</li>
+                    <li><strong>1-3 Star Rating = Pass:</strong> User moves to your "seen users" list</li>
+                    <li><strong>Skein (Super-Like):</strong> Premium users can send a Skein — a super-like with a short message — which pins them near the top of the recipient's feed until acted on</li>
+                    <li><strong>Rewind:</strong> Premium users can undo their previous rating and re-rate that profile (not available once a match has formed)</li>
                     <li><strong>User Score:</strong> Each user accumulates a score based on ratings received, affecting profile visibility</li>
-                    <li><strong>Distance Filter:</strong> Only users within 300km (186 miles) are shown. Users beyond this distance will never appear in your feed</li>
+                    <li><strong>Distance Ranking:</strong> Profiles are prioritized by distance up to 300km (186 miles); users beyond that distance are strongly deprioritized and only appear after nearby users have been rated</li>
                     <li><strong>Location Ranking:</strong> Users without location data are shown last, after all nearby users have been rated</li>
                 </ul>
 
@@ -362,38 +390,47 @@
                 <ul>
                     <li><strong>Hourly Limit:</strong> 6 profile ratings per hour (free users)</li>
                     <li><strong>Unlock Limit:</strong> Spend 20 Corns to rate 6 more profiles immediately</li>
-                    <li><strong>Monthly Reset:</strong> Matches, likes, and seen users reset on the 1st of each month (except active chats and blocked users)</li>
+                    <li><strong>Monthly Reset:</strong> Matches, likes, and seen users reset on the 1st of each month (except active chats, blocked users, and pending chat invitations)</li>
                     <li><strong>No Guarantees:</strong> Geesly does not guarantee matches, connections, or relationship outcomes</li>
                 </ul>
             </section>
 
             <section>
-                <h2>8. Virtual Currency (Corns)</h2>
-                <p>Geesly uses a virtual currency called "Corns" for in-app actions:</p>
+                <h2>8. Virtual Currency and Items (Corns &amp; Skeins)</h2>
+                <p>Geesly uses a virtual currency called "Corns" and virtual items called "Skeins" for in-app actions:</p>
 
                 <h3>Earning Corns:</h3>
                 <ul>
                     <li>1 Corn per 12 profile ratings</li>
                     <li>1 Corn per rewarded video ad watched (optional)</li>
+                    <li>7 Corns for rating the app (one time)</li>
                     <li>Bonus Corns with premium subscriptions</li>
                     <li>Purchase Corns via in-app purchases</li>
                 </ul>
 
                 <h3>Using Corns:</h3>
                 <ul>
-                    <li>20 Corns to unlock chat with a match</li>
+                    <li>50 Corns to unlock chat with a match</li>
+                    <li>10 Corns to send a chat invitation</li>
                     <li>20 Corns to bypass hourly rating limit (unlock 6 more ratings)</li>
                     <li>5 Corns to view a user's full profile details</li>
                 </ul>
 
+                <h3>Skeins (Super-Likes):</h3>
+                <ul>
+                    <li>A Skein lets you send a short message (up to 140 characters) together with a super-like, even before matching</li>
+                    <li>Skeins are granted with premium subscriptions per billing period: 1 (1-week plan), 3 (1-month), 15 (6-month), or 30 (1-year) — credited on purchase and on each renewal</li>
+                    <li>One Skein is spent per send; unused Skeins remain on your account</li>
+                </ul>
+
                 <h3>Important Terms:</h3>
                 <ul>
-                    <li>Corns are a limited, personal, non-transferable, non-sublicensable, revocable license</li>
-                    <li>Corns have no monetary value and cannot be exchanged for cash</li>
-                    <li>Corns cannot be transferred between users</li>
-                    <li>Corn balances do not expire while your account is active</li>
-                    <li>Upon account deletion, all Corns are forfeited with no refund</li>
-                    <li>We may adjust Corn prices or actions at any time</li>
+                    <li>Corns and Skeins are a limited, personal, non-transferable, non-sublicensable, revocable license</li>
+                    <li>Corns and Skeins have no monetary value and cannot be exchanged for cash</li>
+                    <li>Corns and Skeins cannot be transferred between users</li>
+                    <li>Corn and Skein balances do not expire while your account is active</li>
+                    <li>Upon account deletion, all Corns and Skeins are forfeited with no refund</li>
+                    <li>We may adjust Corn prices, Skein grant amounts, or the actions they enable at any time</li>
                 </ul>
             </section>
 
@@ -409,6 +446,8 @@
                     <li>Unlimited rating (no hourly limit)</li>
                     <li>Send unlimited chat invitations</li>
                     <li>Bonus Corns included</li>
+                    <li>Skeins (super-likes with a message) each billing period: 1 (1-week plan), 3 (1-month), 15 (6-month), or 30 (1-year)</li>
+                    <li>Rewind: undo your previous rating and re-rate that profile</li>
                     <li>Priority matching visibility</li>
                 </ul>
 
@@ -449,8 +488,8 @@
                 <h2>10. Chat and Messaging</h2>
                 <h3>Chat Features:</h3>
                 <ul>
-                    <li><strong>Chat Invitations:</strong> Send invitations to matches (premium = unlimited, free users have limits)</li>
-                    <li><strong>Chat Unlock:</strong> Costs 20 Corns per unlock (premium = free)</li>
+                    <li><strong>Chat Invitations:</strong> Send chat invitations to users who have liked you, from your Favorites (premium = free; free users pay 10 Corns per invitation)</li>
+                    <li><strong>Chat Unlock:</strong> Costs 50 Corns per unlock (premium = free)</li>
                     <li><strong>Message Limit:</strong> 200 characters per message</li>
                     <li><strong>Spam Detection:</strong> Automatic blocking of URLs, phone numbers, and repeated messages</li>
                     <li><strong>Message History:</strong> Pagination loads 30 messages at a time</li>
@@ -493,7 +532,7 @@
                 <h3>Deletion Process:</h3>
                 <ul>
                     <li>Two confirmation dialogs required (to prevent accidental deletion)</li>
-                    <li>Deletion completes within 45 seconds</li>
+                    <li>Deletion is processed server-side and completes promptly (typically within seconds)</li>
                     <li>You are automatically logged out</li>
                     <li>No recovery possible after deletion</li>
                     <li>No refunds for unused subscriptions or Corns</li>

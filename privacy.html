@@ -61,10 +61,10 @@
       "inLanguage": "en-US",
       "isPartOf": { "@type": "WebSite", "name": "Geesly", "url": "https://geesly.net" },
       "publisher": { "@type": "Organization", "name": "Geesly", "url": "https://geesly.net" },
-      "dateModified": "2026-03-06"
+      "dateModified": "2026-07-09"
     }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -96,6 +96,30 @@
             transition: opacity 0.2s, transform 0.2s;
         }
         .gradient-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* ---- Layered document styling (readability) ---- */
+        .prose h2 {
+            color: #c084fc;
+            font-weight: 800;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 0.5rem;
+        }
+        .prose h3 {
+            color: #e9d5ff;
+            font-weight: 700;
+            padding-left: 0.9rem;
+            border-left: 3px solid rgba(192, 132, 252, 0.6);
+        }
+        .prose strong { color: #ffffff; }
+        .prose li::marker { color: #c084fc; }
+        /* Nested lists get an indented rail so sub-points read as layers */
+        .prose ul ul {
+            border-left: 2px solid rgba(192, 132, 252, 0.25);
+            padding-left: 1.25rem;
+            margin-left: 0.25rem;
+            list-style-type: circle;
+        }
+        .prose .lead { color: #d1d5db; font-size: 1.15em; }
     </style>
 </head>
 <body class="font-sans antialiased bg-gray-950 text-gray-100">
@@ -140,7 +164,7 @@
             <h1 class="text-4xl sm:text-5xl font-bold mb-4">
                 <span class="gradient-text">Privacy Policy</span>
             </h1>
-            <p class="text-lg text-gray-400">Last Updated: February 2026</p>
+            <p class="text-lg text-gray-400">Last Updated: July 2026</p>
         </div>
 
         <!-- Privacy Policy Content -->
@@ -163,18 +187,19 @@
                 <h3>A. Information You Provide</h3>
                 <ul>
                     <li><strong>Account Credentials:</strong> Phone number, email address, and login credentials via Google or Apple Sign-In</li>
-                    <li><strong>Profile Information:</strong> Name, public ID (username), age, date of birth, gender, photos (2-6 images), bio, tagline, interests, personality traits, MBTI type, and languages spoken</li>
+                    <li><strong>Profile Information:</strong> Name, public ID (username), age, date of birth, gender, photos (2-6 images), bio, interests, personality traits, MBTI type, and languages spoken</li>
                     <li><strong>Demographics & Lifestyle:</strong> Job title, company, school, height, body type, education level, relationship intent, workout frequency, smoking and drinking habits, dietary preferences, religious beliefs, political views, zodiac sign, and race/ethnicity</li>
                     <li><strong>Preferences:</strong> Gender preference, age range, maximum distance, preferred body styles, and other matching criteria</li>
-                    <li><strong>User Content:</strong> Messages in chats (subject to spam detection filters)</li>
+                    <li><strong>User Content:</strong> Messages in chats (subject to spam detection filters) and Skein messages (short introduction messages, up to 140 characters, sent together with a "Skein" super-like)</li>
                     <li><strong>Verification Data:</strong> World ID verification data if you choose to verify your profile (processed through World ID)</li>
+                    <li><strong>Blocked Numbers:</strong> Phone numbers you choose to enter in the optional "Block by phone number" feature. These are stored in standardized (E.164) format with your account and used solely to hide you and the blocked person from each other's discovery feeds. Blocking by number only takes effect against users who have verified that phone number in the app</li>
                 </ul>
 
                 <h3>B. Information We Collect Automatically</h3>
                 <ul>
                     <li><strong>Usage Data:</strong> Activity within the app including likes (5-star ratings), passes (1-4 star ratings), matches, chat invitations sent/received, profiles viewed, rating progress (earn 1 Corn per 12 ratings), hourly rating limits (6 per hour), features used, and login times</li>
                     <li><strong>Device Information:</strong> Device model, operating system, IP address, device identifiers, mobile network information, and app version</li>
-                    <li><strong>Location Data:</strong> Precise geolocation (latitude/longitude) and geohash (encoded location) to suggest nearby matches within a maximum distance of 300km (approximately 186 miles). Users beyond this distance will not appear in your discovery feed. Users without location data may still be shown but will appear after all nearby users have been rated, with significantly lower visibility. You can revoke this permission in device settings, though it will severely limit your visibility to other users</li>
+                    <li><strong>Location Data:</strong> Precise geolocation (latitude/longitude) and geohash (encoded location) to suggest nearby matches, prioritized by distance up to 300km (approximately 186 miles). Users beyond this distance are strongly deprioritized and are only shown after nearby users have been rated. Users without location data may still be shown but will appear after all nearby users have been rated, with significantly lower visibility. You can revoke this permission in device settings, though it will severely limit your visibility to other users</li>
                     <li><strong>Analytics:</strong> App performance data, crash reports, and usage patterns via Firebase Analytics (which includes Google Analytics) and Crashlytics</li>
                 </ul>
 
@@ -265,6 +290,7 @@
                     <li>Images that violate our policies are automatically rejected</li>
                     <li>You receive immediate feedback if an image is rejected, with the reason</li>
                     <li>Approved images are then uploaded to your profile</li>
+                    <li>New and changed profile photos also enter a moderation queue and may additionally be reviewed by our moderation team</li>
                 </ul>
 
                 <h3>C. Data Handling</h3>
@@ -292,7 +318,7 @@
                 <ul>
                     <li><strong>Access & Portability:</strong> Request a copy of the data we hold about you</li>
                     <li><strong>Correction:</strong> Update your profile information via app settings at any time</li>
-                    <li><strong>Deletion:</strong> Request account deletion via Settings → Privacy → Delete Account. All your data including profile, photos, messages, matches, and purchase history will be permanently deleted within 45 seconds (with 45-second timeout protection)</li>
+                    <li><strong>Deletion:</strong> Request account deletion via Settings → Privacy → Delete Account. All your data including profile, photos, messages, matches, and purchase history will be permanently deleted promptly by our server-side deletion process (typically within seconds)</li>
                     <li><strong>Device Permissions:</strong> Revoke permissions for Location, Camera, Photos, or Notifications through your device settings at any time</li>
                     <li><strong>Notification Preferences:</strong> Manage push notifications and alerts in Settings → Notifications. Toggle on/off for: push notifications, alerts, vibration, and online status visibility</li>
                     <li><strong>Blocking:</strong> Block users to prevent them from seeing your profile or contacting you</li>
@@ -304,13 +330,14 @@
                 <p>We retain your personal information as follows:</p>
                 <ul>
                     <li><strong>Active Accounts:</strong> Data is kept while your account is active</li>
-                    <li><strong>Deleted Accounts:</strong> Upon account deletion (via in-app delete function), your data is immediately and permanently deleted within 45 seconds, including:
+                    <li><strong>Deleted Accounts:</strong> Upon account deletion (via in-app delete function), your data is immediately and permanently deleted by our server-side deletion process, including:
                         <ul>
                             <li>User profile and authentication data</li>
                             <li>All profile photos from Firebase Storage</li>
                             <li>Chat invitations (sent and received)</li>
                             <li>Chat messages and conversations</li>
                             <li>Chat unlock records</li>
+                            <li>Skein records, sent and received (including their messages)</li>
                             <li>References in other users' blocked lists</li>
                             <li>Local app cache and SharedPreferences/UserDefaults</li>
                         </ul>
@@ -374,7 +401,7 @@
                     <li>App performance and crash data (via Firebase Crashlytics)</li>
                     <li>Session duration and frequency</li>
                 </ul>
-                <p>We do not use Google Analytics or third-party ad tracking.</p>
+                <p>Firebase Analytics is Google's analytics platform (Google Analytics for Firebase). In addition, optional rewarded video ads are served by Google AdMob, which may use device advertising identifiers to serve and measure ads; Google's privacy policy applies to that processing.</p>
             </section>
 
             <section>
@@ -385,6 +412,7 @@
                     <li><strong>Push Notifications:</strong> Via Firebase Cloud Messaging about:
                         <ul>
                             <li>New matches (when someone likes you back)</li>
+                            <li>Likes and Skeins (super-likes) received</li>
                             <li>Chat invitations received</li>
                             <li>New messages in active chats</li>
                             <li>Account activity and security alerts</li>
@@ -448,23 +476,31 @@
             </section>
 
             <section>
-                <h2>18. Virtual Currency (Corns)</h2>
-                <p>Geesly uses a virtual currency called "Corns" for in-app actions:</p>
+                <h2>18. Virtual Currency and Items (Corns &amp; Skeins)</h2>
+                <p>Geesly uses a virtual currency called "Corns" and virtual items called "Skeins" for in-app actions:</p>
                 <h3>Earning Corns:</h3>
                 <ul>
                     <li>1 Corn per 12 profile ratings</li>
                     <li>1 Corn per rewarded video ad watched (optional)</li>
+                    <li>7 Corns for rating the app (one time)</li>
                     <li>Bonus Corns with premium subscriptions</li>
                 </ul>
                 <h3>Using Corns:</h3>
                 <ul>
-                    <li>20 Corns to unlock chat with a match</li>
+                    <li>50 Corns to unlock chat with a match</li>
+                    <li>10 Corns to send a chat invitation</li>
                     <li>20 Corns to bypass hourly rating limit (unlock 6 more ratings)</li>
                     <li>5 Corns to view a user's full profile</li>
                 </ul>
                 <h3>Purchasing Corns:</h3>
                 <p>Available via in-app purchases through app stores</p>
-                <p>Corn balances and transactions are stored securely and associated with your account. Premium subscribers get unlimited certain features.</p>
+                <h3>Skeins (Super-Likes):</h3>
+                <ul>
+                    <li>A Skein lets you send a short message (up to 140 characters) together with a super-like, even before matching</li>
+                    <li>Skeins are granted with premium subscriptions — 1 (1-week plan), 3 (1-month), 15 (6-month), or 30 (1-year) — credited on purchase and on each renewal</li>
+                    <li>Each send spends one Skein from your balance; Skein messages are delivered to the recipient and stored like other user content</li>
+                </ul>
+                <p>Corn and Skein balances and transactions are stored securely and associated with your account. Premium subscribers also get certain features free of Corn charges (profile views, invitations, chat unlocks).</p>
             </section>
 
             <section>
