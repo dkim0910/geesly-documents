@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["YU66583SCF.com.geesly.blm"],
+        "components": [
+          { "/": "/profile*", "comment": "Open a user profile in the app" },
+          { "/": "/chat*", "comment": "Open a chat in the app" },
+          { "/": "/premium*", "comment": "Open the premium/purchase page in the app" }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["YU66583SCF.com.geesly.blm"]
+  }
+}
