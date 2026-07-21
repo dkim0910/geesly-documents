@@ -4,27 +4,27 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://geesly.net/</loc>
-    <lastmod>2026-04-09</lastmod>
+    <loc>https://www.geesly.net/</loc>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://geesly.net/lib/images/geesly-background-no-text.png</image:loc>
+      <image:loc>https://www.geesly.net/lib/images/geesly-background-no-text.png</image:loc>
       <image:title>Geesly Dating App Logo</image:title>
       <image:caption>Geesly — Free dating app with a unique 5-star rating system</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://geesly.net/lib/images/1.png</image:loc>
+      <image:loc>https://www.geesly.net/lib/images/1.png</image:loc>
       <image:title>Geesly App Screenshot — Profile Browsing</image:title>
       <image:caption>Browse and rate profiles on Geesly dating app</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://geesly.net/lib/images/2.png</image:loc>
+      <image:loc>https://www.geesly.net/lib/images/2.png</image:loc>
       <image:title>Geesly App Screenshot — Matching</image:title>
       <image:caption>Match with people nearby using Geesly's 5-star rating system</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://geesly.net/lib/images/3.png</image:loc>
+      <image:loc>https://www.geesly.net/lib/images/3.png</image:loc>
       <image:title>Geesly App Screenshot — Chat</image:title>
       <image:caption>Start chatting with your matches on Geesly</image:caption>
     </image:image>
@@ -32,48 +32,48 @@
 
   <!-- About -->
   <url>
-    <loc>https://geesly.net/about.html</loc>
-    <lastmod>2026-04-10</lastmod>
+    <loc>https://www.geesly.net/about.html</loc>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Safety Guide -->
   <url>
-    <loc>https://geesly.net/safety.html</loc>
-    <lastmod>2026-04-10</lastmod>
+    <loc>https://www.geesly.net/safety.html</loc>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Guides / Dating Tips -->
   <url>
-    <loc>https://geesly.net/guides.html</loc>
-    <lastmod>2026-04-10</lastmod>
+    <loc>https://www.geesly.net/guides.html</loc>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Privacy Policy -->
   <url>
-    <loc>https://geesly.net/privacy.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <loc>https://www.geesly.net/privacy.html</loc>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- Terms of Service -->
   <url>
-    <loc>https://geesly.net/terms.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <loc>https://www.geesly.net/terms.html</loc>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- Account Deletion -->
   <url>
-    <loc>https://geesly.net/deletion.html</loc>
-    <lastmod>2026-04-09</lastmod>
+    <loc>https://www.geesly.net/deletion.html</loc>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
