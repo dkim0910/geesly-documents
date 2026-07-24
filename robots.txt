@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /.well-known/
 
-Sitemap: https://www.geesly.net/sitemap.xml
+Sitemap: https://geesly.net/sitemap.xml
 
 # XML resources
 # browserconfig.xml - Windows tile configuration

@@ -9,11 +9,13 @@ Marketing + legal site for **Geesly**, a dating app, plus one Firebase-backed
 CDN). No build step, no framework, no bundler.
 
 - Hosted on **GitHub Pages** from the `main` branch.
-- Custom domain `www.geesly.net` (see `CNAME`) is the only URL that serves
+- Custom domain **apex `geesly.net`** (see `CNAME`) is the only URL that serves
   content directly — `https://dkim0910.github.io/geesly-documents/` and the
-  bare apex `https://geesly.net/` both **301-redirect** to it (verified
-  2026-07-21). This is why the Android App Links filter in the app repo uses
-  `www.geesly.net` only.
+  `www` host `https://www.geesly.net/` both **301-redirect** to it (flipped from
+  www-canonical to apex-canonical 2026-07-24). This is why the Android App Links
+  filter in the app repo must use `geesly.net` only — App Links and iOS Universal
+  Links do **not** follow the `www`→apex redirect, so the app's Android intent
+  filter and iOS `Associated Domains` entitlement must target `geesly.net`.
 - Jekyll is effectively disabled (`.nojekyll`), except `_config.yml` only exists
   to include the `.well-known` directory in the published output.
 
