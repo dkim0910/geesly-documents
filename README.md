@@ -1,27 +1,25 @@
-# geesly-documents
+# Geesly
 
-Marketing + legal site for **Geesly** (a dating app), plus an internal admin tool.
-Static HTML styled with Tailwind (via CDN) — no build step, hosted on GitHub Pages.
+**Geesly** is a dating app — meet new people, match, and chat. This is the
+official website and help center.
 
-- Live: https://www.geesly.net/ (and https://dkim0910.github.io/geesly-documents/)
+👉 **Visit us at [geesly.net](https://geesly.net/)**
 
-## Pages
+## What you'll find here
 
-- `index.html` — home page
-- `about.html`, `safety.html`, `guides.html`
-- `terms.html`, `privacy.html`, `deletion.html` — legal / data deletion
-- `admin.html` — internal, auth-gated admin tool (growth stats + image moderation);
-  `noindex` and not in the sitemap. Uses the Firebase web SDK + Chart.js.
+- **[Home](https://geesly.net/)** — what Geesly is and how to get the app
+- **[About](https://geesly.net/about.html)** — our story and what we're about
+- **[Safety Tips](https://geesly.net/safety.html)** — how to stay safe while dating
+- **[Guides](https://geesly.net/guides.html)** — tips for making the most of Geesly
+- **[Privacy Policy](https://geesly.net/privacy.html)** — how we handle your data
+- **[Terms of Service](https://geesly.net/terms.html)** — the rules for using Geesly
+- **[Delete Your Account](https://geesly.net/deletion.html)** — remove your account and data
 
-## Local preview
+## Need help?
 
-```bash
-npm run dev   # serves at http://localhost:8080 (use localhost, not 127.0.0.1, for Firebase auth)
-```
+Reach us anytime at **hello+geeslyhelp@nelera.net** and we'll get back to you.
 
-## Deploying
+---
 
-Push to `main` — GitHub Pages publishes automatically. No build step.
-
-See [CLAUDE.md](CLAUDE.md) for conventions and admin-page details. The admin
-page's backend (Firestore/Storage rules, stats function) lives in the `geesly` app repo.
+<sub>This site is hosted on GitHub Pages. Developer notes live in
+[CLAUDE.md](CLAUDE.md).</sub>

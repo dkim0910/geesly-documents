@@ -3,6 +3,6 @@
   <ShortName>Geesly</ShortName>
   <Description>Search Geesly — Dating App</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/png">https://www.geesly.net/lib/images/geesly-background-no-text.png</Image>
-  <Url type="text/html" template="https://www.geesly.net/?q={searchTerms}"/>
+  <Image width="16" height="16" type="image/png">https://geesly.net/lib/images/geesly-background-no-text.png</Image>
+  <Url type="text/html" template="https://geesly.net/?q={searchTerms}"/>
 </OpenSearchDescription>
