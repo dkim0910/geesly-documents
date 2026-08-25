@@ -82,8 +82,48 @@ is **not** static marketing. Added 2026-06-13.
   a Week/Month/Year trend line chart, and current age-group + gender breakdowns.
 - **Image moderation tab:** lists users with photos (gender filter, infinite
   scroll, 50/page); actions: Mark reviewed (`imagesReviewed`), Blacklist
-  (`isBlacklisted`), Delete (re-onboard), and per-photo delete — deletes the
-  Storage file too (needs the admin override in `storage.rules`).
+  (`isBlacklisted`), Delete (re-onboard), Skip (hides the card, changes
+  nothing), and per-photo delete — deletes the Storage file too (needs the admin
+  override in `storage.rules`).
+- **Never merge-`set()` a user doc from this page** (2026-08-26): the rules give
+  admins `update` on `/users/{uid}` but **not** `create`, and a merge-set on a
+  doc that no longer exists is evaluated as a *create*. Cards outlive their
+  profiles (the person deletes their account, a cleanup pass runs), so that used
+  to fail with "Missing or insufficient permissions" and jam the queue on one
+  user. Every write path now uses `update()` and, when it fails, re-reads the
+  doc and flags the card as gone instead of looping. Deleted accounts — scrubbed
+  to an email-only doc — are filtered out of the queue.
+- **Users tab:** every user doc — email, UID, whether each `profileImageUrls`
+  entry actually loads — plus a per-row **Delete** (same `adminDeleteUser` call
+  as the moderation tab). A profile doc only stores the email the sign-in
+  provider gave the client at sign-up, so rows with a blank one fill in from
+  Firebase Auth via the **`adminLookupEmails`** callable (app repo,
+  `functions/index.js`; needs `./deploy-functions.sh`) and are tagged `(auth)`.
+  Without that function deployed the row just reads "(no email on profile)".
+- **Caching:** Firestore IndexedDB persistence is on
+  (`db.enablePersistence({synchronizeTabs:true})`, called right after
+  `firebase.firestore()` — it must run before any read). Reads go through
+  `cachedGet()`, which serves from the local cache while that tab's data is
+  younger than its TTL (`CACHE_TTL`: growth 6h, moderation/users 10min; stamps
+  live in `localStorage.geeslyAdminCache`) and otherwise hits the server. Each
+  tab has a **Refresh** button that forces a server read for the whole load
+  cycle (`modForce` / `usrForce` stay set until the next reset). Paged list
+  queries pass `expectSize`, so a half-cached page isn't mistaken for the end of
+  the list. `count()` is an aggregate query and can't read from cache, so its
+  last value is kept in `localStorage` too.
+- **Security posture** (reviewed 2026-08-26): this repo is **public** and
+  `admin.html` is served publicly — deliberately. The page's `ADMIN_UIDS` gate
+  is UX only; the real boundary is server-side (`isAdmin()` in `firestore.rules`
+  and `storage.rules`, plus the `ADMIN_UIDS` check in every `admin*` callable) —
+  all four verified consistent. Nothing secret ships in the page: the Firebase
+  **web** apiKey is a public identifier, and the admin UID is an identifier, not
+  a credential (history scanned — no keys have ever been committed). Two known
+  gaps, both independent of the page being public: `/users/{uid}` is readable by
+  **any signed-in user**, so someone who edits out the client gate can *read*
+  the lists (never write); and **App Check is not enabled** anywhere. Keep
+  `admin.html`'s `noindex` meta and out of `sitemap.xml` — do **not** add it to
+  `robots.txt`, which would advertise the path and stop crawlers reading the
+  noindex.
 - **Config to fill if regenerating:** the Firebase **web** `firebaseConfig`
   (apiKey/appId from a Web app registered in the console) and `ADMIN_UIDS`. For
   Google sign-in to work, `geesly.net` / `dkim0910.github.io` must be in Firebase
