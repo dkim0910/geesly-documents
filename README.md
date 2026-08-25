@@ -19,6 +19,18 @@ official website and help center.
 
 Reach us anytime at **hello+geeslyhelp@nelera.net** and we'll get back to you.
 
+## For developers
+
+Plain HTML pages styled with Tailwind — no build step, no framework, no bundler.
+
+```bash
+npm run dev   # serve the site locally at http://localhost:8080
+```
+
+Pushing to `main` publishes to [geesly.net](https://geesly.net/) via GitHub
+Pages; there is no CI step. Each page is standalone, so shared markup (nav,
+footer, analytics, meta) has to be changed in every file.
+
 ---
 
 <sub>This site is hosted on GitHub Pages. Developer notes live in

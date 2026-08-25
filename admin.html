@@ -51,7 +51,10 @@
 
         <!-- Growth tab -->
         <section id="tab-growth">
-            <p class="text-gray-400 text-sm mb-4">Current totals with change vs ~7 days and ~30 days ago (from daily stats snapshots).</p>
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <p class="text-gray-400 text-sm">Current totals with change vs ~7 days and ~30 days ago (from daily stats snapshots).</p>
+                <button id="refreshGrowth" class="bg-[#17102a] hover:bg-purple-600 text-gray-300 hover:text-white text-sm font-semibold px-4 py-1.5 rounded-lg" title="Ignore the local cache and re-read from Firestore">Refresh</button>
+            </div>
             <div id="growthGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <p class="text-gray-500">Loading…</p>
             </div>
@@ -97,6 +100,7 @@
                 <div class="flex items-center gap-3 flex-wrap">
                     <button id="cleanupNoImagesBtn" class="bg-[#17102a] hover:bg-red-600 text-gray-300 hover:text-white text-sm font-semibold px-4 py-1.5 rounded-lg">Delete profiles without photos (keep email)</button>
                     <button id="cleanupOrphansBtn" class="bg-[#17102a] hover:bg-red-600 text-gray-300 hover:text-white text-sm font-semibold px-4 py-1.5 rounded-lg">Clean up orphaned logins</button>
+                    <button id="refreshMod" class="bg-[#17102a] hover:bg-purple-600 text-gray-300 hover:text-white text-sm font-semibold px-4 py-1.5 rounded-lg" title="Ignore the local cache and re-read from Firestore">Refresh</button>
                     <label class="text-sm text-gray-400 flex items-center gap-2">
                         <input type="checkbox" id="onlyUnreviewed" class="accent-purple-600" checked> Unreviewed only
                     </label>
@@ -110,9 +114,12 @@
         <section id="tab-users" class="hidden">
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <p class="text-gray-400 text-sm">All users — UID, email, and whether each profile image URL actually loads.</p>
-                <label class="text-sm text-gray-400 flex items-center gap-2">
-                    <input type="checkbox" id="brokenOnly" class="accent-purple-600"> Broken / missing images only
-                </label>
+                <div class="flex items-center gap-3 flex-wrap">
+                    <button id="refreshUsers" class="bg-[#17102a] hover:bg-purple-600 text-gray-300 hover:text-white text-sm font-semibold px-4 py-1.5 rounded-lg" title="Ignore the local cache and re-read from Firestore">Refresh</button>
+                    <label class="text-sm text-gray-400 flex items-center gap-2">
+                        <input type="checkbox" id="brokenOnly" class="accent-purple-600"> Broken / missing images only
+                    </label>
+                </div>
             </div>
             <div id="usersCount" class="text-sm text-gray-300 mb-3">—</div>
             <div id="usersList" class="space-y-2"></div>
@@ -142,6 +149,58 @@
     const db = firebase.firestore();
     const storage = firebase.storage();
     const functions = firebase.functions();
+
+    // ---- Local cache -----------------------------------------------------
+    // Firestore keeps every doc this page reads in IndexedDB, so returning to a
+    // tab — or reopening the page entirely — is served off disk instead of
+    // re-reading (and re-billing) the same documents. Reads go cache-first
+    // while a tab's data is younger than its TTL; each tab's Refresh button
+    // forces a server read. Best-effort: a second open tab or a browser without
+    // IndexedDB simply falls back to network reads.
+    db.enablePersistence({ synchronizeTabs: true }).catch((e) => {
+        console.warn("Firestore local cache unavailable:", e && e.code);
+    });
+
+    const CACHE_KEY = "geeslyAdminCache";
+    const CACHE_TTL = {
+        growth: 6 * 60 * 60 * 1000,   // snapshots are written daily
+        moderation: 10 * 60 * 1000,
+        users: 10 * 60 * 1000
+    };
+
+    function cacheState() {
+        try { return JSON.parse(localStorage.getItem(CACHE_KEY)) || {}; }
+        catch (e) { return {}; }
+    }
+    function cacheWrite(patch) {
+        try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({ ...cacheState(), ...patch }));
+        } catch (e) { /* private mode / quota — caching is best-effort */ }
+    }
+    function isFresh(key) {
+        const at = (cacheState().fetchedAt || {})[key];
+        return !!at && Date.now() - at < (CACHE_TTL[key] || 0);
+    }
+    function markFetched(key) {
+        cacheWrite({ fetchedAt: { ...(cacheState().fetchedAt || {}), [key]: Date.now() } });
+    }
+
+    // Read a doc/query from the local cache while this tab's data is still
+    // fresh, otherwise from the server. `expectSize` guards paged queries: a
+    // half-cached page would otherwise look like the end of the list.
+    async function cachedGet(ref, key, force, expectSize) {
+        if (!force && isFresh(key)) {
+            try {
+                const snap = await ref.get({ source: "cache" });
+                const miss = snap.empty === true || snap.exists === false ||
+                    (expectSize != null && snap.size !== expectSize);
+                if (!miss) return snap;
+            } catch (e) { /* nothing cached yet — fall through to the server */ }
+        }
+        const snap = await ref.get();   // server, falling back to cache if offline
+        markFetched(key);
+        return snap;
+    }
 
     // Best-effort delete of a Storage file from its download URL. Ignores
     // "not found" (already gone); other errors (e.g. rules) are logged.
@@ -272,16 +331,16 @@
     let genderChart = null;
     let chartRange = "month";  // bucket granularity: "week" | "month" | "year"
 
-    async function loadGrowth() {
+    async function loadGrowth(force) {
         const grid = $("growthGrid");
         grid.innerHTML = "<p class='text-gray-500'>Loading…</p>";
         try {
-            const snap = await db.collection("admin").doc("stats")
-                .collection("history").orderBy("timestamp", "desc").limit(500).get();
+            const snap = await cachedGet(db.collection("admin").doc("stats")
+                .collection("history").orderBy("timestamp", "desc").limit(500), "growth", force);
             let snaps = snap.docs.map((d) => d.data());
             if (snaps.length === 0) {
                 // Fall back to the single current doc.
-                const cur = await db.collection("admin").doc("stats").get();
+                const cur = await cachedGet(db.collection("admin").doc("stats"), "growth", force);
                 if (cur.exists && cur.data().current) snaps = [cur.data().current];
             }
             if (snaps.length === 0) {
@@ -457,6 +516,8 @@
     let modHasMore = true;
     let modLoaded = false; // moderation tab lazy-loaded on first open
     let modGender = "all"; // "all" | "Male" | "Female"
+    let modHiddenGone = 0; // deleted (email-only) accounts filtered out of the queue
+    let modForce = false;  // this load cycle must bypass the local cache
     const MOD_PAGE = 50;
 
     // Users tab state.
@@ -467,9 +528,13 @@
     let usrTotal = null;   // total user docs (from a count() query)
     let usrChecked = 0;    // rows loaded + image-checked so far
     let usrBroken = 0;     // rows with < 2 working images
+    let usrForce = false;  // this load cycle must bypass the local cache
     const USR_PAGE = 50;
 
-    $("onlyUnreviewed").onchange = resetModeration;
+    $("onlyUnreviewed").onchange = () => resetModeration();
+    $("refreshGrowth").onclick = () => loadGrowth(true);
+    $("refreshMod").onclick = () => resetModeration(true);
+    $("refreshUsers").onclick = () => resetUsers(true);
 
     // Bulk delete accounts with fewer than 2 photos (broken/moderated-out), keeping
     // the email. Age-guarded server-side so in-progress signups aren't touched.
@@ -564,9 +629,13 @@
         }
     });
 
-    function resetModeration() {
+    // `force` sticks for the whole load cycle (the auto-fill keeps calling
+    // loadModeration), so a Refresh re-reads every page from the server.
+    function resetModeration(force) {
+        modForce = !!force;
         modCursor = null;
         modHasMore = true;
+        modHiddenGone = 0;
         $("modList").innerHTML = "";
         loadModeration();
     }
@@ -590,6 +659,42 @@
         });
     }
 
+    // Fills in the email for rows whose `users` doc has none, from Firebase Auth
+    // (the source of truth) via the admin-only adminLookupEmails callable. Auth
+    // records aren't readable from the web SDK, so without that function
+    // deployed these rows just say the profile carries no email.
+    async function fillAuthEmails(rows) {
+        if (!rows.length) return;
+        const show = (el, html) => {
+            const slot = el.querySelector(".userEmail");
+            if (slot) slot.innerHTML = html;
+        };
+        // getUsers() takes at most 100 identifiers per call.
+        for (let i = 0; i < rows.length; i += 100) {
+            const chunk = rows.slice(i, i + 100);
+            try {
+                const res = await functions.httpsCallable("adminLookupEmails")({
+                    uids: chunk.map((r) => r.uid)
+                });
+                const emails = (res.data && res.data.emails) || {};
+                const noLogin = new Set((res.data && res.data.notFound) || []);
+                chunk.forEach(({ uid, el }) => {
+                    if (emails[uid]) {
+                        show(el, `${esc(emails[uid])}<span class="text-gray-500 text-xs font-normal ml-2" title="From the Auth record — the profile doc has no email field">(auth)</span>`);
+                    } else if (noLogin.has(uid)) {
+                        show(el, "<span class='text-amber-400'>(no login — orphaned profile)</span>");
+                    } else {
+                        show(el, "<span class='text-gray-500'>(no email anywhere)</span>");
+                    }
+                });
+            } catch (e) {
+                console.warn("adminLookupEmails failed:", e && e.code, e && e.message);
+                chunk.forEach(({ el }) =>
+                    show(el, "<span class='text-gray-500'>(no email on profile)</span>"));
+            }
+        }
+    }
+
     window.addEventListener("scroll", () => {
         if ($("tab-users").classList.contains("hidden")) return;
         if (usrBusy || !usrHasMore) return;
@@ -598,7 +703,7 @@
         }
     });
 
-    $("brokenOnly").onchange = resetUsers;
+    $("brokenOnly").onchange = () => resetUsers();
 
     function renderUsersCount() {
         const total = usrTotal == null ? "?" : usrTotal;
@@ -608,19 +713,28 @@
             `<span class="text-red-400">${usrBroken}</span> with broken / missing images`;
     }
 
-    async function resetUsers() {
+    async function resetUsers(force) {
+        usrForce = !!force;
         usrCursor = null;
         usrHasMore = true;
         usrChecked = 0;
         usrBroken = 0;
         $("usersList").innerHTML = "";
         renderUsersCount();
-        // Total user count (best-effort; aggregate count query).
-        try {
-            const c = await db.collection("users").count().get();
-            usrTotal = c.data().count;
-        } catch (e) {
-            usrTotal = null;
+        // Total user count (best-effort). count() is an aggregate query — it
+        // always goes to the server, so keep the last value and reuse it while
+        // the tab's data is still fresh.
+        const cached = cacheState();
+        if (!force && isFresh("users") && typeof cached.usersCount === "number") {
+            usrTotal = cached.usersCount;
+        } else {
+            try {
+                const c = await db.collection("users").count().get();
+                usrTotal = c.data().count;
+                cacheWrite({ usersCount: usrTotal });
+            } catch (e) {
+                usrTotal = null;
+            }
         }
         renderUsersCount();
         loadUsers();
@@ -636,29 +750,42 @@
                 .orderBy(firebase.firestore.FieldPath.documentId())
                 .limit(USR_PAGE);
             if (usrCursor) q = q.startAfter(usrCursor);
-            const snap = await q.get();
+            const snap = await cachedGet(q, "users", usrForce, USR_PAGE);
             if (!snap.empty) usrCursor = snap.docs[snap.docs.length - 1];
 
             const list = $("usersList");
             const pageChecks = [];
+            const needEmail = [];   // rows whose doc has no email — ask Auth for it
             snap.docs.forEach((doc) => {
                 const u = doc.data();
                 const imgs = Array.isArray(u.profileImageUrls) ? u.profileImageUrls : [];
+                // The profile doc only carries whatever email the sign-in provider
+                // handed the client at sign-up, so plenty of real accounts have a
+                // null/blank one and used to read "(no email)" here even though
+                // their Auth record has an address. Look those up (see
+                // fillAuthEmails) instead of asserting there is no email.
+                const docEmail = typeof u.email === "string" ? u.email.trim() : "";
                 const el = document.createElement("div");
                 el.className = "card rounded-xl p-3";
                 el.innerHTML = `
                     <div class="flex flex-wrap items-center gap-x-4 gap-y-1 justify-between">
                         <div class="min-w-0">
-                            <div class="text-white font-semibold">${esc(u.email || "(no email)")}</div>
+                            <div class="userEmail text-white font-semibold">${
+                                docEmail ? esc(docEmail)
+                                         : "<span class='text-gray-500'>checking email…</span>"}</div>
                             <div class="text-gray-500 text-xs font-mono select-all">${esc(doc.id)}</div>
                         </div>
                         <div class="flex items-center gap-2 text-sm">
                             <span class="text-gray-400">${esc(u.publicId || "")} ${esc(u.gender || "")}</span>
                             <span class="imgSummary text-gray-400 whitespace-nowrap">${imgs.length} listed · checking…</span>
+                            <button class="usrDelBtn bg-gray-700 hover:bg-red-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg" title="Permanently delete this account (keeps the email as a record)">Delete</button>
                         </div>
                     </div>
                     <div class="imgRow flex gap-2 flex-wrap mt-2"></div>`;
                 list.appendChild(el);
+                if (!docEmail) needEmail.push({ uid: doc.id, el });
+                el.querySelector(".usrDelBtn").onclick = () =>
+                    deleteUser(doc.id, u.publicId || docEmail || doc.id, el);
 
                 // Check each listed URL; color the thumbnail by working/broken.
                 const row = el.querySelector(".imgRow");
@@ -684,6 +811,8 @@
                     if (brokenOnly && working >= 2) el.classList.add("hidden");
                 }));
             });
+
+            fillAuthEmails(needEmail);   // independent of the image checks below
 
             // Wait for all image checks so hiding/auto-fill + counts reflect reality.
             await Promise.all(pageChecks);
@@ -719,7 +848,7 @@
             if (modGender !== "all") q = q.where("gender", "==", modGender);
             q = q.orderBy(firebase.firestore.FieldPath.documentId()).limit(MOD_PAGE);
             if (modCursor) q = q.startAfter(modCursor);
-            const snap = await q.get();
+            const snap = await cachedGet(q, "moderation", modForce, MOD_PAGE);
             if (!snap.empty) modCursor = snap.docs[snap.docs.length - 1];
 
             const onlyUnreviewed = $("onlyUnreviewed").checked;
@@ -728,6 +857,11 @@
                 const u = doc.data();
                 if (onlyUnreviewed && u.imagesReviewed === true) return;
                 const imgs = Array.isArray(u.profileImageUrls) ? u.profileImageUrls : [];
+                // A deleted account is scrubbed down to an email-only doc
+                // (tombstoneAndDeleteAccount). There is nothing to moderate on one
+                // and it never gets an `imagesReviewed` flag, so it would sit in the
+                // "unreviewed only" queue forever, in the way of real users.
+                if (!imgs.length && !u.gender && !u.publicId) { modHiddenGone++; return; }
                 const photos = imgs.length
                     ? imgs.map((url) => `
                         <div class="imgTile relative">
@@ -752,12 +886,14 @@
                             <button class="reviewBtn bg-green-700 hover:bg-green-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg">Mark reviewed</button>
                             <button class="banBtn bg-red-700 hover:bg-red-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg">Blacklist</button>
                             <button class="delBtn bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg">Delete (re-onboard)</button>
+                            <button class="skipBtn bg-[#241a3d] hover:bg-[#2f2450] text-gray-300 text-sm font-semibold px-5 py-2.5 rounded-lg" title="Hide this card and carry on — changes nothing">Skip</button>
                         </div>
                     </div>
                     <div class="flex gap-2 flex-wrap">${photos}</div>`;
                 el.querySelector(".reviewBtn").onclick = () => markReviewed(doc.id, el);
                 el.querySelector(".banBtn").onclick = () => blacklist(doc.id, u.publicId || doc.id, el);
                 el.querySelector(".delBtn").onclick = () => deleteUser(doc.id, u.publicId || doc.id, el);
+                el.querySelector(".skipBtn").onclick = () => skipCard(el);
                 el.querySelectorAll(".imgDel").forEach((b) => {
                     b.onclick = () => deleteImage(doc.id, b.dataset.url, u.publicId || doc.id, el, b);
                 });
@@ -768,9 +904,12 @@
             const shown = $("modList").children.length;
             // While more pages remain, keep showing "Loading…" (the auto-fill is
             // still paging past reviewed users) — don't flicker "No users".
+            const hiddenNote = modHiddenGone
+                ? ` (${modHiddenGone} deleted account${modHiddenGone === 1 ? "" : "s"} hidden)`
+                : "";
             $("modStatus").textContent = shown === 0
-                ? (modHasMore ? "Loading…" : "No users to show.")
-                : (modHasMore ? "" : "End of list.");
+                ? (modHasMore ? "Loading…" : "No users to show." + hiddenNote)
+                : (modHasMore ? "" : "End of list." + hiddenNote);
         } catch (e) {
             modHasMore = false;
             $("modStatus").innerHTML =
@@ -787,24 +926,100 @@
         }
     }
 
-    async function markReviewed(uid, el) {
+    // ---- Moderation writes ----------------------------------------------
+    // A moderation write only lands while the user's doc still exists:
+    // firestore.rules give admins `update` on /users/{uid} but NOT `create`
+    // (create is `request.auth.uid == userId`), and a merge-set on a document
+    // that has been deleted is evaluated as a create. So a card whose profile
+    // went away after it was listed — the person deleted their own account, a
+    // cleanup pass removed it, or the list has just been open a while, while
+    // the photos rendered from the stale snapshot still show — failed with
+    // "Missing or insufficient permissions", the card never cleared, and with
+    // "Unreviewed only" the same user came back on every reload.
+    //
+    // These paths use update() (which fails fast instead of retrying as a
+    // denied create) and treat a vanished profile as "nothing to do here", so
+    // moderation always moves on to the next user.
+
+    function fmtErr(e) {
+        if (!e) return "unknown error";
+        return (e.code ? e.code + " — " : "") + (e.message || String(e));
+    }
+
+    // True when the user doc is gone — i.e. there is nothing left to moderate.
+    // A failed read returns false so real errors still surface as errors.
+    async function profileIsGone(uid) {
         try {
-            await db.collection("users").doc(uid).set({
+            return !(await db.collection("users").doc(uid).get()).exists;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // The profile behind this card is gone: say so, retire its actions, and
+    // leave Skip live so the card can be cleared out of the way.
+    function markCardGone(el, msg) {
+        el.classList.add("opacity-50");
+        el.querySelectorAll("button").forEach((b) => (b.disabled = true));
+        let note = el.querySelector(".goneNote");
+        if (!note) {
+            note = document.createElement("div");
+            note.className = "goneNote text-amber-400 text-sm mt-3";
+            el.appendChild(note);
+        }
+        note.textContent = msg;
+        const skip = el.querySelector(".skipBtn");
+        if (skip) { skip.disabled = false; skip.textContent = "Dismiss"; }
+    }
+
+    // Hide one card without touching any data, then top the queue back up if
+    // the page is now too short to trigger the scroll auto-fill.
+    function skipCard(el) {
+        el.remove();
+        if (modHasMore &&
+            !$("tab-moderation").classList.contains("hidden") &&
+            document.body.offsetHeight <= window.innerHeight + 200) {
+            loadModeration();
+        }
+    }
+
+    async function markReviewed(uid, el) {
+        const btn = el.querySelector(".reviewBtn");
+        btn.disabled = true;
+        try {
+            await db.collection("users").doc(uid).update({
                 imagesReviewed: true,
                 imagesReviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 imagesReviewedBy: auth.currentUser.uid
-            }, { merge: true });
+            });
             el.classList.add("opacity-50");
-        } catch (e) { alert("Failed: " + e.message); }
+            btn.textContent = "Reviewed";
+        } catch (e) {
+            if (await profileIsGone(uid)) {
+                markCardGone(el, "This profile no longer exists — nothing to review. Skipping.");
+                return;
+            }
+            btn.disabled = false;
+            alert("Failed to mark reviewed: " + fmtErr(e));
+        }
     }
 
     async function blacklist(uid, publicId, el) {
         if (!confirm("Blacklist " + publicId + "? They will be banned from the app.")) return;
+        const btn = el.querySelector(".banBtn");
+        btn.disabled = true;
         try {
-            await db.collection("users").doc(uid).set({ isBlacklisted: true }, { merge: true });
+            await db.collection("users").doc(uid).update({ isBlacklisted: true });
             el.classList.add("opacity-50");
-            el.querySelector(".banBtn").textContent = "Blacklisted";
-        } catch (e) { alert("Failed: " + e.message); }
+            btn.textContent = "Blacklisted";
+        } catch (e) {
+            if (await profileIsGone(uid)) {
+                markCardGone(el, "This profile no longer exists — nothing to blacklist. Skipping.");
+                return;
+            }
+            btn.disabled = false;
+            alert("Failed to blacklist: " + fmtErr(e));
+        }
     }
 
     async function deleteUser(uid, publicId, el) {
@@ -818,12 +1033,12 @@
             // email-only tombstone doc (see adminDeleteUser Cloud Function).
             await functions.httpsCallable("adminDeleteUser")({ uid });
             markCardDeleted(el);
-        } catch (e) { alert("Failed: " + (e.message || e)); }
+        } catch (e) { alert("Failed to delete: " + fmtErr(e)); }
     }
 
     function markCardDeleted(el) {
         el.classList.add("opacity-50");
-        const delBtn = el.querySelector(".delBtn");
+        const delBtn = el.querySelector(".delBtn, .usrDelBtn");
         if (delBtn) delBtn.textContent = "Deleted";
         el.querySelectorAll("button").forEach((b) => (b.disabled = true));
     }
@@ -834,8 +1049,34 @@
         try {
             const ref = db.collection("users").doc(uid);
             const snap = await ref.get();
-            const imgs = (snap.exists && Array.isArray(snap.data().profileImageUrls))
+
+            // No doc at all: the photos on screen are leftovers in Storage and
+            // there is nothing to write to. Offer to clean the file up rather
+            // than failing (or worse, offering to "delete" a gone account).
+            if (!snap.exists) {
+                markCardGone(el, "This profile no longer exists — these photos are leftovers in Storage.");
+                if (!confirm("There is no profile for " + publicId + " any more — this photo is " +
+                    "an orphaned file.\n\nDelete the leftover file from Storage?")) return;
+                await deleteStorageFile(url);
+                const orphanTile = btn.closest(".imgTile");
+                if (orphanTile) orphanTile.remove();
+                return;
+            }
+
+            const imgs = Array.isArray(snap.data().profileImageUrls)
                 ? snap.data().profileImageUrls : [];
+
+            // The card was rendered from an older snapshot and this photo is no
+            // longer on the profile — arrayRemove would be a no-op, so just tidy
+            // up the file and the tile.
+            if (!imgs.includes(url)) {
+                if (!confirm("This photo is no longer on " + publicId + "'s profile — the card " +
+                    "is out of date.\n\nDelete the leftover file from Storage?")) return;
+                await deleteStorageFile(url);
+                const staleTile = btn.closest(".imgTile");
+                if (staleTile) staleTile.remove();
+                return;
+            }
 
             if (imgs.length <= 2) {
                 if (!confirm(
@@ -855,7 +1096,13 @@
             await deleteStorageFile(url);     // delete the Storage file too
             const tile = btn.closest(".imgTile");
             if (tile) tile.remove();
-        } catch (e) { alert("Failed: " + e.message); }
+        } catch (e) {
+            if (await profileIsGone(uid)) {
+                markCardGone(el, "This profile no longer exists — nothing to update. Skipping.");
+                return;
+            }
+            alert("Failed to delete photo: " + fmtErr(e));
+        }
     }
 </script>
 </body>
