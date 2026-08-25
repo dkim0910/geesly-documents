@@ -47,6 +47,7 @@
             <button data-tab="growth" class="tab bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Growth</button>
             <button data-tab="moderation" class="tab bg-[#17102a] text-gray-300 px-4 py-2 rounded-lg text-sm font-semibold">Image moderation</button>
             <button data-tab="users" class="tab bg-[#17102a] text-gray-300 px-4 py-2 rounded-lg text-sm font-semibold">Users</button>
+            <button data-tab="audit" class="tab bg-[#17102a] text-gray-300 px-4 py-2 rounded-lg text-sm font-semibold">Blacklist &amp; recovery</button>
         </nav>
 
         <!-- Growth tab -->
@@ -125,6 +126,51 @@
             <div id="usersList" class="space-y-2"></div>
             <div id="usersStatus" class="text-center text-gray-500 text-sm py-8"></div>
         </section>
+
+        <!-- Blacklist & recovery: who is banned, who got locked out by a delete,
+             and which emails are duplicated across more than one user doc. -->
+        <section id="tab-audit" class="hidden">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <p class="text-gray-400 text-sm">Scans every user doc: banned accounts, accounts a delete locked out of sign-in, and duplicated emails.</p>
+                <button id="refreshAudit" class="bg-[#17102a] hover:bg-purple-600 text-gray-300 hover:text-white text-sm font-semibold px-4 py-1.5 rounded-lg" title="Ignore the local cache and re-read from Firestore">Refresh</button>
+            </div>
+
+            <div id="auditSummary" class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6"></div>
+            <div id="auditStatus" class="text-center text-gray-500 text-sm py-4">Loading…</div>
+
+            <!-- Locked out: deleted under the old code, which destroyed the Auth
+                 login while leaving the email behind. The app's duplicate-email
+                 check then blocks them at sign-in forever. -->
+            <div class="card rounded-2xl p-5 mb-6">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+                    <h2 class="text-white font-semibold">Locked out of sign-in</h2>
+                    <button id="releaseAllBtn" class="hidden bg-[#17102a] hover:bg-green-600 text-gray-300 hover:text-white text-sm font-semibold px-4 py-1.5 rounded-lg">Let all back in</button>
+                </div>
+                <p class="text-gray-500 text-sm mb-4">Deleted accounts whose Auth login is gone but whose email record remains. The app matches that email at sign-in and turns them away with &ldquo;Account Already Exists&rdquo;. Letting them back in drops the leftover record so they can sign up and onboard fresh.</p>
+                <div id="auditLocked" class="space-y-2"></div>
+            </div>
+
+            <!-- Blacklisted: the actual ban list. -->
+            <div class="card rounded-2xl p-5 mb-6">
+                <h2 class="text-white font-semibold mb-1">Blacklisted</h2>
+                <p class="text-gray-500 text-sm mb-4">Banned accounts. The app signs these people out with a suspension notice on open.</p>
+                <div id="auditBlacklist" class="space-y-2"></div>
+            </div>
+
+            <!-- Deleted but fine: login intact, so they re-onboard on the same uid. -->
+            <div class="card rounded-2xl p-5 mb-6">
+                <h2 class="text-white font-semibold mb-1">Deleted &mdash; will re-onboard normally</h2>
+                <p class="text-gray-500 text-sm mb-4">Wiped accounts whose login still works. Next time they open the app they land on onboarding with the same account. Nothing to do.</p>
+                <div id="auditWiped" class="space-y-2"></div>
+            </div>
+
+            <!-- Duplicate emails across docs. -->
+            <div class="card rounded-2xl p-5">
+                <h2 class="text-white font-semibold mb-1">Duplicate emails</h2>
+                <p class="text-gray-500 text-sm mb-4">The same address on more than one user doc. Whichever doc the sign-in query hits first decides who gets blocked, so these are worth clearing.</p>
+                <div id="auditDupes" class="space-y-3"></div>
+            </div>
+        </section>
     </div>
 </div>
 
@@ -165,7 +211,8 @@
     const CACHE_TTL = {
         growth: 6 * 60 * 60 * 1000,   // snapshots are written daily
         moderation: 10 * 60 * 1000,
-        users: 10 * 60 * 1000
+        users: 10 * 60 * 1000,
+        audit: 10 * 60 * 1000
     };
 
     function cacheState() {
@@ -267,6 +314,7 @@
             $("tab-growth").classList.toggle("hidden", tab !== "growth");
             $("tab-moderation").classList.toggle("hidden", tab !== "moderation");
             $("tab-users").classList.toggle("hidden", tab !== "users");
+            $("tab-audit").classList.toggle("hidden", tab !== "audit");
             // Lazy-load moderation the first time its (now-visible) tab opens, so
             // the scroll auto-fill works and a filtered first page can't strand
             // it on "No users to show".
@@ -277,6 +325,10 @@
             if (tab === "users" && !usrLoaded) {
                 usrLoaded = true;
                 resetUsers();
+            }
+            if (tab === "audit" && !audLoaded) {
+                audLoaded = true;
+                loadAudit();
             }
         };
     });
@@ -778,7 +830,7 @@
                         <div class="flex items-center gap-2 text-sm">
                             <span class="text-gray-400">${esc(u.publicId || "")} ${esc(u.gender || "")}</span>
                             <span class="imgSummary text-gray-400 whitespace-nowrap">${imgs.length} listed · checking…</span>
-                            <button class="usrDelBtn bg-gray-700 hover:bg-red-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg" title="Permanently delete this account (keeps the email as a record)">Delete</button>
+                            <button class="usrDelBtn bg-gray-700 hover:bg-red-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg" title="Erase this account's data so they start over at onboarding (not a ban — use Blacklist for that)">Delete</button>
                         </div>
                     </div>
                     <div class="imgRow flex gap-2 flex-wrap mt-2"></div>`;
@@ -838,6 +890,257 @@
             }
         }
     }
+
+    // ---- Blacklist & recovery -------------------------------------------
+    // One full pass over `users`, sorted into four buckets. The important one is
+    // "locked out": accounts deleted while the old code also destroyed the Auth
+    // login. Their email survives in a scrubbed doc, and the app's duplicate-email
+    // check (lib/logic/login_link.dart) matches it on every future sign-in and
+    // turns them away — so they can never return. Deleting that leftover doc is
+    // what frees them.
+    let audLoaded = false;
+    let audBusy = false;
+    const AUD_PAGE = 300;
+
+    // A wiped account: scrubbed to email-only, so none of the profile fields the
+    // app requires survive. Mirrors the moderation queue's filter.
+    function isWipedDoc(u) {
+        const imgs = Array.isArray(u.profileImageUrls) ? u.profileImageUrls : [];
+        return !imgs.length && !u.gender && !u.publicId && !u.name;
+    }
+
+    function audRow(uid, email, note, extraHtml) {
+        const el = document.createElement("div");
+        el.className = "card rounded-xl p-3 flex flex-wrap items-center gap-x-4 gap-y-2 justify-between";
+        el.innerHTML = `
+            <div class="min-w-0">
+                <div class="text-white font-semibold break-all">${email ? esc(email) : "<span class='text-gray-500'>(no email)</span>"}</div>
+                <div class="text-gray-500 text-xs font-mono select-all break-all">${esc(uid)}</div>
+            </div>
+            <div class="flex items-center gap-3 text-sm flex-wrap">
+                ${note || ""}
+                ${extraHtml || ""}
+            </div>`;
+        return el;
+    }
+
+    async function loadAudit(force) {
+        if (audBusy) return;
+        audBusy = true;
+        $("auditStatus").textContent = "Scanning every user doc…";
+        $("auditLocked").innerHTML = "";
+        $("auditBlacklist").innerHTML = "";
+        $("auditWiped").innerHTML = "";
+        $("auditDupes").innerHTML = "";
+        $("auditSummary").innerHTML = "";
+        $("releaseAllBtn").classList.add("hidden");
+        try {
+            // 1. Read every user doc, paging to the end.
+            const all = [];
+            let cursor = null;
+            for (;;) {
+                let q = db.collection("users")
+                    .orderBy(firebase.firestore.FieldPath.documentId())
+                    .limit(AUD_PAGE);
+                if (cursor) q = q.startAfter(cursor);
+                const snap = await cachedGet(q, "audit", force, AUD_PAGE);
+                snap.docs.forEach((d) => all.push({ uid: d.id, u: d.data() || {} }));
+                $("auditStatus").textContent = `Scanning… ${all.length} docs read`;
+                if (snap.size < AUD_PAGE) break;
+                cursor = snap.docs[snap.docs.length - 1];
+            }
+
+            // 2. Sort into buckets.
+            const blacklisted = [];
+            const wiped = [];
+            const byEmail = new Map();
+            all.forEach(({ uid, u }) => {
+                const email = typeof u.email === "string" ? u.email.trim() : "";
+                if (email) {
+                    const k = email.toLowerCase();
+                    if (!byEmail.has(k)) byEmail.set(k, []);
+                    byEmail.get(k).push({ uid, u, email });
+                }
+                if (u.isBlacklisted === true) blacklisted.push({ uid, u, email });
+                else if (isWipedDoc(u)) wiped.push({ uid, u, email });
+            });
+
+            // 3. Which wiped accounts still have an Auth login? adminLookupEmails
+            //    reports uids with no login as `notFound` — those are the people
+            //    who can never get back in on their own.
+            const noLogin = new Set();
+            const authEmail = {};
+            let lookupFailed = false;
+            for (let i = 0; i < wiped.length; i += 100) {
+                const chunk = wiped.slice(i, i + 100);
+                try {
+                    const res = await functions.httpsCallable("adminLookupEmails")({
+                        uids: chunk.map((r) => r.uid)
+                    });
+                    Object.assign(authEmail, (res.data && res.data.emails) || {});
+                    ((res.data && res.data.notFound) || []).forEach((id) => noLogin.add(id));
+                } catch (e) {
+                    console.warn("adminLookupEmails failed:", e && e.code, e && e.message);
+                    lookupFailed = true;
+                }
+            }
+
+            // Login destroyed. Only the ones that kept an email are actually
+            // blocked — the duplicate-email check skips a blank address, so a
+            // blank one is just a dead doc, not a locked-out person.
+            const locked = wiped.filter((r) => noLogin.has(r.uid));
+            const lockedBlocked = locked.filter((r) => (r.email || authEmail[r.uid]));
+            const fine = wiped.filter((r) => !noLogin.has(r.uid));
+            const dupes = [...byEmail.entries()].filter(([, rows]) => rows.length > 1);
+
+            // 4. Summary tiles.
+            const tile = (label, value, cls) => `
+                <div class="card rounded-xl p-4">
+                    <div class="text-2xl font-bold ${cls || "text-white"}">${value}</div>
+                    <div class="text-gray-400 text-sm mt-1">${label}</div>
+                </div>`;
+            $("auditSummary").innerHTML =
+                tile("user docs total", all.length) +
+                tile("locked out of sign-in", lockedBlocked.length, lockedBlocked.length ? "text-red-400" : "text-green-400") +
+                tile("blacklisted", blacklisted.length, "text-amber-400") +
+                tile("duplicated emails", dupes.length, dupes.length ? "text-amber-400" : "text-white");
+
+            // 5. Locked out — each with a "Let back in".
+            if (!locked.length) {
+                $("auditLocked").innerHTML = lookupFailed
+                    ? "<p class='text-amber-400 text-sm'>Could not reach adminLookupEmails, so login status is unknown. Deploy the function and refresh.</p>"
+                    : "<p class='text-green-400 text-sm'>Nobody is locked out.</p>";
+            } else {
+                $("releaseAllBtn").classList.remove("hidden");
+                locked.forEach((r) => {
+                    const email = r.email || authEmail[r.uid] || "";
+                    const el = audRow(r.uid, email,
+                        email
+                            ? "<span class='text-red-400'>login gone &middot; email blocks sign-in</span>"
+                            : "<span class='text-gray-500'>login gone &middot; no email, so nothing was blocking them &mdash; dead record</span>",
+                        `<button class="audRelease bg-gray-700 hover:bg-green-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg" title="Delete the leftover record so this person can sign up and onboard again">Let back in</button>`);
+                    el.querySelector(".audRelease").onclick = () => releaseUser(r.uid, email, el);
+                    $("auditLocked").appendChild(el);
+                });
+            }
+
+            // 6. Blacklisted — each with an un-ban.
+            if (!blacklisted.length) {
+                $("auditBlacklist").innerHTML = "<p class='text-gray-500 text-sm'>Nobody is blacklisted.</p>";
+            } else {
+                blacklisted.forEach((r) => {
+                    const who = [r.u.publicId, r.u.gender].filter(Boolean).map(esc).join(" &middot; ");
+                    const el = audRow(r.uid, r.email,
+                        `<span class="text-gray-400">${who}</span>`,
+                        `<button class="audUnban bg-gray-700 hover:bg-purple-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg" title="Lift the ban — their profile becomes visible again">Un-blacklist</button>`);
+                    el.querySelector(".audUnban").onclick = () => unblacklistUser(r.uid, r.email || r.uid, el);
+                    $("auditBlacklist").appendChild(el);
+                });
+            }
+
+            // 7. Wiped but fine.
+            $("auditWiped").innerHTML = fine.length
+                ? ""
+                : "<p class='text-gray-500 text-sm'>None.</p>";
+            fine.forEach((r) => {
+                $("auditWiped").appendChild(audRow(r.uid, r.email || authEmail[r.uid] || "",
+                    "<span class='text-green-400'>login OK &middot; re-onboards on this uid</span>", ""));
+            });
+
+            // 8. Duplicate emails.
+            $("auditDupes").innerHTML = dupes.length
+                ? ""
+                : "<p class='text-gray-500 text-sm'>No duplicated emails.</p>";
+            dupes.forEach(([email, rows]) => {
+                const wrap = document.createElement("div");
+                wrap.className = "card rounded-xl p-3";
+                wrap.innerHTML = `<div class="text-white font-semibold mb-2 break-all">${esc(email)} <span class="text-gray-500 text-sm font-normal">&times;${rows.length}</span></div>`;
+                rows.forEach(({ uid, u }) => {
+                    const state = u.isBlacklisted === true ? "<span class='text-amber-400'>blacklisted</span>"
+                        : isWipedDoc(u) ? "<span class='text-red-400'>wiped / email-only</span>"
+                        : "<span class='text-green-400'>active profile</span>";
+                    const line = document.createElement("div");
+                    line.className = "flex flex-wrap items-center justify-between gap-3 text-sm py-1 border-t border-[#2a2040]";
+                    line.innerHTML = `<span class="text-gray-500 font-mono text-xs select-all break-all">${esc(uid)}</span>
+                        <span class="flex items-center gap-3">${state}<span class="text-gray-400">${esc(u.publicId || "")}</span></span>`;
+                    wrap.appendChild(line);
+                });
+                $("auditDupes").appendChild(wrap);
+            });
+
+            $("auditStatus").textContent = `Scanned ${all.length} user docs.`;
+        } catch (e) {
+            $("auditStatus").innerHTML =
+                "<span class='text-red-400'>Scan failed: " + esc(e.message) + "</span>";
+        } finally {
+            audBusy = false;
+        }
+    }
+
+    // Free someone the old delete locked out: drop the leftover email-only doc.
+    // Rules allow an admin `delete` on /users/{uid}. With the doc gone the app's
+    // duplicate-email query finds nothing, so their next sign-in creates a fresh
+    // uid and routes straight to onboarding.
+    async function releaseUser(uid, email, el, skipConfirm) {
+        if (!skipConfirm && !confirm(
+            "Let " + (email || uid) + " back in?\n\n" +
+            "Their leftover email record is deleted, so the app stops blocking " +
+            "them at sign-in. They come back as a brand-new account and go " +
+            "through onboarding.\n\nThe email is no longer kept as a record.")) return false;
+        const btn = el && el.querySelector(".audRelease");
+        if (btn) { btn.disabled = true; btn.textContent = "Releasing…"; }
+        try {
+            await db.collection("users").doc(uid).delete();
+            if (el) {
+                el.classList.add("opacity-50");
+                if (btn) btn.textContent = "Released";
+            }
+            return true;
+        } catch (e) {
+            if (btn) { btn.disabled = false; btn.textContent = "Let back in"; }
+            if (!skipConfirm) alert("Failed to release: " + fmtErr(e));
+            return false;
+        }
+    }
+
+    $("releaseAllBtn").onclick = async () => {
+        const rows = [...document.querySelectorAll("#auditLocked .audRelease")]
+            .map((b) => b.closest(".card")).filter((el) => !el.classList.contains("opacity-50"));
+        if (!rows.length) return;
+        if (!confirm(
+            `Let all ${rows.length} locked-out account(s) back in?\n\n` +
+            "Every leftover email record listed here is deleted, so each person " +
+            "can sign up again and onboard. Their email is no longer kept.")) return;
+        const btn = $("releaseAllBtn");
+        btn.disabled = true;
+        let ok = 0, failed = 0;
+        for (const el of rows) {
+            const uid = el.querySelector(".font-mono").textContent;
+            (await releaseUser(uid, "", el, true)) ? ok++ : failed++;
+            btn.textContent = `Releasing… ${ok + failed}/${rows.length}`;
+        }
+        btn.disabled = false;
+        btn.textContent = "Let all back in";
+        alert(`Released ${ok} account(s)` + (failed ? `, ${failed} failed` : "") + ".");
+    };
+
+    // Lift a ban. update() only — never merge-set, which the rules read as a
+    // create on a doc that no longer exists.
+    async function unblacklistUser(uid, label, el) {
+        if (!confirm("Lift the ban on " + label + "?\n\nTheir profile becomes visible in the app again.")) return;
+        const btn = el.querySelector(".audUnban");
+        btn.disabled = true;
+        try {
+            await db.collection("users").doc(uid).update({ isBlacklisted: false });
+            el.classList.add("opacity-50");
+            btn.textContent = "Un-blacklisted";
+        } catch (e) {
+            btn.disabled = false;
+            alert("Failed to un-blacklist: " + fmtErr(e));
+        }
+    }
+
+    $("refreshAudit").onclick = () => loadAudit(true);
 
     async function loadModeration() {
         if (modBusy || !modHasMore) return;
@@ -1024,13 +1327,16 @@
 
     async function deleteUser(uid, publicId, el) {
         if (!confirm(
-            "Permanently delete " + publicId + "?\n\n" +
-            "All their data (profile, photos, matches, chats, corns, premium) AND their " +
-            "login are removed. Only their email is kept as a record. They will NOT come " +
-            "back. This cannot be undone.")) return;
+            "Really delete " + publicId + "?\n\n" +
+            "All their data is erased — profile fields, photos in Storage, matches, " +
+            "chats, corns, premium, reports. Their login and email are KEPT, so the " +
+            "next time they open the app they start over at onboarding on the same " +
+            "account.\n\nThis is NOT a ban — use Blacklist to keep someone out. " +
+            "This cannot be undone.")) return;
         try {
-            // Server-side: wipes data + storage + Auth login, leaves an
-            // email-only tombstone doc (see adminDeleteUser Cloud Function).
+            // Server-side: wipes data + storage and scrubs the user doc to
+            // email-only, keeping the login so they re-onboard on the same uid
+            // (see adminDeleteUser Cloud Function).
             await functions.httpsCallable("adminDeleteUser")({ uid });
             markCardDeleted(el);
         } catch (e) { alert("Failed to delete: " + fmtErr(e)); }
