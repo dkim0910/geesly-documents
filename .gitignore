@@ -1,0 +1,19 @@
+# GitHub Pages publishes EVERY tracked file on `main` verbatim (.nojekyll disables
+# Jekyll, so `_config.yml`'s `exclude:` is inert). Anything committed here is served
+# publicly at geesly.net/<path>. Untracking is the only way to keep a file off the site.
+
+# Local-only working notes. Kept at the repo root because Claude Code auto-loads
+# ./CLAUDE.md and would not find it in a subdirectory.
+CLAUDE.md
+.private/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Node (npm run dev pulls live-server via npx)
+node_modules/
+npm-debug.log*

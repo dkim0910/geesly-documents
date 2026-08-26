@@ -1,9 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /.well-known/
 
 Sitemap: https://geesly.net/sitemap.xml
-
-# XML resources
-# browserconfig.xml - Windows tile configuration
-# opensearch.xml - Browser search integration
