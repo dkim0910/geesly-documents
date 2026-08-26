@@ -16,9 +16,8 @@
          crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geesly — Dating App | Meet People & Find Real Matches</title>
-    <meta name="description" content="Geesly is a free dating app with over thousands of active users. Rate profiles, match with people nearby, and start chatting. Download free on Android and iOS.">
-    <meta name="keywords" content="dating app, free dating app, meet people, find matches, online dating, Geesly, dating, relationships, friends">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="Free dating app built on a 5-star rating system — rate profiles, match with people nearby, and start chatting. Download Geesly free on Android and iOS.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Geesly">
     <meta name="theme-color" content="#7e22ce">
     <meta name="application-name" content="Geesly">
@@ -26,7 +25,6 @@
 
     <!-- Web App Manifest & Browser Config -->
     <link rel="manifest" href="/manifest.json">
-    <link rel="search" type="application/opensearchdescription+xml" title="Geesly" href="/opensearch.xml">
     <meta name="msapplication-config" content="/browserconfig.xml">
 
     <!-- App Store Smart Banner (iOS Safari) -->
@@ -39,16 +37,16 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://geesly.net/">
     <meta property="og:title" content="Geesly — Dating App | Meet People & Find Real Matches">
-    <meta property="og:description" content="Geesly is a free dating app with over thousands of active users. Rate profiles, match with people nearby, and start chatting. Download free on Android and iOS.">
-    <meta property="og:image" content="https://geesly.net/lib/images/geesly-background-no-text.png">
+    <meta property="og:description" content="Free dating app built on a 5-star rating system — rate profiles, match with people nearby, and start chatting. Download Geesly free on Android and iOS.">
+    <meta property="og:image" content="https://geesly.net/lib/images/og-image.png">
     <meta property="og:site_name" content="Geesly">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Geesly — Dating App | Meet People & Find Real Matches">
-    <meta name="twitter:description" content="Free dating app with over thousands of active users. Rate profiles, match, and chat. Available on Android & iOS.">
-    <meta name="twitter:image" content="https://geesly.net/lib/images/geesly-background-no-text.png">
+    <meta name="twitter:description" content="Free dating app built on a 5-star rating system — rate profiles, match with people nearby, and start chatting. Download Geesly free on Android and iOS.">
+    <meta name="twitter:image" content="https://geesly.net/lib/images/og-image.png">
 
     <!-- JSON-LD: SoftwareApplication -->
     <script type="application/ld+json">
@@ -56,8 +54,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Geesly",
-      "description": "Geesly is a free dating app with over thousands of active users. Rate profiles, match with people nearby, and chat. Available on Android and iOS.",
-      "url": "https://geesly.net",
+      "description": "Free dating app built on a 5-star rating system — rate profiles, match with people nearby, and start chatting. Download Geesly free on Android and iOS.",
+      "url": "https://geesly.net/",
       "applicationCategory": "SocialNetworkingApplication",
       "operatingSystem": "Android, iOS",
       "offers": {
@@ -69,14 +67,16 @@
         "https://play.google.com/store/apps/details?id=com.geesly.blm",
         "https://apps.apple.com/app/id6756942405"
       ],
-      "screenshot": "https://geesly.net/lib/images/geesly-background-no-text.png",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.5",
-        "ratingCount": "10000",
-        "bestRating": "5",
-        "worstRating": "1"
-      }
+      "screenshot": [
+        "https://geesly.net/lib/images/1.webp",
+        "https://geesly.net/lib/images/2.webp",
+        "https://geesly.net/lib/images/3.webp",
+        "https://geesly.net/lib/images/4.webp",
+        "https://geesly.net/lib/images/5.webp",
+        "https://geesly.net/lib/images/6.webp"
+      ],
+      "contentRating": "17+",
+      "inLanguage": "en-US"
     }
     </script>
 
@@ -86,7 +86,7 @@
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Geesly",
-      "url": "https://geesly.net",
+      "url": "https://geesly.net/",
       "logo": {
         "@type": "ImageObject",
         "url": "https://geesly.net/lib/images/geesly-background-no-text.png"
@@ -103,18 +103,19 @@
     }
     </script>
 
-    <!-- JSON-LD: WebSite (enables sitelinks search box in Google) -->
+    <!-- JSON-LD: WebSite. No potentialAction/SearchAction: the site has no search, and Google retired the sitelinks searchbox in Nov 2024. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Geesly",
-      "url": "https://geesly.net",
+      "url": "https://geesly.net/",
       "description": "Geesly is a free dating app with a unique 5-star rating system. Match with people nearby and start real conversations.",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://geesly.net/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
+      "inLanguage": "en-US",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Geesly",
+        "url": "https://geesly.net/"
       }
     }
     </script>
@@ -133,13 +134,6 @@
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.5",
-        "ratingCount": "10000",
-        "bestRating": "5",
-        "worstRating": "1"
       }
     }
     </script>
@@ -162,7 +156,7 @@
     }
     </script>
 
-    <!-- JSON-LD: HowTo (enables step-by-step rich results in Google) -->
+    <!-- JSON-LD: HowTo. No Google rich result since 2023; kept because it is accurate and Bing/LLM crawlers still parse it. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -216,14 +210,6 @@
         },
         {
           "@type": "Question",
-          "name": "How do I get a match?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Browse profiles and rate someone 5 stars if you are interested. If they also rate you 5 stars, you will automatically match and unlock the ability to chat. Both users must give each other 5 stars for a match to happen."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "What are Corns and how do I earn them?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -270,7 +256,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="lib/images/geesly-background-no-text.png">
+    <link rel="icon" type="image/png" href="/lib/images/icon-192.png">
+    <link rel="apple-touch-icon" href="/lib/images/icon-192.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -329,14 +316,17 @@
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s ease; }
-        .faq-answer.open { max-height: 300px; }
+        .faq-answer.open { max-height: 1000px; }
         .faq-icon { transition: transform 0.3s ease; }
         .faq-icon.rotated { transform: rotate(45deg); }
-        section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-        section.visible { opacity: 1; transform: translateY(0); }
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        }
     </style>
 </head>
-<body class="font-sans antialiased bg-white text-gray-900">
+<body class="font-sans antialiased bg-[#0d0618] text-gray-100">
 <main>
 
 <!-- ═══════════════════════════════════════════════
@@ -345,8 +335,8 @@
 <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
     <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <!-- Logo -->
-        <a href="index.html" class="flex items-center gap-2.5">
-            <img src="lib/images/geesly-background-no-text.png" alt="Geesly" class="h-9 w-9 rounded-xl object-contain" onerror="this.style.display='none'">
+        <a href="/" class="flex items-center gap-2.5">
+            <img src="/lib/images/icon-192.png" alt="Geesly" class="h-9 w-9 rounded-xl object-contain" onerror="this.style.display='none'">
             <span class="text-xl font-bold text-white">Geesly</span>
         </a>
         <!-- Links -->
@@ -379,7 +369,7 @@
 <!-- ═══════════════════════════════════════════════
      HERO
 ═══════════════════════════════════════════════ -->
-<section id="hero" class="relative min-h-screen flex items-center overflow-hidden bg-[#0d0618]" style="opacity:1;transform:none;">
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden bg-[#0d0618]">
     <!-- Background orbs -->
     <div class="absolute top-1/4 -left-32 w-96 h-96 bg-purple-700 rounded-full opacity-25 blur-3xl animate-float-slow"></div>
     <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-pink-600 rounded-full opacity-20 blur-3xl animate-float" style="animation-delay:3s;"></div>
@@ -396,7 +386,7 @@
             <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
                 Find Your<br>
                 <span class="gradient-text">Perfect Match</span><br>
-                Today.
+                on Geesly.
             </h1>
 
             <p class="text-lg text-white/60 leading-relaxed mb-10 max-w-lg">
@@ -450,15 +440,15 @@
         <div class="relative flex justify-center items-end gap-4 h-[540px]">
             <!-- Back phone -->
             <div class="absolute left-4 bottom-0 w-52 h-[420px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-purple-900/60 rotate-[-8deg] translate-y-8 opacity-70">
-                <img src="lib/images/1.png" alt="Geesly dating app profile browsing screen on mobile" class="w-full h-full object-cover">
+                <img src="lib/images/1.webp" alt="Geesly dating app profile browsing screen on mobile" width="720" height="1561" decoding="async" class="w-full h-full object-cover">
             </div>
             <!-- Front phone -->
             <div class="relative z-10 w-60 h-[480px] rounded-[36px] overflow-hidden border-[6px] border-white/20 shadow-2xl shadow-purple-900/80 animate-float">
-                <img src="lib/images/2.png" alt="Geesly dating app 5-star rating and matching screen" class="w-full h-full object-cover">
+                <img src="lib/images/2.webp" alt="Geesly dating app 5-star rating and matching screen" width="720" height="1561" fetchpriority="high" decoding="async" class="w-full h-full object-cover">
             </div>
             <!-- Right phone -->
             <div class="absolute right-4 bottom-0 w-52 h-[420px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-pink-900/60 rotate-[8deg] translate-y-8 opacity-70">
-                <img src="lib/images/3.png" alt="Geesly dating app chat and messaging screen" class="w-full h-full object-cover">
+                <img src="lib/images/3.webp" alt="Geesly dating app chat and messaging screen" width="720" height="1561" decoding="async" class="w-full h-full object-cover">
             </div>
         </div>
     </div>
@@ -540,32 +530,32 @@
         <div class="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide px-4 justify-start items-start">
             <div class="flex-shrink-0 snap-center">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-purple-900/60">
-                    <img src="lib/images/1.png" alt="Geesly free dating app — browse nearby profiles" class="w-full h-full object-cover">
+                    <img src="lib/images/1.webp" alt="Geesly free dating app — browse nearby profiles" width="720" height="1561" loading="lazy" decoding="async" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center ">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-purple-400/30 shadow-2xl shadow-pink-900/60">
-                    <img src="lib/images/2.png" alt="Geesly dating app — rate profiles with 5-star system" class="w-full h-full object-cover">
+                    <img src="lib/images/2.webp" alt="Geesly dating app — rate profiles with 5-star system" width="720" height="1561" loading="lazy" decoding="async" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-purple-900/60">
-                    <img src="lib/images/3.png" alt="Geesly dating app — instant chat with your matches" class="w-full h-full object-cover">
+                    <img src="lib/images/3.webp" alt="Geesly dating app — instant chat with your matches" width="720" height="1561" loading="lazy" decoding="async" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center ">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-pink-400/30 shadow-2xl shadow-pink-900/60">
-                    <img src="lib/images/4.png" alt="Geesly dating app — earn Corns virtual currency" class="w-full h-full object-cover">
+                    <img src="lib/images/4.webp" alt="Geesly dating app — earn Corns virtual currency" width="720" height="1561" loading="lazy" decoding="async" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-white/10 shadow-2xl shadow-purple-900/60">
-                    <img src="lib/images/5.png" alt="Geesly dating app — match with people nearby" class="w-full h-full object-cover">
+                    <img src="lib/images/5.webp" alt="Geesly dating app — match with people nearby" width="720" height="1561" loading="lazy" decoding="async" class="w-full h-full object-cover">
                 </div>
             </div>
             <div class="flex-shrink-0 snap-center ">
                 <div class="w-56 h-[480px] rounded-[32px] overflow-hidden border-[6px] border-purple-400/30 shadow-2xl shadow-purple-900/60">
-                    <img src="lib/images/6.png" alt="Geesly dating app — premium features and profile views" class="w-full h-full object-cover">
+                    <img src="lib/images/6.webp" alt="Geesly dating app — premium features and profile views" width="720" height="1561" loading="lazy" decoding="async" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
@@ -637,7 +627,7 @@
                     </svg>
                 </div>
                 <h3 class="text-lg font-bold text-gray-900 mb-2">Fresh Quarterly Reset</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Matches and ratings reset every quarter, giving you endless fresh opportunities to meet new people.</p>
+                <p class="text-gray-500 text-sm leading-relaxed">Matches and ratings reset every month, giving you endless fresh opportunities to meet new people.</p>
             </div>
 
             <!-- Feature 6 -->
@@ -690,7 +680,7 @@
                         <div class="w-12 h-12 bg-pink-400/20 rounded-xl flex items-center justify-center shrink-0 text-2xl">💬</div>
                         <div>
                             <h3 class="text-white font-bold mb-1">Spend on What Matters</h3>
-                            <p class="text-white/50 text-sm">Unlock chats (20), bypass limits (20), or view full profiles (5).</p>
+                            <p class="text-white/50 text-sm">Unlock chats (50), bypass limits (20), or view full profiles (5).</p>
                         </div>
                     </div>
                 </div>
@@ -774,13 +764,13 @@
 
             <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden">
                 <button class="faq-btn w-full text-left px-7 py-5 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
-                    <span class="font-semibold text-gray-900">Do matches reset every quarter?</span>
+                    <span class="font-semibold text-gray-900">Do matches reset every month?</span>
                     <svg class="faq-icon w-5 h-5 text-purple-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.5v15m7.5-7.5h-15"/>
                     </svg>
                 </button>
                 <div class="faq-answer px-7">
-                    <p class="text-gray-500 pb-5 leading-relaxed">Yes! Matches, likes, and your seen-users list reset on the 1st of every quarter, giving you fresh opportunities. Active chats and blocked users are never affected.</p>
+                    <p class="text-gray-500 pb-5 leading-relaxed">Yes! Matches, likes, and your seen-users list reset on the 1st of every month, giving you fresh opportunities. Active chats and blocked users are never affected.</p>
                 </div>
             </div>
 
@@ -889,8 +879,8 @@
 <footer class="bg-gray-950 py-12">
     <div class="max-w-6xl mx-auto px-6">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-            <a href="index.html" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-                <img src="lib/images/geesly-background-no-text.png" alt="Geesly" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'">
+            <a href="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+                <img src="/lib/images/icon-192.png" alt="Geesly" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'">
                 <span class="text-white font-bold text-lg">Geesly</span>
             </a>
             <nav class="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
@@ -902,22 +892,12 @@
                 <a href="deletion.html" class="hover:text-white transition-colors">Account Deletion</a>
                 <a href="mailto:hello+geeslyhelp@nelera.net" class="hover:text-white transition-colors">Contact</a>
             </nav>
-            <p class="text-sm text-gray-600">© 2026–2026 Geesly. All rights reserved.</p>
+            <p class="text-sm text-gray-600">&copy; 2026 Geesly. All rights reserved.</p>
         </div>
     </div>
 </footer>
 
 <script>
-    // Smart store redirect for the in-page Corns CTA — set href on load so it works like a normal link (no popup blocker issues)
-    const IOS_URL = 'https://apps.apple.com/app/id6756942405';
-    const ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.geesly.blm';
-    const storeUrl = /iPhone|iPad|iPod|Macintosh|Mac OS X/i.test(navigator.userAgent) ? IOS_URL : ANDROID_URL;
-    document.querySelectorAll('#corns-download-btn').forEach(function(btn) {
-        btn.href = storeUrl;
-        btn.target = '_blank';
-        btn.rel = 'noopener noreferrer';
-    });
-
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -933,7 +913,7 @@
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
-    document.querySelectorAll('section:not(#hero)').forEach(s => observer.observe(s));
+    document.querySelectorAll('section:not(#hero)').forEach(s => { s.classList.add('reveal'); observer.observe(s); });
 
     // FAQ accordion
     function toggleFaq(btn) {
