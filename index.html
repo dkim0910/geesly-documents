@@ -51,108 +51,85 @@
     <!-- JSON-LD: SoftwareApplication -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Geesly",
-      "description": "Free dating app built on a 5-star rating system — rate profiles, match with people nearby, and start chatting. Download Geesly free on Android and iOS.",
-      "url": "https://geesly.net/",
-      "applicationCategory": "SocialNetworkingApplication",
-      "operatingSystem": "Android, iOS",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "downloadUrl": [
-        "https://play.google.com/store/apps/details?id=com.geesly.blm",
-        "https://apps.apple.com/app/id6756942405"
-      ],
-      "screenshot": [
-        "https://geesly.net/lib/images/1.webp",
-        "https://geesly.net/lib/images/2.webp",
-        "https://geesly.net/lib/images/3.webp",
-        "https://geesly.net/lib/images/4.webp",
-        "https://geesly.net/lib/images/5.webp",
-        "https://geesly.net/lib/images/6.webp"
-      ],
-      "contentRating": "17+",
-      "inLanguage": "en-US"
-    }
-    </script>
-
-    <!-- JSON-LD: Organization -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Geesly",
-      "url": "https://geesly.net/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://geesly.net/lib/images/geesly-background-no-text.png"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "hello+geeslyhelp@nelera.net",
-        "contactType": "customer support"
-      },
-      "sameAs": [
-        "https://play.google.com/store/apps/details?id=com.geesly.blm",
-        "https://apps.apple.com/app/id6756942405"
-      ]
-    }
-    </script>
-
-    <!-- JSON-LD: WebSite. No potentialAction/SearchAction: the site has no search, and Google retired the sitelinks searchbox in Nov 2024. -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Geesly",
-      "url": "https://geesly.net/",
-      "description": "Geesly is a free dating app with a unique 5-star rating system. Match with people nearby and start real conversations.",
-      "inLanguage": "en-US",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Geesly",
-        "url": "https://geesly.net/"
-      }
-    }
-    </script>
-
-    <!-- JSON-LD: MobileApplication (Android) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "MobileApplication",
-      "name": "Geesly - Dating App",
-      "operatingSystem": "Android",
-      "applicationCategory": "SocialNetworkingApplication",
-      "url": "https://play.google.com/store/apps/details?id=com.geesly.blm",
-      "installUrl": "https://play.google.com/store/apps/details?id=com.geesly.blm",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-    </script>
-
-    <!-- JSON-LD: MobileApplication (iOS) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "MobileApplication",
-      "name": "Geesly - Dating App",
-      "operatingSystem": "iOS",
-      "applicationCategory": "SocialNetworkingApplication",
-      "url": "https://apps.apple.com/app/id6756942405",
-      "installUrl": "https://apps.apple.com/app/id6756942405",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "MobileApplication",
+                "@id": "https://geesly.net/#app",
+                "name": "Geesly",
+                "alternateName": "Geesly - Dating App",
+                "description": "Free dating app built on a 5-star rating system — rate profiles, match with people nearby, and start chatting. Download Geesly free on Android and iOS.",
+                "url": "https://geesly.net/",
+                "applicationCategory": "SocialNetworkingApplication",
+                "operatingSystem": "Android, iOS",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                },
+                "downloadUrl": [
+                    "https://play.google.com/store/apps/details?id=com.geesly.blm",
+                    "https://apps.apple.com/app/id6756942405"
+                ],
+                "installUrl": [
+                    "https://play.google.com/store/apps/details?id=com.geesly.blm",
+                    "https://apps.apple.com/app/id6756942405"
+                ],
+                "sameAs": [
+                    "https://play.google.com/store/apps/details?id=com.geesly.blm",
+                    "https://apps.apple.com/app/id6756942405"
+                ],
+                "screenshot": [
+                    "https://geesly.net/lib/images/1.webp",
+                    "https://geesly.net/lib/images/2.webp",
+                    "https://geesly.net/lib/images/3.webp",
+                    "https://geesly.net/lib/images/4.webp",
+                    "https://geesly.net/lib/images/5.webp",
+                    "https://geesly.net/lib/images/6.webp"
+                ],
+                "contentRating": "17+",
+                "inLanguage": "en-US",
+                "publisher": {
+                    "@id": "https://geesly.net/#organization"
+                }
+            },
+            {
+                "@type": "Organization",
+                "@id": "https://geesly.net/#organization",
+                "name": "Geesly",
+                "url": "https://geesly.net/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://geesly.net/lib/images/icon-512.png",
+                    "width": 512,
+                    "height": 512
+                },
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "email": "hello+geeslyhelp@nelera.net",
+                    "contactType": "customer support",
+                    "availableLanguage": "en"
+                },
+                "sameAs": [
+                    "https://play.google.com/store/apps/details?id=com.geesly.blm",
+                    "https://apps.apple.com/app/id6756942405"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://geesly.net/#website",
+                "name": "Geesly",
+                "url": "https://geesly.net/",
+                "description": "Geesly is a free dating app with a unique 5-star rating system. Match with people nearby and start real conversations.",
+                "inLanguage": "en-US",
+                "publisher": {
+                    "@id": "https://geesly.net/#organization"
+                },
+                "about": {
+                    "@id": "https://geesly.net/#app"
+                }
+            }
+        ]
     }
     </script>
 
@@ -258,41 +235,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/lib/images/icon-192.png">
     <link rel="apple-touch-icon" href="/lib/images/icon-192.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        brand: {
-                            50:  '#fdf4ff',
-                            100: '#fae8ff',
-                            500: '#a855f7',
-                            600: '#9333ea',
-                            700: '#7e22ce',
-                        }
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'float-slow': 'float 9s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s ease-in-out infinite',
-                        'fade-up': 'fadeUp 0.7s ease-out forwards',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%,100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-14px)' },
-                        },
-                        fadeUp: {
-                            '0%': { opacity: '0', transform: 'translateY(24px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="/lib/tailwind.css">
     <style>
         * { box-sizing: border-box; }
         .gradient-text {
@@ -336,7 +279,7 @@
     <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <!-- Logo -->
         <a href="/" class="flex items-center gap-2.5">
-            <img src="/lib/images/icon-192.png" alt="Geesly" class="h-9 w-9 rounded-xl object-contain" onerror="this.style.display='none'">
+            <img src="/lib/images/icon-192.png" alt="Geesly" class="h-9 w-9 rounded-xl object-contain" width="36" height="36" onerror="this.style.display='none'">
             <span class="text-xl font-bold text-white">Geesly</span>
         </a>
         <!-- Links -->
@@ -880,7 +823,7 @@
     <div class="max-w-6xl mx-auto px-6">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
             <a href="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-                <img src="/lib/images/icon-192.png" alt="Geesly" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'">
+                <img src="/lib/images/icon-192.png" alt="Geesly" class="h-8 w-8 rounded-lg object-contain" width="32" height="32" onerror="this.style.display='none'">
                 <span class="text-white font-bold text-lg">Geesly</span>
             </a>
             <nav class="flex flex-wrap justify-center gap-6 text-sm text-gray-500">

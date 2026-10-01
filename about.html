@@ -32,7 +32,7 @@
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="About Geesly — Our Story, Mission & How It Works">
     <meta name="twitter:description" content="Geesly is the dating app where a match happens only when two people rate each other 5 stars. Read our story, our mission, and how the matching works.">
     <meta name="twitter:image" content="https://geesly.net/lib/images/og-image.png">
@@ -64,7 +64,7 @@
     }
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/lib/tailwind.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -72,15 +72,6 @@
     <link rel="apple-touch-icon" href="/lib/images/icon-192.png">
     <link rel="manifest" href="/manifest.json">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                },
-            },
-        };
-    </script>
     <style>
         * { box-sizing: border-box; }
         .gradient-text {
@@ -102,7 +93,7 @@
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#0d0618]/95 backdrop-blur-xl border-b border-white/5">
         <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2.5">
-                <img src="/lib/images/icon-192.png" alt="Geesly" class="h-9 w-9 rounded-xl object-contain" onerror="this.style.display='none'">
+                <img src="/lib/images/icon-192.png" alt="Geesly" class="h-9 w-9 rounded-xl object-contain" width="36" height="36" onerror="this.style.display='none'">
                 <span class="text-xl font-bold text-white">Geesly</span>
             </a>
             <div class="flex items-center gap-6">
@@ -371,7 +362,7 @@
         <div class="max-w-6xl mx-auto px-6">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
                 <a href="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-                    <img src="/lib/images/icon-192.png" alt="Geesly" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'">
+                    <img src="/lib/images/icon-192.png" alt="Geesly" class="h-8 w-8 rounded-lg object-contain" width="32" height="32" onerror="this.style.display='none'">
                     <span class="text-white font-bold text-lg">Geesly</span>
                 </a>
                 <nav class="flex flex-wrap justify-center gap-6 text-sm text-gray-500">

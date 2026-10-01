@@ -2,7 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- Homepage -->
   <url>
     <loc>https://geesly.net/</loc>
     <lastmod>2026-08-26</lastmod>
@@ -14,37 +13,31 @@
     <image:image><image:loc>https://geesly.net/lib/images/6.webp</image:loc></image:image>
   </url>
 
-  <!-- About -->
   <url>
     <loc>https://geesly.net/about.html</loc>
     <lastmod>2026-08-26</lastmod>
   </url>
 
-  <!-- Safety Guide -->
   <url>
     <loc>https://geesly.net/safety.html</loc>
     <lastmod>2026-08-26</lastmod>
   </url>
 
-  <!-- Guides / Dating Tips -->
   <url>
     <loc>https://geesly.net/guides.html</loc>
     <lastmod>2026-08-26</lastmod>
   </url>
 
-  <!-- Privacy Policy -->
   <url>
     <loc>https://geesly.net/privacy.html</loc>
     <lastmod>2026-08-26</lastmod>
   </url>
 
-  <!-- Terms of Service -->
   <url>
     <loc>https://geesly.net/terms.html</loc>
     <lastmod>2026-08-26</lastmod>
   </url>
 
-  <!-- Account Deletion -->
   <url>
     <loc>https://geesly.net/deletion.html</loc>
     <lastmod>2026-08-26</lastmod>
