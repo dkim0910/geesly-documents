@@ -32,7 +32,7 @@
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Delete Your Account — Geesly Dating App">
     <meta name="twitter:description" content="Request permanent deletion of your Geesly account and all associated personal data.">
     <meta name="twitter:image" content="https://geesly.net/lib/images/og-image.png">
@@ -64,7 +64,7 @@
     }
     </script>
     <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/lib/tailwind.css">
     <!-- Load Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,18 +74,6 @@
     <link rel="apple-touch-icon" href="/lib/images/icon-192.png">
     <link rel="manifest" href="/manifest.json">
 
-    <script>
-        // Configure Tailwind to use Inter font
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                },
-            },
-        };
-    </script>
     <style>
         * { box-sizing: border-box; }
         .gradient-text {
@@ -107,7 +95,7 @@
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#0d0618]/95 backdrop-blur-xl border-b border-white/5">
         <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2.5">
-                <img src="/lib/images/icon-192.png" alt="Geesly" class="h-9 w-9 rounded-xl object-contain" onerror="this.style.display='none'">
+                <img src="/lib/images/icon-192.png" alt="Geesly" class="h-9 w-9 rounded-xl object-contain" width="36" height="36" onerror="this.style.display='none'">
                 <span class="text-xl font-bold text-white">Geesly</span>
             </a>
             <div class="flex items-center gap-6">
@@ -170,9 +158,19 @@
                 <div class="mt-10 prose prose-invert prose-lg max-w-none">
 
                     <section>
-                        <h2>Request Account Deletion</h2>
-                        <p>To request the permanent deletion of your Geesly account and all associated data, please send an email to our support team.</p>
-                        <p>Please include the following information in your email to help us process your request:</p>
+                        <h2>Delete your account in the app (fastest)</h2>
+                        <p>You can delete your Geesly account yourself, without contacting anyone. In the app:</p>
+                        <ol>
+                            <li>Open <strong>Settings</strong></li>
+                            <li>Tap <strong>Privacy</strong></li>
+                            <li>Tap <strong>Delete Account</strong> and confirm</li>
+                        </ol>
+                        <p>Our server-side deletion process runs immediately &mdash; typically within seconds. There is no waiting period and no approval step.</p>
+                    </section>
+
+                    <section>
+                        <h2>If you can&rsquo;t sign in</h2>
+                        <p>If you have lost access to your account and cannot reach the in-app option, email our support team instead. Include:</p>
                         <ul>
                             <li><strong>Subject:</strong> Account Deletion Request</li>
                             <li>Your <strong>Geesly Public ID</strong></li>
@@ -182,7 +180,7 @@
 
                     <!-- Contact Card -->
                     <div class="not-prose my-8 p-6 bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-xl border border-purple-500/20">
-                        <p class="text-sm font-medium text-gray-400 mb-2">Send your request to:</p>
+                        <p class="text-sm font-medium text-gray-400 mb-2">Email support at:</p>
                         <a href="mailto:hello+geeslyhelp@nelera.net" class="inline-flex items-center gap-2 text-lg font-semibold text-purple-400 hover:text-purple-300 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
@@ -192,8 +190,38 @@
                     </div>
 
                     <section>
-                        <h2>What Happens Next</h2>
-                        <p>Our team will review your request and contact you to confirm the deletion. Once confirmed, this action is permanent and cannot be reversed.</p>
+                        <h2>What happens next</h2>
+                        <p>If you deleted the account in the app, it is already done. If you emailed us, our team will verify that the request came from the account owner and then run the same deletion. Either way the action is <strong>permanent and cannot be reversed</strong> &mdash; there is no grace period and no way to recover the account afterwards.</p>
+                    </section>
+
+                    <section>
+                        <h2>What gets deleted</h2>
+                        <p>Deletion removes, permanently:</p>
+                        <ul>
+                            <li>Your profile and authentication data</li>
+                            <li>Every profile photo</li>
+                            <li>Chat messages, conversations and chat unlock records</li>
+                            <li>Chat invitations you sent and received</li>
+                            <li>Your matches, likes and ratings</li>
+                            <li>References to you in other users&rsquo; blocked lists</li>
+                            <li>Local app cache on your device</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>What we have to keep, and for how long</h2>
+                        <p>A few records survive account deletion because safety and the law require it. We are explicit about them rather than burying them:</p>
+                        <ul>
+                            <li><strong>Safety reports</strong> &mdash; user reports and the chat logs attached to them may be kept for <strong>up to 1 year</strong> for safety investigations.</li>
+                            <li><strong>Payment records</strong> &mdash; transaction history is retained for <strong>7 years</strong>, as app-store rules, tax law and accounting require.</li>
+                            <li><strong>Permanent bans</strong> &mdash; accounts blacklisted after 50 or more reports stay banned, so deleting the account does not reset the ban.</li>
+                        </ul>
+                        <p>Full detail is in our <a href="privacy.html">Privacy Policy</a>.</p>
+                    </section>
+
+                    <section>
+                        <h2>Deleting the app is not the same thing</h2>
+                        <p>Removing Geesly from your phone does not delete your account. Your profile stays visible to other users until you delete the account itself, using one of the two routes above.</p>
 
                         <div class="not-prose my-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
                             <div class="flex gap-3">
@@ -218,13 +246,16 @@
         <div class="max-w-6xl mx-auto px-6">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
                 <a href="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-                    <img src="/lib/images/icon-192.png" alt="Geesly" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'">
+                    <img src="/lib/images/icon-192.png" alt="Geesly" class="h-8 w-8 rounded-lg object-contain" width="32" height="32" onerror="this.style.display='none'">
                     <span class="text-white font-bold text-lg">Geesly</span>
                 </a>
                 <nav class="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
+                    <a href="about.html" class="hover:text-white transition-colors">About</a>
+                    <a href="safety.html" class="hover:text-white transition-colors">Safety</a>
+                    <a href="guides.html" class="hover:text-white transition-colors">Guides</a>
                     <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
                     <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
-                    <a href="deletion.html" class="text-white transition-colors">Account Deletion</a>
+                    <a href="deletion.html" class="text-white transition-colors" aria-current="page">Account Deletion</a>
                     <a href="mailto:hello+geeslyhelp@nelera.net" class="hover:text-white transition-colors">Contact</a>
                 </nav>
                 <p class="text-sm text-gray-600">© 2026 Geesly. All rights reserved.</p>

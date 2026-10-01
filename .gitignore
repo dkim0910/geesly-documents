@@ -17,3 +17,22 @@ Thumbs.db
 # Node (npm run dev pulls live-server via npx)
 node_modules/
 npm-debug.log*
+
+# Full-resolution screenshot masters (1290x2796) for lib/images/N.webp.
+# Untracked, not deleted: GitHub Pages serves every TRACKED file verbatim, so
+# while these were committed they were live at geesly.net/lib/images/N.png —
+# 11.2 MB that no page references and every crawler could fetch.
+# They are not lost: recover any of them from history with
+#   git show d930fa8:lib/images/1.png > lib/images/1.png
+lib/images/1.png
+lib/images/2.png
+lib/images/3.png
+lib/images/4.png
+lib/images/5.png
+lib/images/6.png
+
+# Background artwork, unreferenced since the Organization logo moved to the
+# square icon-512.png (Google wants a logo it can crop square; this was a
+# 745 KB background). Untracked for the same reason as the masters above.
+# Recover with: git show d930fa8:lib/images/geesly-background-no-text.png > lib/images/geesly-background-no-text.png
+lib/images/geesly-background-no-text.png
