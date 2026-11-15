@@ -4,43 +4,43 @@
 
   <url>
     <loc>https://geesly.net/</loc>
-    <lastmod>2026-08-26</lastmod>
-    <image:image><image:loc>https://geesly.net/lib/images/1.webp</image:loc></image:image>
-    <image:image><image:loc>https://geesly.net/lib/images/2.webp</image:loc></image:image>
-    <image:image><image:loc>https://geesly.net/lib/images/3.webp</image:loc></image:image>
-    <image:image><image:loc>https://geesly.net/lib/images/4.webp</image:loc></image:image>
-    <image:image><image:loc>https://geesly.net/lib/images/5.webp</image:loc></image:image>
-    <image:image><image:loc>https://geesly.net/lib/images/6.webp</image:loc></image:image>
+    <lastmod>2026-11-15</lastmod>
+    <image:image><image:loc>https://geesly.net/lib/images/app-deck.webp</image:loc></image:image>
+    <image:image><image:loc>https://geesly.net/lib/images/app-profile.webp</image:loc></image:image>
+    <image:image><image:loc>https://geesly.net/lib/images/app-match.webp</image:loc></image:image>
+    <image:image><image:loc>https://geesly.net/lib/images/app-chat.webp</image:loc></image:image>
+    <image:image><image:loc>https://geesly.net/lib/images/app-likes.webp</image:loc></image:image>
+    <image:image><image:loc>https://geesly.net/lib/images/app-light-mode.webp</image:loc></image:image>
   </url>
 
   <url>
     <loc>https://geesly.net/about.html</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
 
   <url>
     <loc>https://geesly.net/safety.html</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
 
   <url>
     <loc>https://geesly.net/guides.html</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
 
   <url>
     <loc>https://geesly.net/privacy.html</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
 
   <url>
     <loc>https://geesly.net/terms.html</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
 
   <url>
     <loc>https://geesly.net/deletion.html</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-10-01</lastmod>
   </url>
 
 </urlset>
