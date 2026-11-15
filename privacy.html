@@ -60,7 +60,7 @@
       "inLanguage": "en-US",
       "isPartOf": { "@type": "WebSite", "name": "Geesly", "url": "https://geesly.net" },
       "publisher": { "@type": "Organization", "name": "Geesly", "url": "https://geesly.net" },
-      "dateModified": "2026-07-09"
+      "dateModified": "2026-11-15"
     }
     </script>
     <link rel="stylesheet" href="/lib/tailwind.css">
@@ -153,7 +153,7 @@
             <h1 class="text-4xl sm:text-5xl font-bold mb-4">
                 <span class="gradient-text">Privacy Policy</span>
             </h1>
-            <p class="text-lg text-gray-400">Last Updated: July 2026</p>
+            <p class="text-lg text-gray-400">Last Updated: November 2026</p>
         </div>
 
         <!-- Privacy Policy Content -->
@@ -175,28 +175,28 @@
 
                 <h3>A. Information You Provide</h3>
                 <ul>
-                    <li><strong>Account Credentials:</strong> Phone number, email address, and login credentials via Google or Apple Sign-In</li>
+                    <li><strong>Account Credentials:</strong> Your email address and sign-in details from Google or Apple Sign-In</li>
                     <li><strong>Profile Information:</strong> Name, public ID (username), age, date of birth, gender, photos (2-6 images), bio, interests, personality traits, MBTI type, and languages spoken</li>
-                    <li><strong>Demographics & Lifestyle:</strong> Job title, company, school, height, body type, education level, relationship intent, workout frequency, smoking and drinking habits, dietary preferences, religious beliefs, political views, zodiac sign, and race/ethnicity</li>
-                    <li><strong>Preferences:</strong> Gender preference, age range, maximum distance, preferred body styles, and other matching criteria</li>
+                    <li><strong>Demographics & Lifestyle:</strong> Job title, company, school, height, body type, education level, relationship intent, workout frequency, smoking and drinking habits, dietary preferences, religious beliefs, political views, zodiac sign, and race/ethnicity. Religious beliefs, political views, race/ethnicity and the gender you're interested in are sensitive details: they are optional, shown on your profile only if you add them, and you can remove them at any time</li>
+                    <li><strong>Preferences:</strong> Gender preference, age range, height range, preferred body styles, and other matching criteria</li>
                     <li><strong>User Content:</strong> Messages in chats (subject to spam detection filters) and Skein messages (short introduction messages, up to 140 characters, sent together with a "Skein" super-like)</li>
-                    <li><strong>Verification Data:</strong> World ID verification data if you choose to verify your profile (processed through World ID)</li>
-                    <li><strong>Blocked Numbers:</strong> Phone numbers you choose to enter in the optional "Block by phone number" feature. These are stored in standardized (E.164) format with your account and used solely to hide you and the blocked person from each other's discovery feeds. Blocking by number only takes effect against users who have verified that phone number in the app</li>
+                    <li><strong>Phone Verification (optional):</strong> If you verify your phone number, we store the number, its country code and when it was verified. The verification code is sent by text message through Firebase Authentication (Google)</li>
+                    <li><strong>Blocked Numbers:</strong> Phone numbers you choose to enter in the optional "Block by phone number" feature. These are stored in standardized (E.164) format with your account and used solely to hide you and the blocked person from each other's discovery feeds. Blocking by number only takes effect against users who have verified that phone number in the app. The people you block are not notified. The numbers stay on your account until you remove them or delete your account</li>
                 </ul>
 
                 <h3>B. Information We Collect Automatically</h3>
                 <ul>
-                    <li><strong>Usage Data:</strong> Activity within the app including likes (5-star ratings), passes (1-4 star ratings), matches, chat invitations sent/received, profiles viewed, rating progress (earn 1 Corn per 12 ratings), hourly rating limits (6 per hour), features used, and login times</li>
+                    <li><strong>Usage Data:</strong> Activity within the app including likes (4–5 stars), passes (1–3 stars), matches, chat invitations sent/received, profiles viewed, rating progress (earn 1 Corn per 12 ratings), hourly rating limits (6 per hour), features used, and login times</li>
                     <li><strong>Device Information:</strong> Device model, operating system, IP address, device identifiers, mobile network information, and app version</li>
-                    <li><strong>Location Data:</strong> Precise geolocation (latitude/longitude) and geohash (encoded location) to suggest nearby matches, prioritized by distance up to 300km (approximately 186 miles). Users beyond this distance are strongly deprioritized and are only shown after nearby users have been rated. Users without location data may still be shown but will appear after all nearby users have been rated, with significantly lower visibility. You can revoke this permission in device settings, though it will severely limit your visibility to other users</li>
-                    <li><strong>Analytics:</strong> App performance data, crash reports, and usage patterns via Firebase Analytics (which includes Google Analytics) and Crashlytics</li>
+                    <li><strong>Location Data:</strong> Precise geolocation (latitude/longitude) and geohash (encoded location) to suggest nearby matches, within 300km (approximately 186 miles), closest first. People farther away are not shown. Users without location data may still be shown, after everyone nearby. Other users are shown your city and approximate distance, not your coordinates; turning off "Share location" in Settings → Privacy hides your city and distance from them. To show a city name, coordinates are looked up with your device's built-in location service (Apple or Google). You can revoke the location permission in device settings, though it will severely limit your visibility to other users</li>
+                    <li><strong>Analytics:</strong> App performance data, crash reports, and usage patterns via Firebase Analytics (which includes Google Analytics) and Crashlytics (see Section 12)</li>
+                    <li><strong>Notification Token:</strong> A push-notification token for your device, so we can send you notifications</li>
                 </ul>
 
                 <h3>C. Information from Third Parties</h3>
                 <ul>
                     <li><strong>Purchase Details:</strong> Transaction confirmations from RevenueCat and app stores (Google Play or Apple App Store) for premium subscriptions and Corn purchases. We do not store your payment information directly</li>
                     <li><strong>Authentication:</strong> Basic profile information from Google or Apple when you sign in through their services</li>
-                    <li><strong>World ID:</strong> Verification status from Worldcoin's World ID system if you verify your profile</li>
                 </ul>
             </section>
 
@@ -205,22 +205,22 @@
                 <p>We use the information we collect to:</p>
                 <ul>
                     <li><strong>Provide the Service:</strong> Create your account, display your profile to other users, and facilitate messaging</li>
-                    <li><strong>Matchmaking:</strong> Show you profiles based on your preferences (gender, age range, distance, body type), location proximity, and activity. Our algorithm scores users based on ratings received and prioritizes showing you highly-rated, nearby users first</li>
+                    <li><strong>Matchmaking:</strong> Show you people of the gender you're looking for within 300km, closest first. Anyone who sent you a Skein comes first; at the same distance, Premium members come next, then the profiles that best fit your preferences (age range, body type, height, shared interests and more), people who were active recently, and people whose rating score is similar to yours. Preferences change the order; they don't hide anyone</li>
                     <li><strong>Safety & Moderation:</strong>
                         <ul>
-                            <li>Monitor chat messages for spam, URLs, phone numbers, harassment, inappropriate content, and other violations of our Terms of Service</li>
-                            <li>Block messages containing URLs, phone numbers, or repeated spam (5+ identical messages)</li>
-                            <li>Process user reports for harassment, inappropriate content, spam, and fake profiles</li>
-                            <li>Automatically blacklist users who receive 50+ reports</li>
-                            <li>Send report details (including last 20 messages) to our team at hello+geeslyhelp@nelera.net</li>
+                            <li>Check each message as it is sent for links, phone numbers and repeated spam</li>
+                            <li>Block messages containing URLs, phone numbers, or repeated spam (5+ identical messages in your last 10)</li>
+                            <li>Review user reports for harassment, inappropriate content, spam, and fake profiles, including the reported conversation</li>
+                            <li>Automatically suspend accounts reported for spam, or as a fake profile, by 50 or more different users</li>
+                            <li>Send report details to our team at hello+geeslyhelp@nelera.net (a report made from a chat includes the last 20 messages)</li>
                             <li>Enforce community standards and Terms of Service</li>
                         </ul>
                     </li>
                     <li><strong>Transactions:</strong> Process premium subscriptions and Corn purchases via app stores, manage virtual currency balances, and handle restore purchases</li>
                     <li><strong>Gamification:</strong> Track rating progress, award Corns for user engagement (1 Corn per 12 ratings), manage hourly rating limits (6 profiles per hour), and unlock rate limit with 20 Corns</li>
-                    <li><strong>Communications:</strong> Send push notifications and in-app alerts about matches, chat invitations, received messages, likes, and account activity. Send emails via Gmail/Nodemailer for reports and administrative purposes</li>
+                    <li><strong>Communications:</strong> Send push notifications and in-app alerts about matches, likes, Skeins, chat invitations, new messages, and when you can rate again. We use email (Gmail) only to send user reports and service statistics to our own team</li>
                     <li><strong>Analytics:</strong> Track usage trends via Firebase Analytics to improve features, fix bugs, and optimize performance</li>
-                    <li><strong>Advertising:</strong> Show rewarded video ads that users can watch to earn 1 Corn (optional)</li>
+                    <li><strong>Advertising:</strong> Offer optional rewarded video ads through Google AdMob; watching one earns 1 Corn (see Section 12)</li>
                 </ul>
             </section>
 
@@ -228,16 +228,15 @@
                 <h2>3. Information Sharing and Disclosure</h2>
                 <p>We do not sell your personal data. We share information only as follows:</p>
                 <ul>
-                    <li><strong>With Other Users:</strong> Your public profile data (photos, bio, interests, preferences, etc.) is visible to other users for dating purposes. Messages are visible only to you and your chat partner</li>
+                    <li><strong>With Other Users:</strong> Your profile (photos, bio, interests and the details you add) is shown to other users for dating purposes, along with your city and approximate distance unless you turn off location sharing. Messages are visible to you and your chat partner; the first 50 characters of a message also appear in the push notification sent to them</li>
                     <li><strong>Service Providers:</strong> We share data with trusted third parties including:
                         <ul>
-                            <li>Google Firebase: Cloud hosting, Firestore database, Authentication, Cloud Functions, Analytics, Crashlytics, Cloud Messaging (push notifications), Remote Config, and App Check for security</li>
+                            <li>Google Firebase: Cloud hosting, Firestore database, Storage, Authentication (including phone verification by text message), Cloud Functions, Analytics, Crashlytics, Cloud Messaging (push notifications), Remote Config, and App Check for security</li>
                             <li>Google Cloud Vision API: Automated image analysis for content moderation (see Section 5)</li>
                             <li>RevenueCat: Subscription and in-app purchase management</li>
                             <li>Apple/Google: Payment processing through their respective app stores (Apple App Store and Google Play Store)</li>
-                            <li>Gmail/Nodemailer: Email service for sending user reports to hello+geeslyhelp@nelera.net</li>
-                            <li>World ID (Worldcoin): Profile verification service (optional)</li>
-                            <li>Ad Networks: For serving rewarded video ads (processed through ad SDKs)</li>
+                            <li>Gmail: Email service for sending user reports and service statistics to our own team</li>
+                            <li>Google AdMob: Serving and measuring the optional rewarded video ads</li>
                         </ul>
                         All providers are contractually obligated to protect your data and use it only for specified purposes. These third parties have their own privacy policies governing their data handling practices.
                     </li>
@@ -269,6 +268,7 @@
                     <li><strong>Violent Content:</strong> Images containing violence or weapons</li>
                     <li><strong>Minor Detection:</strong> Images that may contain or depict minors (anyone under 18)</li>
                     <li><strong>Spam/Promotional Content:</strong> QR codes, advertisements, promotional material, or commercial content</li>
+                    <li><strong>Stock Photos:</strong> Professional stock or watermark images that are not of you</li>
                 </ul>
 
                 <h3>B. How It Works</h3>
@@ -286,8 +286,8 @@
                 <ul>
                     <li>Images are analyzed in real-time during upload</li>
                     <li>Google Cloud Vision API processes images temporarily for analysis only</li>
-                    <li>Image data is not stored by Google after analysis is complete</li>
-                    <li>Only approved images are stored on our servers</li>
+                    <li>Under Google's Cloud Vision data-use terms, images sent for analysis are not stored by Google after the analysis</li>
+                    <li>Only approved images are stored on our servers. Profile photos are served from web links that are not password-protected, so anyone who has a photo's link can open it</li>
                     <li>We do not use image data for training AI models</li>
                 </ul>
 
@@ -307,10 +307,12 @@
                 <ul>
                     <li><strong>Access & Portability:</strong> Request a copy of the data we hold about you</li>
                     <li><strong>Correction:</strong> Update your profile information via app settings at any time</li>
-                    <li><strong>Deletion:</strong> Request account deletion via Settings → Privacy → Delete Account. All your data including profile, photos, messages, matches, and purchase history will be permanently deleted promptly by our server-side deletion process (typically within seconds)</li>
-                    <li><strong>Device Permissions:</strong> Revoke permissions for Location, Camera, Photos, or Notifications through your device settings at any time</li>
-                    <li><strong>Notification Preferences:</strong> Manage push notifications and alerts in Settings → Notifications. Toggle on/off for: push notifications, alerts, vibration, and online status visibility</li>
-                    <li><strong>Blocking:</strong> Block users to prevent them from seeing your profile or contacting you</li>
+                    <li><strong>Deletion:</strong> Delete your account in the app via Settings → Support → Delete Account. Your profile, photos, messages, matches and other account data are permanently deleted by our server-side deletion process; the records listed under "Kept after deletion" in Section 7 are kept. Deleting your account does not cancel a subscription — cancel it in the App Store or Google Play (typically within seconds)</li>
+                    <li><strong>Device Permissions:</strong> Revoke permissions for Location, Photos, or Notifications through your device settings at any time</li>
+                    <li><strong>Notification Preferences:</strong> Manage push notifications, alerts, vibration and marketing emails in Settings → Notifications</li>
+                    <li><strong>Privacy Settings:</strong> In Settings → Privacy you can hide your online status, turn on Incognito mode (you are hidden from discovery, and your likes don't notify anyone or create matches), and stop sharing your location</li>
+                    <li><strong>Blocking:</strong> Block users to prevent them from seeing your profile or contacting you, or block people you know by their phone number</li>
+                    <li><strong>Suspended Accounts:</strong> If your account is suspended you can't sign in, so email us to appeal or to have your data deleted</li>
                 </ul>
             </section>
 
@@ -327,21 +329,26 @@
                             <li>Chat messages and conversations</li>
                             <li>Chat unlock records</li>
                             <li>Skein records, sent and received (including their messages)</li>
-                            <li>References in other users' blocked lists</li>
+                            <li>References in other users' matches, likes and blocked lists</li>
                             <li>Local app cache and SharedPreferences/UserDefaults</li>
                         </ul>
                     </li>
                     <li><strong>Automatic Cleanup:</strong>
                         <ul>
                             <li>Notifications: Auto-deleted after 7 days</li>
-                            <li>Chat Invitations: Auto-deleted after 7 days if not accepted</li>
-                            <li>Matches & Likes: Reset monthly (1st of each month), except for active chats, blocked users, and pending invitations</li>
+                            <li>Chat Invitations: Answered invitations are deleted after 7 days; pending invitations stay until they are answered</li>
+                            <li>Matches & Likes: Reset monthly (1st of each month), except matches with an active chat, blocked users, pending invitations and pending Skeins</li>
                             <li>Rating Progress: Tracked for Corn rewards, resets after earning</li>
                         </ul>
                     </li>
-                    <li><strong>Reports:</strong> User reports and associated chat logs are retained for safety investigations and may be kept for up to 1 year</li>
-                    <li><strong>Payment Records:</strong> Transaction history retained as required by app stores, tax regulations, and for 7 years for accounting purposes</li>
-                    <li><strong>Blacklisted Users:</strong> Users auto-blacklisted after 50+ reports remain banned permanently</li>
+                    <li><strong>Kept after deletion:</strong> Some records are kept, including after you delete your account:
+                        <ul>
+                            <li>Reports and the conversation included with them, for as long as needed for safety investigations and legal purposes</li>
+                            <li>Records of purchases and rewarded-ad credits, for accounting and fraud prevention (Apple, Google and RevenueCat keep their own records too)</li>
+                            <li>For accounts suspended or removed by our team, the email address, to prevent abuse</li>
+                        </ul>
+                    </li>
+                    <li><strong>Suspended Accounts:</strong> Accounts suspended for spam or fake profiles stay suspended. Contact us if you believe this is a mistake</li>
                 </ul>
             </section>
 
@@ -354,7 +361,7 @@
                     <li>Firebase Authentication for secure login</li>
                     <li>Rate limiting in Cloud Functions (max 10 notifications per minute, max 3 reports per minute)</li>
                     <li>Spam detection filters to prevent malicious content</li>
-                    <li>Automatic blacklisting system for reported users</li>
+                    <li>Automatic suspension of accounts that many different users report for spam or as fake</li>
                 </ul>
                 <p>However, no transmission over the internet is completely secure, and we cannot guarantee absolute security of your data.</p>
             </section>
@@ -367,7 +374,7 @@
 
             <section>
                 <h2>10. International Data Transfers</h2>
-                <p>If you are located outside the United States, your information may be transferred to and stored on servers in the US (via Google Firebase US-Central1 region). We rely on Firebase's security measures and standard contractual clauses to ensure your data is treated securely in accordance with this Privacy Policy.</p>
+                <p>If you are located outside the United States, your information may be transferred to and stored on Google Firebase servers in the United States (the database is in Google Cloud's US multi-region, and our server functions run in us-central1). We rely on Firebase's security measures and standard contractual clauses to ensure your data is treated securely in accordance with this Privacy Policy.</p>
             </section>
 
             <section>
@@ -375,40 +382,43 @@
                 <p>Our app integrates with and may contain links to third-party services:</p>
                 <ul>
                     <li>Google Play Store / Apple App Store: For purchases and downloads</li>
-                    <li>World ID (Worldcoin): Optional identity verification</li>
-                    <li>Ad Networks: For rewarded video ads</li>
+                    <li>Google and Apple: Sign-in</li>
+                    <li>Google AdMob: For rewarded video ads</li>
                 </ul>
                 <p>We are not responsible for the privacy practices of these third parties. We encourage you to read their privacy policies.</p>
             </section>
 
             <section>
                 <h2>12. Analytics and Tracking</h2>
-                <p>We use Firebase Analytics to understand how users interact with our Service. This service collects:</p>
+                <p>We use Firebase Analytics (Google Analytics for Firebase) and Firebase Crashlytics to understand how the app is used and to fix problems. They collect:</p>
                 <ul>
                     <li>Device information and identifiers</li>
-                    <li>Usage patterns and feature engagement</li>
+                    <li>Usage patterns and feature engagement, such as screens opened and actions like rating, matching, unlocking or reporting (these events can include the anonymous user ID of the other profile involved)</li>
+                    <li>When you finish setting up your profile: your gender, age range, zodiac sign, number of photos, and up to five of your interests</li>
                     <li>App performance and crash data (via Firebase Crashlytics)</li>
                     <li>Session duration and frequency</li>
                 </ul>
-                <p>Firebase Analytics is Google's analytics platform (Google Analytics for Firebase). In addition, optional rewarded video ads are served by Google AdMob, which may use device advertising identifiers to serve and measure ads; Google's privacy policy applies to that processing.</p>
+                <p>We don't send your name, email address, phone number, messages, or the gender you're interested in to Analytics.</p>
+                <p><strong>Ads:</strong> Optional rewarded video ads are served by Google AdMob. The AdMob SDK starts when you open the app and may use your device's advertising identifier to serve and measure ads; Google's privacy policy applies to that processing. You can reset or limit your advertising identifier in your device settings.</p>
+                <p><strong>Our website:</strong> geesly.net uses Google Analytics and Google AdSense, which use cookies to measure visits and to show and measure ads. You can block or delete cookies in your browser settings.</p>
             </section>
 
             <section>
                 <h2>13. Email and Push Notifications</h2>
                 <p>We may send you:</p>
                 <ul>
-                    <li><strong>Service Emails:</strong> Administrative messages via Gmail/Nodemailer about account activity, reports, or security issues (cannot be disabled)</li>
                     <li><strong>Push Notifications:</strong> Via Firebase Cloud Messaging about:
                         <ul>
-                            <li>New matches (when someone likes you back)</li>
+                            <li>New matches (when you like each other)</li>
                             <li>Likes and Skeins (super-likes) received</li>
                             <li>Chat invitations received</li>
                             <li>New messages in active chats</li>
-                            <li>Account activity and security alerts</li>
                         </ul>
                     </li>
+                    <li><strong>Reminders:</strong> A notification from the app itself when you can rate again after reaching the hourly limit</li>
+                    <li><strong>Marketing Emails:</strong> Only if you agreed at sign-up or turned them on in Settings → Notifications → Email Marketing, which you can turn off at any time</li>
                 </ul>
-                <p>You can manage push notification and alert preferences in Settings → Notifications. You cannot opt out of critical security and administrative messages.</p>
+                <p>You can manage push notification and alert preferences in Settings → Notifications.</p>
             </section>
 
             <section>
@@ -444,7 +454,7 @@
                 <ul>
                     <li><strong>Contract Performance:</strong> To provide dating and matchmaking services</li>
                     <li><strong>Legitimate Interests:</strong> To improve services, prevent fraud, detect spam, ensure user safety, and maintain security</li>
-                    <li><strong>Consent:</strong> For optional features like World ID verification, location services, and marketing communications</li>
+                    <li><strong>Consent:</strong> For optional features such as phone verification, location services, the sensitive profile details you choose to add (Section 1A), and marketing emails</li>
                     <li><strong>Legal Obligations:</strong> To comply with laws, respond to legal requests, and protect rights</li>
                 </ul>
             </section>
@@ -456,10 +466,10 @@
                     <li><strong>Encrypted in transit:</strong> Using TLS/SSL (Firebase default)</li>
                     <li><strong>Stored securely:</strong> On Firebase Firestore servers</li>
                     <li><strong>Filtered for spam:</strong> URLs, phone numbers, and repeated messages are blocked before sending</li>
-                    <li><strong>Accessible by:</strong> You and your chat partner only</li>
+                    <li><strong>Accessible by:</strong> You and your chat partner. A short preview (up to 50 characters) appears in your partner's push notification, and our team sees a conversation only when it is reported</li>
                     <li><strong>Limited to 200 characters:</strong> Per message</li>
-                    <li><strong>Subject to review:</strong> If reported by users (last 20 messages included in reports)</li>
-                    <li><strong>Deleted when:</strong> Either user deletes their account, blocks the other user, or ends the chat</li>
+                    <li><strong>Subject to review:</strong> If reported by users (a report made from the chat includes the last 20 messages)</li>
+                    <li><strong>Deleted when:</strong> Either user deletes their account, blocks the other user, or ends the chat (copies included in a report are kept, see Section 7)</li>
                 </ul>
                 <p>We access messages only for: safety investigations based on user reports, legal compliance, or spam detection enforcement.</p>
             </section>
@@ -479,28 +489,28 @@
                     <li>50 Corns to unlock chat with a match</li>
                     <li>10 Corns to send a chat invitation</li>
                     <li>20 Corns to bypass hourly rating limit (unlock 6 more ratings)</li>
-                    <li>5 Corns to view a user's full profile</li>
+                    <li>5 Corns to see the full profile of someone who liked you</li>
                 </ul>
                 <h3>Purchasing Corns:</h3>
                 <p>Available via in-app purchases through app stores</p>
                 <h3>Skeins (Super-Likes):</h3>
                 <ul>
                     <li>A Skein lets you send a short message (up to 140 characters) together with a super-like, even before matching</li>
-                    <li>Skeins are granted with premium subscriptions — 1 (1-week plan), 3 (1-month), 15 (6-month), or 30 (1-year) — credited on purchase and on each renewal</li>
-                    <li>Each send spends one Skein from your balance; Skein messages are delivered to the recipient and stored like other user content</li>
+                    <li>Skeins are granted with premium subscriptions — 1 (1-week plan), 3 (1-month), 15 (6-month), or 30 (1-year) — credited with each paid period (not during a free trial). Unused Skeins stay in your balance after Premium ends</li>
+                    <li>Each send spends one Skein from your balance, and you can send one Skein per person. Skein messages are delivered to the recipient and stored like other user content; if the recipient already liked you, the message becomes the first message of your chat</li>
                 </ul>
                 <p>Corn and Skein balances and transactions are stored securely and associated with your account. Premium subscribers also get certain features free of Corn charges (profile views, invitations, chat unlocks).</p>
             </section>
 
             <section>
-                <h2>19. World ID Verification (Optional)</h2>
-                <p>You may choose to verify your profile using World ID (Worldcoin):</p>
+                <h2>19. Profile Verification (Optional)</h2>
+                <p>You may choose to verify your phone number in the app:</p>
                 <ul>
                     <li>Verification is completely optional</li>
-                    <li>Provides a verified badge on your profile</li>
-                    <li>We receive only verification status (verified/not verified) from World ID</li>
-                    <li>World ID's own privacy policy applies to their verification process</li>
-                    <li>We do not store biometric data</li>
+                    <li>It gives your profile a verified badge</li>
+                    <li>The code is sent by text message through Firebase Authentication (Google); we store your number, its country code and when it was verified</li>
+                    <li>A verified number is what lets other users block you by phone number</li>
+                    <li>World ID verification is not currently offered. If we add it, we will update this policy first</li>
                 </ul>
             </section>
 
@@ -518,7 +528,7 @@
 
             <section>
                 <h2>21. Changes to This Policy</h2>
-                <p>We may update this policy periodically. We will notify you of changes via in-app notification, email, or push notification. Continued use of Geesly after updates constitutes acceptance of the revised policy. The "Last Updated" date at the top indicates the most recent version.</p>
+                <p>We may update this policy periodically. When we do, we update the "Last Updated" date above, and for significant changes we will also let you know in the app or by email where possible. Continued use of Geesly after updates constitutes acceptance of the revised policy. The "Last Updated" date at the top indicates the most recent version.</p>
             </section>
 
             <section>
