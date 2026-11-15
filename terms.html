@@ -60,7 +60,7 @@
       "inLanguage": "en-US",
       "isPartOf": { "@type": "WebSite", "name": "Geesly", "url": "https://geesly.net" },
       "publisher": { "@type": "Organization", "name": "Geesly", "url": "https://geesly.net" },
-      "dateModified": "2026-07-09"
+      "dateModified": "2026-11-15"
     }
     </script>
     <link rel="stylesheet" href="/lib/tailwind.css">
@@ -153,7 +153,7 @@
             <h1 class="text-4xl sm:text-5xl font-bold mb-4">
                 <span class="gradient-text">Terms of Service</span>
             </h1>
-            <p class="text-lg text-gray-400">Last Updated: July 2026</p>
+            <p class="text-lg text-gray-400">Last Updated: November 2026</p>
         </div>
 
         <!-- Terms Content -->
@@ -169,7 +169,7 @@
 
             <p class="lead">Welcome to Geesly! These Terms of Service ("Terms") govern your access to and use of our dating application. By creating an account or using Geesly, you agree to be bound by these Terms and our Privacy Policy.</p>
 
-            <p>Full Terms of Service: <a href="https://geesly.net/terms.html" class="text-indigo-600 hover:text-indigo-800 font-medium">https://geesly.net/terms.html</a></p>
+            
 
             <section>
                 <h2>1. Acceptance of Terms</h2>
@@ -197,7 +197,7 @@
                     <li>Google Sign-In, OR</li>
                     <li>Apple Sign-In</li>
                 </ul>
-                <p>You may also verify your account with phone number verification as an additional security measure.</p>
+                <p>You may also verify your phone number. A verified number gives your profile a verified badge and lets other users block you by phone number.</p>
                 <p>You agree to provide accurate, current, and complete information. You are solely responsible for:</p>
                 <ul>
                     <li>Maintaining the confidentiality of your login credentials</li>
@@ -270,7 +270,7 @@
                 <ul>
                     <li>Remove content that violates these Terms without notice</li>
                     <li>Suspend or permanently terminate accounts that violate these Terms</li>
-                    <li>Automatically blacklist users who receive 50+ reports</li>
+                    <li>Automatically suspend accounts reported for spam, or as a fake profile, by 50 or more different users</li>
                     <li>Report illegal activity to law enforcement</li>
                     <li>Preserve content and records for legal proceedings</li>
                     <li>No refunds will be issued for violations of these Terms</li>
@@ -307,6 +307,7 @@
                     <li><strong>Violent Content:</strong> Images depicting violence or weapons</li>
                     <li><strong>Minors:</strong> Any images containing or depicting persons under 18 years of age</li>
                     <li><strong>Spam/Promotional Content:</strong> QR codes, advertisements, barcodes, promotional material, or commercial content</li>
+                    <li><strong>Stock Photos:</strong> Professional stock images that are not of you</li>
                 </ul>
                 <p>You will receive immediate feedback if your image is rejected, along with the reason. This scanning is performed in real-time during upload to protect our community and ensure compliance with our policies. By uploading images, you consent to this automated analysis.</p>
 
@@ -328,13 +329,13 @@
                     <li>Fake profile</li>
                     <li>Other violations</li>
                 </ul>
-                <p>Reports include the last 20 messages as context and are sent to our team at hello+geeslyhelp@nelera.net for review.</p>
+                <p>Reports made from a chat include the last 20 messages as context. All reports are sent to our team at hello+geeslyhelp@nelera.net for review.</p>
 
                 <h3>D. Auto-Moderation</h3>
                 <ul>
-                    <li>Users who receive 50+ reports are automatically blacklisted</li>
-                    <li>Blacklisted users are permanently banned from the platform</li>
-                    <li>No appeals or refunds for auto-blacklisted accounts</li>
+                    <li>Accounts reported for spam, or as a fake profile, by 50 or more different users are suspended automatically</li>
+                    <li>Other reports are reviewed by our team</li>
+                    <li>If you believe your account was suspended by mistake, email hello+geeslyhelp@nelera.net. No refunds are given for accounts suspended for violating these Terms</li>
                 </ul>
 
                 <h3>E. Manual Review</h3>
@@ -355,31 +356,33 @@
 
                 <h3>How It Works:</h3>
                 <ul>
-                    <li><strong>5-Star Rating = Like:</strong> Indicates strong interest; if the other user also rates you 5 stars, you match automatically</li>
-                    <li><strong>4-Star Rating = Soft Like:</strong> The other user is notified that you like them and you appear in their Favorites, but a 4-star rating alone does not create a match</li>
-                    <li><strong>1-3 Star Rating = Pass:</strong> User moves to your "seen users" list</li>
-                    <li><strong>Skein (Super-Like):</strong> Premium users can send a Skein — a super-like with a short message — which pins them near the top of the recipient's feed until acted on</li>
+                    <li><strong>4 or 5 Stars = Like:</strong> The other user can see that someone liked them and you appear in their Favorites; when you both like each other, it's an automatic match</li>
+                    <li><strong>3 Stars = Maybe:</strong> Neither a like nor a pass; the profile moves to your "seen users" list</li>
+                    <li><strong>1–2 Stars = Pass:</strong> The profile won't be shown to you again</li>
+                    <li><strong>Skein (Super-Like):</strong> Premium users can send a Skein — a super-like with a short message — which puts them at the very top of the recipient's feed until acted on. If the recipient already liked them, it's an instant match and the message starts the chat. You can send one Skein per person, and not to someone you've matched with or who is blocked</li>
                     <li><strong>Rewind:</strong> Premium users can undo their previous rating and re-rate that profile (not available once a match has formed)</li>
-                    <li><strong>User Score:</strong> Each user accumulates a score based on ratings received, affecting profile visibility</li>
-                    <li><strong>Distance Ranking:</strong> Profiles are prioritized by distance up to 300km (186 miles); users beyond that distance are strongly deprioritized and only appear after nearby users have been rated</li>
-                    <li><strong>Location Ranking:</strong> Users without location data are shown last, after all nearby users have been rated</li>
+                    <li><strong>User Score:</strong> Each like you receive adds a point and each pass (1–2 stars) removes one; people with a score similar to yours rank higher in your feed</li>
+                    <li><strong>Incognito:</strong> In Settings → Privacy you can hide from discovery; while Incognito is on, your likes don't notify anyone or create matches</li>
+                    <li><strong>Distance Ranking:</strong> Profiles are shown within 300km (186 miles), closest first; people farther away are not shown</li>
+                    <li><strong>Location Ranking:</strong> Users without location data are shown last</li>
                 </ul>
 
                 <h3>Matching Algorithm:</h3>
                 <p>Profiles you see are determined by:</p>
                 <ul>
-                    <li>Your preferences (gender, age range, maximum distance, body type)</li>
-                    <li>User ratings and scores</li>
+                    <li>The gender you're looking for (other genders aren't shown)</li>
+                    <li>Distance, closest first; at the same distance, Premium members come first</li>
+                    <li>How well a profile fits your preferences (age range, height, body type, shared interests and more) — these change the order, not who can appear</li>
                     <li>Location proximity (within 300km limit)</li>
-                    <li>Activity and engagement</li>
+                    <li>Recent activity, and a rating score similar to yours</li>
                     <li>Users you haven't seen before</li>
                 </ul>
 
                 <h3>Limitations:</h3>
                 <ul>
-                    <li><strong>Hourly Limit:</strong> 6 profile ratings per hour (free users)</li>
+                    <li><strong>Hourly Limit:</strong> 6 profile ratings per hour for everyone, including Premium members</li>
                     <li><strong>Unlock Limit:</strong> Spend 20 Corns to rate 6 more profiles immediately</li>
-                    <li><strong>Monthly Reset:</strong> Matches, likes, and seen users reset on the 1st of each month (except active chats, blocked users, and pending chat invitations)</li>
+                    <li><strong>Monthly Reset:</strong> On the 1st of each month, your likes, the list of people who liked you, your seen users, and matches without any messages are reset. Matches with an active chat, pending chat invitations, pending Skeins, blocked users, and profiles you passed on (1–2 stars) stay as they are. Corns and Skeins are not affected</li>
                     <li><strong>No Guarantees:</strong> Geesly does not guarantee matches, connections, or relationship outcomes</li>
                 </ul>
             </section>
@@ -391,7 +394,7 @@
                 <h3>Earning Corns:</h3>
                 <ul>
                     <li>1 Corn per 12 profile ratings</li>
-                    <li>1 Corn per rewarded video ad watched (optional)</li>
+                    <li>1 Corn per rewarded video ad watched (optional; ads are served by Google AdMob, and the Corn is credited once the ad network confirms the view)</li>
                     <li>7 Corns for rating the app (one time)</li>
                     <li>Bonus Corns with premium subscriptions</li>
                     <li>Purchase Corns via in-app purchases</li>
@@ -402,14 +405,14 @@
                     <li>50 Corns to unlock chat with a match</li>
                     <li>10 Corns to send a chat invitation</li>
                     <li>20 Corns to bypass hourly rating limit (unlock 6 more ratings)</li>
-                    <li>5 Corns to view a user's full profile details</li>
+                    <li>5 Corns to see the full profile of someone who liked you</li>
                 </ul>
 
                 <h3>Skeins (Super-Likes):</h3>
                 <ul>
                     <li>A Skein lets you send a short message (up to 140 characters) together with a super-like, even before matching</li>
-                    <li>Skeins are granted with premium subscriptions per billing period: 1 (1-week plan), 3 (1-month), 15 (6-month), or 30 (1-year) — credited on purchase and on each renewal</li>
-                    <li>One Skein is spent per send; unused Skeins remain on your account</li>
+                    <li>Skeins are granted with premium subscriptions per billing period: 1 (1-week plan), 3 (1-month), 15 (6-month), or 30 (1-year) — credited with each paid period (not during a free trial)</li>
+                    <li>One Skein is spent per send, and you can send one Skein per person; unused Skeins remain on your account, including after Premium ends</li>
                 </ul>
 
                 <h3>Important Terms:</h3>
@@ -419,7 +422,7 @@
                     <li>Corns and Skeins cannot be transferred between users</li>
                     <li>Corn and Skein balances do not expire while your account is active</li>
                     <li>Upon account deletion, all Corns and Skeins are forfeited with no refund</li>
-                    <li>We may adjust Corn prices, Skein grant amounts, or the actions they enable at any time</li>
+                    <li>We may adjust Corn prices, Skein grant amounts, or the actions they enable at any time, and may run time-limited promotions (for example, bonus Corns on purchases)</li>
                 </ul>
             </section>
 
@@ -432,12 +435,11 @@
                 <ul>
                     <li>Unlimited chat unlocks</li>
                     <li>Unlimited profile views</li>
-                    <li>Unlimited rating (no hourly limit)</li>
-                    <li>Send unlimited chat invitations</li>
-                    <li>Bonus Corns included</li>
+                                        <li>Send unlimited chat invitations</li>
+                    <li>Bonus Corns with each paid period (not during a free trial)</li>
                     <li>Skeins (super-likes with a message) each billing period: 1 (1-week plan), 3 (1-month), 15 (6-month), or 30 (1-year)</li>
                     <li>Rewind: undo your previous rating and re-rate that profile</li>
-                    <li>Priority matching visibility</li>
+                    <li>Priority placement: shown first among people at the same distance</li>
                 </ul>
 
                 <h3>B. Auto-Renewal</h3>
@@ -449,7 +451,9 @@
                     <li>You can cancel anytime through your app store account settings (Apple or Google)</li>
                     <li>Cancellation takes effect at the end of the current billing period</li>
                     <li>No refunds for partial periods</li>
-                    <li>Prices are subject to change at any time without notice</li>
+                    <li>Subscriptions renew automatically unless you cancel at least 24 hours before the end of the current period</li>
+                    <li>If a plan includes a free trial, you are charged when the trial ends unless you cancel before then</li>
+                    <li>Prices may change. If a subscription price goes up, the app store will tell you in advance and, where required, ask for your consent before the new price applies</li>
                 </ul>
 
                 <h3>C. Purchases and Refunds</h3>
@@ -458,10 +462,10 @@
                     <li>Applicable consumer protection laws in your jurisdiction (e.g., EU 14-day withdrawal right, Australian Consumer Law, or similar regulations)</li>
                     <li>App store refund policies (Apple App Store or Google Play)</li>
                 </ul>
-                <p>Refunds are handled exclusively by the platform (Apple or Google) through which you made the purchase, not by Geesly. Refund requests must be made directly through the app store where you made the purchase. We do not process refunds directly. Contact the app store directly to request refunds where applicable.</p>
+                <p>If a purchase is refunded or reversed, we may remove the Corns, Skeins or Premium access it granted. Refunds are handled exclusively by the platform (Apple or Google) through which you made the purchase, not by Geesly. Refund requests must be made directly through the app store where you made the purchase. We do not process refunds directly. Contact the app store directly to request refunds where applicable.</p>
 
                 <h3>D. Restore Purchases</h3>
-                <p>You can restore previous purchases through Settings → Subscriptions → Restore Purchases. This will sync your purchases across devices using the same account.</p>
+                <p>You can restore previous purchases with the Restore Purchases button in the Corn shop. This will sync your purchases across devices using the same account.</p>
 
                 <h3>E. User Responsibility</h3>
                 <p>You are solely responsible for:</p>
@@ -478,10 +482,9 @@
                 <h3>Chat Features:</h3>
                 <ul>
                     <li><strong>Chat Invitations:</strong> Send chat invitations to users who have liked you, from your Favorites (premium = free; free users pay 10 Corns per invitation)</li>
-                    <li><strong>Chat Unlock:</strong> Costs 50 Corns per unlock (premium = free)</li>
+                    <li><strong>Chat Unlock:</strong> Costs 50 Corns per unlock; free if either of you has Premium or the other person already unlocked it. A match without any messages is removed in the monthly reset, so unlock and say hello before the 1st</li>
                     <li><strong>Message Limit:</strong> 200 characters per message</li>
                     <li><strong>Spam Detection:</strong> Automatic blocking of URLs, phone numbers, and repeated messages</li>
-                    <li><strong>Message History:</strong> Pagination loads 30 messages at a time</li>
                 </ul>
 
                 <h3>Chat Management:</h3>
@@ -489,20 +492,21 @@
                 <ul>
                     <li><strong>End Chat:</strong> Remove match and delete all messages</li>
                     <li><strong>Block User:</strong> Prevents all future contact and deletes messages</li>
+                    <li><strong>Block by Phone Number:</strong> Hide people you know by entering their number (after verifying your own). Only enter numbers you are lawfully entitled to use. Blocking works only against users who have verified that number, and they are not notified</li>
                     <li><strong>Report User:</strong> Flag inappropriate behavior (includes last 20 messages)</li>
                 </ul>
 
                 <h3>Message Retention:</h3>
                 <ul>
                     <li>Messages are stored until either user deletes their account, blocks the other user, or ends the chat</li>
-                    <li>Upon deletion, messages are permanently removed and cannot be recovered</li>
+                    <li>Upon deletion, messages are permanently removed and cannot be recovered, except copies included in a report, which we keep for safety and legal purposes</li>
                     <li>Messages may be reviewed if reported for safety violations</li>
                 </ul>
             </section>
 
             <section>
                 <h2>11. Account Deletion</h2>
-                <p>You can delete your account at any time via Settings → Privacy → Delete Account.</p>
+                <p>You can delete your account at any time via Settings → Support → Delete Account. If your account is suspended and you can't sign in, email hello+geeslyhelp@nelera.net to have it deleted. Deleting your account does not cancel a subscription; cancel it in the App Store or Google Play.</p>
 
                 <h3>What Gets Deleted Immediately:</h3>
                 <ul>
@@ -530,7 +534,7 @@
                 <h3>Data Retention:</h3>
                 <p>Some data may be retained for legal or safety purposes:</p>
                 <ul>
-                    <li>User reports and safety investigations (up to 1 year)</li>
+                    <li>User reports, including any conversation included with them, for as long as needed for safety and legal purposes</li>
                     <li>Payment transaction records (as required by law)</li>
                     <li>Blacklist records for banned users</li>
                     <li>Aggregated, anonymized analytics data</li>
@@ -543,10 +547,9 @@
                 <ul>
                     <li>Violate these Terms of Service or Community Rules</li>
                     <li>Engage in fraudulent, illegal, or harmful behavior</li>
-                    <li>Receive 50+ user reports (automatic blacklist)</li>
+                    <li>Are reported for spam, or as a fake profile, by 50 or more different users (automatic suspension)</li>
                     <li>Create fake profiles or use the service for spam</li>
                     <li>Attempt to circumvent safety features</li>
-                    <li>Remain inactive for an extended period</li>
                     <li>Violate child safety policies</li>
                 </ul>
 
@@ -555,7 +558,8 @@
                     <li>Immediate loss of access to the service</li>
                     <li>All data may be deleted</li>
                     <li>No refunds for subscriptions or Corns</li>
-                    <li>Permanent ban (cannot create new accounts)</li>
+                    <li>Permanent ban: you may not create a new account</li>
+                    <li>Suspension does not cancel a store subscription; cancel it in your App Store or Google Play settings</li>
                     <li>May be reported to law enforcement if illegal activity is suspected</li>
                 </ul>
             </section>
@@ -608,7 +612,7 @@
                     <li>Spam that bypasses our filters</li>
                     <li>Any damages arising from your use of the service</li>
                 </ul>
-                <p>OUR TOTAL LIABILITY TO YOU SHALL NOT EXCEED THE AMOUNT YOU PAID TO GEESLY IN THE PAST 12 MONTHS, OR $100 USD, WHICHEVER IS LESSER.</p>
+                <p>OUR TOTAL LIABILITY TO YOU SHALL NOT EXCEED THE AMOUNT YOU PAID TO GEESLY IN THE PAST 12 MONTHS, OR $100 USD, WHICHEVER IS GREATER.</p>
                 <p>Some jurisdictions do not allow limitations on implied warranties or limitation of liability for incidental or consequential damages. In such jurisdictions, our liability will be limited to the maximum extent permitted by law.</p>
             </section>
 
@@ -712,6 +716,11 @@
                     <li>In the event of any third-party claim that the Service infringes intellectual property rights, Geesly, not Apple, will be responsible</li>
                     <li>Apple and its subsidiaries are third-party beneficiaries of these Terms</li>
                     <li>You must comply with applicable third-party terms when using the Service</li>
+                    <li>Your license to use the app is limited to Apple-branded products that you own or control, as permitted by the Usage Rules in the Apple Media Services Terms and Conditions</li>
+                    <li>Geesly, not Apple, is responsible for any product warranties not effectively disclaimed. If the app fails to conform to an applicable warranty, you may notify Apple, and Apple will refund the purchase price (if any) for the app; Apple has no other warranty obligation</li>
+                    <li>Geesly, not Apple, is responsible for addressing any claims by you or a third party relating to the app, including product liability claims, claims that the app fails to conform to legal or regulatory requirements, and claims under consumer protection, privacy or similar laws</li>
+                    <li>You represent that you are not located in a country subject to a U.S. Government embargo or designated as a "terrorist supporting" country, and that you are not on any U.S. Government list of prohibited or restricted parties</li>
+                    <li>Questions, complaints or claims about the app should be sent to hello+geeslyhelp@nelera.net</li>
                 </ul>
             </section>
 
@@ -804,14 +813,14 @@
 
             <section>
                 <h2>30. Changes to Terms</h2>
-                <p>We may modify, update, or change these Terms at any time at our sole discretion. We will notify you of changes through:</p>
+                <p>We may modify, update, or change these Terms at any time at our sole discretion. We may notify you of changes through:</p>
                 <ul>
                     <li>In-app notification or alert</li>
                     <li>Email to your registered email address</li>
                     <li>Notice on our website or within the Service</li>
                     <li>Push notification to your device</li>
                 </ul>
-                <p>Changes will become effective immediately upon notice being provided.</p>
+                <p>Changes take effect when they are posted. For significant changes, we will try to give you at least 30 days' notice in the app or by email.</p>
                 <p>Your continued use of Geesly after changes are posted or notified constitutes your acceptance of the updated Terms. If you do not agree to the changes, you must stop using the Service and may delete your account.</p>
                 <p>The "Last Updated" date at the top of these Terms indicates the most recent version. We encourage you to review these Terms periodically.</p>
             </section>

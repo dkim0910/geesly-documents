@@ -609,7 +609,9 @@
                 `Found ${preview.targetCount} profile(s) with fewer than 2 photos in Storage ` +
                 `(scanned ${preview.scanned}; skipped ${preview.skippedTooNew} created in the ` +
                 `last 48h). ${preview.withEmail} have an email, which will be KEPT.\n\n` +
-                `Permanently delete these accounts (data + login removed, only email kept)? ` +
+                `Wipe these accounts? Their data and photos are erased; their login and ` +
+                `email are KEPT, so they start over at onboarding the next time they open ` +
+                `the app. This is NOT a ban — use Blacklist to keep someone out. ` +
                 `This cannot be undone.\n\nSample:\n${sample}`)) return;
             btn.textContent = "Deleting…";
             const result = (await fn({ dryRun: false })).data;
@@ -894,7 +896,9 @@
     // ---- Blacklist & recovery -------------------------------------------
     // One full pass over `users`, sorted into four buckets. The important one is
     // "locked out": accounts deleted while the old code also destroyed the Auth
-    // login. Their email survives in a scrubbed doc, and the app's duplicate-email
+    // login (including "Clean up orphaned logins" runs before 2026-10-26, which
+    // wrote the kept email into /users; it now goes to deletedAccountEmails,
+    // which the app never reads). Their email survives in a scrubbed doc, and the app's duplicate-email
     // check (lib/logic/login_link.dart) matches it on every future sign-in and
     // turns them away — so they can never return. Deleting that leftover doc is
     // what frees them.
@@ -1387,9 +1391,10 @@
             if (imgs.length <= 2) {
                 if (!confirm(
                     publicId + " has only " + imgs.length + " photo(s). Removing one drops " +
-                    "below the 2-photo minimum, so the whole account will be permanently " +
-                    "deleted (data + login removed, only email kept). They will NOT come " +
-                    "back. Continue?")) return;
+                    "below the 2-photo minimum, so the whole account will be wiped: data " +
+                    "and photos erased, login and email KEPT — they start over at " +
+                    "onboarding the next time they open the app. This is NOT a ban (use " +
+                    "Blacklist for that). Continue?")) return;
                 await functions.httpsCallable("adminDeleteUser")({ uid });
                 markCardDeleted(el);
                 return;

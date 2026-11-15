@@ -23,7 +23,8 @@ const ORIGIN = 'https://geesly.net';
 // noindex/nofollow and must stay out of the sitemap.
 const ROUTES = [
   { loc: '/',              source: 'index.html',
-    images: [1, 2, 3, 4, 5, 6].map((n) => `${ORIGIN}/lib/images/${n}.webp`) },
+    images: ['deck', 'profile', 'match', 'chat', 'likes', 'light-mode']
+      .map((n) => `${ORIGIN}/lib/images/app-${n}.webp`) },
   { loc: '/about.html',    source: 'about.html' },
   { loc: '/safety.html',   source: 'safety.html' },
   { loc: '/guides.html',   source: 'guides.html' },
