@@ -175,12 +175,12 @@
 
                 <h3>A. Information You Provide</h3>
                 <ul>
-                    <li><strong>Account Credentials:</strong> Your email address and sign-in details from Google or Apple Sign-In</li>
+                    <li><strong>Account Credentials:</strong> Your email address and sign-in details from Google or Apple Sign-In. Your email address is never shown to other users. So that one person can't open a second account with the same address, we keep a one-way code of it (a SHA-256 hash) with your account; it is deleted with your account</li>
                     <li><strong>Profile Information:</strong> Name, public ID (username), age, date of birth, gender, photos (2-6 images), bio, interests, personality traits, MBTI type, and languages spoken</li>
                     <li><strong>Demographics & Lifestyle:</strong> Job title, company, school, height, body type, education level, relationship intent, workout frequency, smoking and drinking habits, dietary preferences, religious beliefs, political views, zodiac sign, and race/ethnicity. Religious beliefs, political views, race/ethnicity and the gender you're interested in are sensitive details: they are optional, shown on your profile only if you add them, and you can remove them at any time</li>
                     <li><strong>Preferences:</strong> Gender preference, age range, height range, preferred body styles, and other matching criteria</li>
                     <li><strong>User Content:</strong> Messages in chats (subject to spam detection filters) and Skein messages (short introduction messages, up to 140 characters, sent together with a "Skein" super-like)</li>
-                    <li><strong>Phone Verification (optional):</strong> If you verify your phone number, we store the number, its country code and when it was verified. The verification code is sent by text message through Firebase Authentication (Google)</li>
+                    <li><strong>Phone Verification (optional):</strong> If you verify your phone number, we store the number, its country code and when it was verified. The verification code is sent by text message through Firebase Authentication (Google). Your number is never shown to other users &mdash; your profile only shows a verified badge. To apply blocks by phone number, we keep the verified number from Firebase Authentication in an internal index that the app can't read</li>
                     <li><strong>Blocked Numbers:</strong> Phone numbers you choose to enter in the optional "Block by phone number" feature. These are stored in standardized (E.164) format with your account and used solely to hide you and the blocked person from each other's discovery feeds. Blocking by number only takes effect against users who have verified that phone number in the app. The people you block are not notified. The numbers stay on your account until you remove them or delete your account</li>
                 </ul>
 
@@ -188,7 +188,7 @@
                 <ul>
                     <li><strong>Usage Data:</strong> Activity within the app including likes (4–5 stars), passes (1–3 stars), matches, chat invitations sent/received, profiles viewed, rating progress (earn 1 Corn per 12 ratings), hourly rating limits (6 per hour on free accounts), features used, and login times</li>
                     <li><strong>Device Information:</strong> Device model, operating system, IP address, device identifiers, mobile network information, and app version</li>
-                    <li><strong>Location Data:</strong> Precise geolocation (latitude/longitude) and geohash (encoded location) to suggest nearby matches, within 300km (approximately 186 miles), closest first. People farther away are not shown. Users without location data may still be shown, after everyone nearby. Other users are shown your city and approximate distance, not your coordinates; turning off "Share location" in Settings → Privacy hides your city and distance from them. To show a city name, coordinates are looked up with your device's built-in location service (Apple or Google). You can revoke the location permission in device settings, though it will severely limit your visibility to other users</li>
+                    <li><strong>Location Data:</strong> Your device's location, used to suggest nearby matches. We store it rounded to about 1 km (a 0.01&deg; grid), with its geohash (encoded location) &mdash; never your exact position. Matches are suggested within 300km (approximately 186 miles), closest first. People farther away are not shown. Users without location data may still be shown, after everyone nearby. Other users are shown your city and approximate distance, not your coordinates; turning off "Share location" in Settings → Privacy hides your city and distance from them. To show a city name, coordinates are looked up with your device's built-in location service (Apple or Google). You can revoke the location permission in device settings, though it will severely limit your visibility to other users</li>
                     <li><strong>Analytics:</strong> App performance data, crash reports, and usage patterns via Firebase Analytics (which includes Google Analytics) and Crashlytics (see Section 12)</li>
                     <li><strong>Notification Token:</strong> A push-notification token for your device, so we can send you notifications</li>
                 </ul>
@@ -228,7 +228,7 @@
                 <h2>3. Information Sharing and Disclosure</h2>
                 <p>We do not sell your personal data. We share information only as follows:</p>
                 <ul>
-                    <li><strong>With Other Users:</strong> Your profile (photos, bio, interests and the details you add) is shown to other users for dating purposes, along with your city and approximate distance unless you turn off location sharing. Messages are visible to you and your chat partner; the first 50 characters of a message also appear in the push notification sent to them</li>
+                    <li><strong>With Other Users:</strong> Your profile (photos, bio, interests and the details you add) is shown to other users for dating purposes, along with your age (not your date of birth) and your city and approximate distance unless you turn off location sharing. Your email address, phone number, exact date of birth, the people and numbers you've blocked, and your device's notification token are kept in a private part of your account that only you and our team can access. Messages are visible to you and your chat partner; the first 50 characters of a message also appear in the push notification sent to them</li>
                     <li><strong>Service Providers:</strong> We share data with trusted third parties including:
                         <ul>
                             <li>Google Firebase: Cloud hosting, Firestore database, Storage, Authentication (including phone verification by text message), Cloud Functions, Analytics, Crashlytics, Cloud Messaging (push notifications), Remote Config, and App Check for security</li>
@@ -307,7 +307,7 @@
                 <ul>
                     <li><strong>Access & Portability:</strong> Request a copy of the data we hold about you</li>
                     <li><strong>Correction:</strong> Update your profile information via app settings at any time</li>
-                    <li><strong>Deletion:</strong> Delete your account in the app via Settings → Support → Delete Account. Your profile, photos, messages, matches and other account data are permanently deleted by our server-side deletion process; the records listed under "Kept after deletion" in Section 7 are kept. Deleting your account does not cancel a subscription — cancel it in the App Store or Google Play (typically within seconds)</li>
+                    <li><strong>Deletion:</strong> Delete your account in the app: open Settings and tap Delete Account at the bottom. Your profile, photos, messages, matches and other account data are permanently deleted by our server-side deletion process, typically within seconds; the records listed under "Kept after deletion" in Section 7 are kept. If you signed in with Apple, the app also tells Apple to end Geesly's access to your Apple ID. Deleting your account does not cancel a subscription — cancel it in the App Store or Google Play</li>
                     <li><strong>Device Permissions:</strong> Revoke permissions for Location, Photos, or Notifications through your device settings at any time</li>
                     <li><strong>Notification Preferences:</strong> Manage push notifications, alerts, vibration and marketing emails in Settings → Notifications</li>
                     <li><strong>Privacy Settings:</strong> In Settings → Privacy you can hide your online status, turn on Incognito mode (you are hidden from discovery, and your likes don't notify anyone or create matches), and stop sharing your location</li>
@@ -329,7 +329,7 @@
                             <li>Chat messages and conversations</li>
                             <li>Chat unlock records</li>
                             <li>Skein records, sent and received (including their messages)</li>
-                            <li>References in other users' matches, likes and blocked lists</li>
+                            <li>References in other users' matches, likes and blocked lists, including blocks by phone number</li>
                             <li>Local app cache and SharedPreferences/UserDefaults</li>
                         </ul>
                     </li>
@@ -399,7 +399,7 @@
                     <li>Session duration and frequency</li>
                 </ul>
                 <p>We don't send your name, email address, phone number, messages, or the gender you're interested in to Analytics.</p>
-                <p><strong>Ads:</strong> Optional rewarded video ads are served by Google AdMob. The AdMob SDK starts when you open the app and may use your device's advertising identifier to serve and measure ads; Google's privacy policy applies to that processing. You can reset or limit your advertising identifier in your device settings.</p>
+                <p><strong>Ads:</strong> Optional rewarded video ads are served by Google AdMob. In the European Economic Area, the United Kingdom and Switzerland, the app first asks for your consent with Google's consent form, and no ad is requested until you've answered; you can change your choice at any time in Settings → Legal → Ad privacy choices. The AdMob SDK starts after you sign in and may use your device's advertising identifier to serve and measure ads; Google's privacy policy applies to that processing. You can reset or limit your advertising identifier in your device settings.</p>
                 <p><strong>Our website:</strong> geesly.net uses Google Analytics and Google AdSense, which use cookies to measure visits and to show and measure ads. You can block or delete cookies in your browser settings.</p>
             </section>
 
@@ -479,6 +479,7 @@
                 <p>Geesly uses a virtual currency called "Corns" and virtual items called "Skeins" for in-app actions:</p>
                 <h3>Earning Corns:</h3>
                 <ul>
+                    <li>30 Corns when you create your account (once)</li>
                     <li>1 Corn per 12 profile ratings</li>
                     <li>1 Corn per rewarded video ad watched (optional)</li>
                     <li>7 Corns for rating the app (one time)</li>
