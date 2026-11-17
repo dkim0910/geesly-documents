@@ -954,12 +954,28 @@
                 cursor = snap.docs[snap.docs.length - 1];
             }
 
+            // 1b. Emails live in users/{uid}/private/profile since 2026-11-17
+            //     (the app's private-data move); older docs may still carry one.
+            const privateEmail = {};
+            for (let i = 0; i < all.length; i += 50) {
+                await Promise.all(all.slice(i, i + 50).map(async ({ uid }) => {
+                    try {
+                        const p = await db.collection("users").doc(uid)
+                            .collection("private").doc("profile").get();
+                        const e = p.exists ? p.get("email") : null;
+                        if (typeof e === "string" && e.trim()) privateEmail[uid] = e.trim();
+                    } catch (e) { /* not deployed yet / no access: public field only */ }
+                }));
+                $("auditStatus").textContent = `Reading emails… ${Math.min(i + 50, all.length)}/${all.length}`;
+            }
+
             // 2. Sort into buckets.
             const blacklisted = [];
             const wiped = [];
             const byEmail = new Map();
             all.forEach(({ uid, u }) => {
-                const email = typeof u.email === "string" ? u.email.trim() : "";
+                const email = privateEmail[uid] ||
+                    (typeof u.email === "string" ? u.email.trim() : "");
                 if (email) {
                     const k = email.toLowerCase();
                     if (!byEmail.has(k)) byEmail.set(k, []);
@@ -1081,10 +1097,11 @@
         }
     }
 
-    // Free someone the old delete locked out: drop the leftover email-only doc.
-    // Rules allow an admin `delete` on /users/{uid}. With the doc gone the app's
-    // duplicate-email query finds nothing, so their next sign-in creates a fresh
-    // uid and routes straight to onboarding.
+    // Free someone the old delete locked out: drop the leftover doc and its
+    // kept email (users/{uid}/private/profile since 2026-11-17). Rules allow an
+    // admin `delete` on both. With the doc gone the duplicate-email check
+    // (checkEmailInUse) treats the email as free, so their next sign-in
+    // creates a fresh uid and routes straight to onboarding.
     async function releaseUser(uid, email, el, skipConfirm) {
         if (!skipConfirm && !confirm(
             "Let " + (email || uid) + " back in?\n\n" +
@@ -1094,7 +1111,9 @@
         const btn = el && el.querySelector(".audRelease");
         if (btn) { btn.disabled = true; btn.textContent = "Releasing…"; }
         try {
-            await db.collection("users").doc(uid).delete();
+            const ref = db.collection("users").doc(uid);
+            await ref.collection("private").doc("profile").delete().catch(() => {});
+            await ref.delete();
             if (el) {
                 el.classList.add("opacity-50");
                 if (btn) btn.textContent = "Released";
