@@ -175,7 +175,7 @@
 
                 <h3>A. Information You Provide</h3>
                 <ul>
-                    <li><strong>Account Credentials:</strong> Your email address and sign-in details from Google or Apple Sign-In. Your email address is never shown to other users. So that one person can't open a second account with the same address, we keep a one-way code of it (a SHA-256 hash) with your account; it is deleted with your account</li>
+                    <li><strong>Account Credentials:</strong> Your email address and sign-in details from Google or Apple Sign-In. Your email address is never shown to other users. So that one person can't open a second account with the same address, we keep a one-way code of it (a SHA-256 hash) with your account; it is deleted with your account (except the invite-code record described in Section 7)</li>
                     <li><strong>Profile Information:</strong> Name, public ID (username), age, date of birth, gender, photos (2-6 images), bio, interests, personality traits, MBTI type, and languages spoken</li>
                     <li><strong>Demographics & Lifestyle:</strong> Job title, company, school, height, body type, education level, relationship intent, workout frequency, smoking and drinking habits, dietary preferences, religious beliefs, political views, zodiac sign, and race/ethnicity. Religious beliefs, political views, race/ethnicity and the gender you're interested in are sensitive details: they are optional, shown on your profile only if you add them, and you can remove them at any time</li>
                     <li><strong>Preferences:</strong> Gender preference, age range, height range, preferred body styles, and other matching criteria</li>
@@ -191,6 +191,7 @@
                     <li><strong>Location Data:</strong> Your device's location, used to suggest nearby matches. We store it rounded to about 1 km (a 0.01&deg; grid), with its geohash (encoded location) &mdash; never your exact position. Matches are suggested within 300km (approximately 186 miles), closest first. People farther away are not shown. Users without location data may still be shown, after everyone nearby. Other users are shown your city and approximate distance, not your coordinates; turning off "Share location" in Settings → Privacy hides your city and distance from them. To show a city name, coordinates are looked up with your device's built-in location service (Apple or Google). You can revoke the location permission in device settings, though it will severely limit your visibility to other users</li>
                     <li><strong>Analytics:</strong> App performance data, crash reports, and usage patterns via Firebase Analytics (which includes Google Analytics) and Crashlytics (see Section 12)</li>
                     <li><strong>Notification Token:</strong> A push-notification token for your device, so we can send you notifications</li>
+                    <li><strong>Invite Codes:</strong> Your personal invite code; how many friends used it this month and in total; and, if you entered a friend's code, which code and when. The friend is told that someone joined with their code, but not who</li>
                 </ul>
 
                 <h3>C. Information from Third Parties</h3>
@@ -218,6 +219,7 @@
                     </li>
                     <li><strong>Transactions:</strong> Process premium subscriptions and Corn purchases via app stores, manage virtual currency balances, and handle restore purchases</li>
                     <li><strong>Gamification:</strong> Track rating progress, award Corns for user engagement (1 Corn per 12 ratings), manage hourly rating limits (6 profiles per hour on free accounts), and unlock rate limit with 20 Corns</li>
+                    <li><strong>Invite Codes:</strong> Credit 50 Corns to a new member who enters a friend's code and 10 Corns to that friend (up to 10 friends per month), and check that each account and each email address uses a code only once</li>
                     <li><strong>Communications:</strong> Send push notifications and in-app alerts about matches, likes, Skeins, chat invitations, new messages, and when you can rate again. We use email (Gmail) only to send user reports and service statistics to our own team</li>
                     <li><strong>Analytics:</strong> Track usage trends via Firebase Analytics to improve features, fix bugs, and optimize performance</li>
                     <li><strong>Advertising:</strong> Offer optional rewarded video ads through Google AdMob; watching one earns 1 Corn (see Section 12)</li>
@@ -329,6 +331,7 @@
                             <li>Chat messages and conversations</li>
                             <li>Chat unlock records</li>
                             <li>Skein records, sent and received (including their messages)</li>
+                            <li>Your invite code and the record of a code you entered</li>
                             <li>References in other users' matches, likes and blocked lists, including blocks by phone number</li>
                             <li>Local app cache and SharedPreferences/UserDefaults</li>
                         </ul>
@@ -346,6 +349,7 @@
                             <li>Reports and the conversation included with them, for as long as needed for safety investigations and legal purposes</li>
                             <li>Records of purchases and rewarded-ad credits, for accounting and fraud prevention (Apple, Google and RevenueCat keep their own records too)</li>
                             <li>For accounts suspended or removed by our team, the email address, to prevent abuse</li>
+                            <li>If you entered a friend's invite code: a one-way code (SHA-256 hash) of your email address and the date, so the same address can't collect an invite reward again. It can't be turned back into your address and isn't linked to your profile</li>
                         </ul>
                     </li>
                     <li><strong>Suspended Accounts:</strong> Accounts suspended for spam or fake profiles stay suspended. Contact us if you believe this is a mistake</li>
@@ -413,10 +417,11 @@
                             <li>Likes and Skeins (super-likes) received</li>
                             <li>Chat invitations received</li>
                             <li>New messages in active chats</li>
+                            <li>A friend joining with your invite code</li>
                         </ul>
                     </li>
                     <li><strong>Reminders:</strong> A notification from the app itself when you can rate again after reaching the hourly limit</li>
-                    <li><strong>Marketing Emails:</strong> Only if you agreed at sign-up or turned them on in Settings → Notifications → Email Marketing, which you can turn off at any time</li>
+                    <li><strong>Marketing Emails:</strong> Only if you agreed at sign-up or turned them on in Settings → Notifications → Email Marketing, which you can turn off at any time. The sign-up checkbox starts checked in some countries, and you can uncheck it before signing in; in South Korea, the EU/EEA and the UK it starts unchecked and you need to check it yourself</li>
                 </ul>
                 <p>You can manage push notification and alert preferences in Settings → Notifications.</p>
             </section>
@@ -480,6 +485,7 @@
                 <h3>Earning Corns:</h3>
                 <ul>
                     <li>30 Corns when you create your account (once)</li>
+                    <li>50 Corns when you sign up with a friend's invite code, and 10 Corns for the friend (up to 10 friends per month)</li>
                     <li>1 Corn per 12 profile ratings</li>
                     <li>1 Corn per rewarded video ad watched (optional)</li>
                     <li>7 Corns for rating the app (one time)</li>
