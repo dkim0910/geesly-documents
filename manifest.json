@@ -4,8 +4,8 @@
   "description": "Free dating app with a unique 5-star rating system. Match with people nearby and start real conversations.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0d0618",
-  "theme_color": "#7e22ce",
+  "background_color": "#0E0B14",
+  "theme_color": "#0E0B14",
   "icons": [
     {
       "src": "/lib/images/icon-192.png",

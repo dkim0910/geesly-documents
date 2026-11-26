@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+ * Geesly colour tokens: a copy of the app's two palettes
+ * (geesly/lib/design/colors.dart, the 2026-11 flat redesign).
+ * Dark is the default, like the app; the light palette applies when the
+ * visitor's system asks for light. tailwind.config.js maps these to the
+ * classes used in the pages (bg-page, bg-surface, text-fg, text-primary-text…).
+ *
+ * Solid colours are "R G B" channels so Tailwind's opacity modifiers work
+ * (bg-page/90, border-danger/30). The three tokens that are translucent by
+ * definition (primary-soft, line, line-soft) are full rgba() values and take
+ * no modifier.
+ */
+:root {
+    color-scheme: dark;
+    --c-page: 14 11 20;            /* background          #0E0B14 */
+    --c-page-alt: 22 18 29;        /* backgroundSecondary #16121D */
+    --c-surface: 26 22 34;         /* surface             #1A1622 */
+    --c-surface-variant: 36 31 46; /* surfaceVariant      #241F2E */
+    --c-primary: 167 139 250;      /* primary             #A78BFA */
+    --c-primary-dark: 139 92 246;  /* primaryDark         #8B5CF6 */
+    --c-on-primary: 22 15 38;      /* onPrimary           #160F26 */
+    --c-primary-text: 196 181 253; /* primaryText         #C4B5FD */
+    --c-primary-soft: rgba(167, 139, 250, 0.14);
+    --c-fg: 244 241 250;           /* textPrimary         #F4F1FA */
+    --c-fg-muted: 183 176 196;     /* textSecondary       #B7B0C4 */
+    --c-fg-subtle: 156 149 169;    /* textTertiary        #9C95A9 */
+    --c-line: rgba(255, 255, 255, 0.14);
+    --c-line-soft: rgba(255, 255, 255, 0.07);
+    --c-accent: 34 211 238;        /* accent              #22D3EE */
+    --c-corn: 245 197 66;          /* cornText            #F5C542 */
+    --c-success: 52 211 153;       /* success             #34D399 */
+    --c-danger: 248 113 113;       /* error               #F87171 */
+    --c-warning: 251 191 36;       /* warning             #FBBF24 */
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+        --c-page: 244 242 248;          /* #F4F2F8 */
+        --c-page-alt: 250 249 252;      /* #FAF9FC */
+        --c-surface: 255 255 255;       /* #FFFFFF */
+        --c-surface-variant: 238 234 244; /* #EEEAF4 */
+        --c-primary: 112 65 232;        /* #7041E8 */
+        --c-primary-dark: 90 47 208;    /* #5A2FD0 */
+        --c-on-primary: 255 255 255;    /* #FFFFFF */
+        --c-primary-text: 90 47 208;    /* #5A2FD0 */
+        --c-primary-soft: rgba(112, 65, 232, 0.10);
+        --c-fg: 23 19 31;               /* #17131F */
+        --c-fg-muted: 91 85 104;        /* #5B5568 */
+        --c-fg-subtle: 110 104 121;     /* #6E6879 */
+        --c-line: rgba(23, 19, 31, 0.14);
+        --c-line-soft: rgba(23, 19, 31, 0.08);
+        --c-accent: 8 145 178;          /* #0891B2 */
+        --c-corn: 183 121 31;           /* #B7791F */
+        --c-success: 5 150 105;         /* #059669 */
+        --c-danger: 198 47 47;          /* #C62F2F */
+        --c-warning: 180 83 9;          /* #B45309 */
+    }
+}
